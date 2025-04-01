@@ -53,13 +53,33 @@ app.post("/addJSProject", async (req, res) => {
 });
 app.post("/addTopFourProject", async (req, res) => {
     try {
+        console.log("Received data:", req.body);  // Debugging line
+
         const newProject = new TopFour(req.body);
         await newProject.save();
-        res.status(201).json({ message: "added to Top Four", project: newProject });
+
+        res.status(201).json({ message: "Added to Top Four", project: newProject });
     } catch (error) {
+        console.error("Error adding project:", error);  // Improved error logging
         res.status(500).json({ message: "Error adding project", error: error.message });
     }
 });
+
+
+app.delete("/deleteTopFourProject/:id", async (req, res) => {
+    const {id} = req.params;
+    try {
+        const deletedCategory = await TopFour.findOneAndDelete({_id:id});
+
+        if (!deletedCategory) {
+            return res.status(404).json({ message: "Category not found" });
+        }
+
+        res.json({ message: `Deleted category '${id}'`, deletedCategory });
+    } catch (err) {
+        res.status(500).json({ message: "Error deleting category", error: err });
+    }
+})
 
 
 app.get("/getFullStackProjects", async (req, res) => {
