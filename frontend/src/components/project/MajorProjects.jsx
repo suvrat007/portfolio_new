@@ -59,8 +59,8 @@ const MajorProjects = () =>{
 
 
             <div className="border-2 w-full p-10 flex flex-row flex-wrap gap-20 items-center justify-center">
-                {topFour.map((project, index) => (
-                    <OneMajorProject project={project} getTopFourProjects={getTopFourProjects}/>
+                {topFour.slice(-4).reverse().map((project, index) => (
+                    <OneMajorProject key={project._id} project={project} getTopFourProjects={getTopFourProjects}/>
                 ))}
             </div>
 
