@@ -1,6 +1,6 @@
 const FollowLinks = () => {
     return (
-        <div className="bottom-0 w-full min-h-[10%]  flex flex-col">
+        <div className="bottom-0 mt-10 flex flex-col">
 
             <div className="min-h-[10%] border-2 flex flex-row justify-between p-4 rounded-4xl">
                 <div>

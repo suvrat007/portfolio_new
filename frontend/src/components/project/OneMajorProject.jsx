@@ -1,6 +1,7 @@
 import axiosInstance from "../../utils/axiosInstance.js";
 import {MdClose} from "react-icons/md";
 import React from "react";
+import {useSelector} from "react-redux";
 
 const OneMajorProject=({project ,getTopFourProjects})=> {
     const deleteTopFour = async (id) => {
@@ -12,14 +13,19 @@ const OneMajorProject=({project ,getTopFourProjects})=> {
             console.log("An unexpected error occured." + error.message);
         }
     }
+    const loggedIn = useSelector(store => store.loggedIn.isLoggedIn);
+
     // console.log(project);
     return (
         <div className="relative border-2 min-w-[40%] min-h-[30em] p-4">
             {/* Close Button */}
-            <button onClick={() => deleteTopFour(project._id)}
-                    className="w-10 h-10 rounded-full flex items-center justify-center absolute top-2 right-2 hover:bg-slate-50 cursor-pointer">
-                <MdClose className="text-xl text-slate-400"/>
-            </button>
+            {loggedIn && (
+                <button onClick={() => deleteTopFour(project._id)}
+                        className="w-10 h-10 rounded-full flex items-center justify-center absolute top-2 right-2 hover:bg-slate-50 cursor-pointer">
+                    <MdClose className="text-xl text-slate-400"/>
+                </button>
+            )}
+
 
             {/* Project Content */}
             <div>

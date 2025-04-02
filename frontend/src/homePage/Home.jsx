@@ -7,12 +7,11 @@ import FollowLinks from "../components/footer/FollowLinks.jsx";
 
 const Home = () => {
     return (
-        <div className="w-[75%] m-auto flex flex-col items-center">
+        <div className=" flex flex-col items-center">
             <MainBody/>
             <MiniProjects/>
             <MajorProjects/>
             <Technologies/>
-            <FollowLinks/>
         </div>
     )
 }

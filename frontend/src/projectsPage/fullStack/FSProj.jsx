@@ -4,6 +4,7 @@ import EachProject from "./EachProject";
 import AddNewProject from "../AddNewProject.jsx";
 import {FaPlus} from "react-icons/fa";
 import {MdClose} from "react-icons/md";
+import {useSelector} from "react-redux";
 
 const  FSProj = () => {
     const [projects, setProjects] = useState([]);
@@ -16,6 +17,7 @@ const  FSProj = () => {
             console.error("Error fetching projects:", error);
         }
     };
+    const loggedIn = useSelector(store => store.loggedIn.isLoggedIn);
 
     useEffect(() => {
 
@@ -28,19 +30,23 @@ const  FSProj = () => {
         <div className="w-full border-2 mt-30 ">
             <div className="p-5 flex flex-row justify-between">
                 <h1>Full Stack Projects</h1>
-                <button
-                    onClick={() => setShowModal(prev => !prev)}
-                    className="text-lg py-2 px-6 bg-white text-black rounded-3xl flex items-center gap-2 cursor-pointer">
+                {loggedIn && (
+                    <button
+                        onClick={() => setShowModal(prev => !prev)}
+                        className="text-lg py-2 px-6 bg-white text-black rounded-3xl flex items-center gap-2 cursor-pointer">
                         <div className={"flex flex-row items-center justify-center gap-2"}>
                             <FaPlus size={18}/>Add
                         </div>
-                </button>
+                    </button>
+                )}
+
             </div>
 
             <div className="flex flex-col w-full overflow-x-auto">
                 <div className="flex flex-row gap-6 min-w-max p-5">
-                {projects.map((project, index) => (
-                        <EachProject project={project} setProjects={setProjects} key={index} projects={projects} fetchProjects={fetchProjects}/>
+                    {projects.map((project, index) => (
+                        <EachProject project={project} setProjects={setProjects} key={index} projects={projects}
+                                     fetchProjects={fetchProjects}/>
                     ))}
 
                 </div>

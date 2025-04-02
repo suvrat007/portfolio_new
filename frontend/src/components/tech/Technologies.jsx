@@ -3,6 +3,7 @@ import axiosInstance from "../../utils/axiosInstance.js";
 import React, {useEffect, useState} from "react";
 import {FaPlus} from "react-icons/fa";
 import {MdClose} from "react-icons/md";
+import {useSelector} from "react-redux";
 
 
 const Technologies = ()=>{
@@ -44,6 +45,8 @@ const Technologies = ()=>{
         getTechnologies();
         return ()=>{}
     },[])
+    const loggedIn = useSelector(store => store.loggedIn.isLoggedIn);
+
 
     // console.log(data)
     return (
@@ -89,11 +92,13 @@ const Technologies = ()=>{
                     </div>
                 )}
 
-                <button
-                    onClick={()=>setOpenModal(true)}
-                    className="py-1 w-[10em] h-[5em] px-2 rounded-lg mt-1 flex items-center justify-center gap-2 border-dashed border-1 cursor-pointer">
-                    <FaPlus size={10}/> Add
-                </button>
+                {loggedIn && (
+                    <button
+                        onClick={() => setOpenModal(true)}
+                        className="py-1 w-[10em] h-[5em] px-2 rounded-lg mt-1 flex items-center justify-center gap-2 border-dashed border-1 cursor-pointer">
+                        <FaPlus size={10}/> Add
+                    </button>
+                )}
 
 
             </div>

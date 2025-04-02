@@ -1,6 +1,6 @@
 const Text = () => {
     return(
-        <div className="w-[50%] border-2 p-10">
+        <div className="w-[50%] p-10">
             <div>
                 <h1 className={'text-5xl'}>Hi! I'm Suvrat</h1>
                 <p className={'mt-10'}>lorem ipsum bhot saari cheezein about me that you need to know which would in

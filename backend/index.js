@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors')
 const config = require('./config.json')
+const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv');
+dotenv.config();
+
+
 
 mongoose.connect(config.connectionString)
 
@@ -21,6 +26,7 @@ const ReactJS = require("./models/ReactJS")
 const JS = require("./models/JSProjects")
 const TopFour = require("./models/TopFour")
 const Tech = require("./models/Technologies")
+const User = require("./models/User")
 const error = require("jsonwebtoken/lib/JsonWebTokenError");
 
 
@@ -65,7 +71,6 @@ app.post("/addTopFourProject", async (req, res) => {
     }
 });
 
-
 app.delete("/deleteTopFourProject/:id", async (req, res) => {
     const {id} = req.params;
     try {
@@ -80,6 +85,55 @@ app.delete("/deleteTopFourProject/:id", async (req, res) => {
         res.status(500).json({ message: "Error deleting category", error: err });
     }
 })
+app.delete("/deleteJSProject/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deletedCategory = await JS.findOneAndDelete({ _id: id });
+        console.log(deletedCategory);
+        if (!deletedCategory) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        res.json({ message: `Deleted project '${id}' successfully`, deletedCategory });
+    } catch (err) {
+        console.error("Error deleting project:", err); // Improved error logging
+        res.status(500).json({ message: "Error deleting project", error: err.message });
+    }
+});
+app.delete("/deleteReactJSProject/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deletedCategory = await ReactJS.findOneAndDelete({ _id: id });
+        console.log(deletedCategory);
+        if (!deletedCategory) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        res.json({ message: `Deleted project '${id}' successfully`, deletedCategory });
+    } catch (err) {
+        console.error("Error deleting project:", err); // Improved error logging
+        res.status(500).json({ message: "Error deleting project", error: err.message });
+    }
+});
+app.delete("/deleteFullStackProject/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deletedCategory = await FullStack.findOneAndDelete({ _id: id });
+        console.log(deletedCategory);
+        if (!deletedCategory) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        res.json({ message: `Deleted project '${id}' successfully`, deletedCategory });
+    } catch (err) {
+        console.error("Error deleting project:", err); // Improved error logging
+        res.status(500).json({ message: "Error deleting project", error: err.message });
+    }
+});
+
 
 
 app.get("/getFullStackProjects", async (req, res) => {
@@ -248,7 +302,86 @@ app.delete("/technologies/:category", async (req, res) => {
     }
 });
 
+//User Authentication
+app.post("/login", async (req, res) => {
+    const {email, password} = req.body
 
+    if(!email){
+        return res.status(400).json({error:true , message: "Email Required"})
+    }
+
+    if(!password){
+        return res.status(400).json({error:true , message: "Password Required"})
+    }
+
+    const userInfo = await User.findOne({email: email})
+
+    if(!userInfo){
+        res.status(400).json({
+            error:true ,
+            message:"User Doesn't exist"
+        })
+    }
+
+    if (userInfo.email===email && userInfo.password===password){
+        const user = {user:userInfo};
+        const accessToken = jwt.sign(user, process.env.VITE_ACCESS_TOKEN_SECRET, {
+            expiresIn: '36000m'
+        })
+        return res.json({
+            error:false,
+            message:"Login Successful",
+            email,
+            accessToken
+        })
+    } else {
+        return res.status(400).json({
+            error:true ,
+            message:"Invalid Credentials"
+        })
+    }
+
+
+})
+
+//CREATE ACCOUNT
+app.post("/create-account", async(req, res) => {
+    const { fullName , email ,password } = req.body;
+
+    if(!fullName){
+        return res.status(400).json({error:true , message: "Full Name Required"})
+    }
+    if(!email){
+        return res.status(400).json({error:true , message: "Email Required"})
+    }
+    if(!password){
+        return res.status(400).json({error:true , message: "Password Required"})
+    }
+
+    const isUser = await User.findOne({email: email})
+    if(isUser){
+        return res.json({error:true , message:"User already exists"})
+    }
+
+    const user = new User({
+        fullName,
+        email,
+        password,
+    })
+
+    await user.save();
+
+    const accessToken = jwt.sign({user} , process.env.VITE_ACCESS_TOKEN_SECRET, {
+        expiresIn: '36000m'
+    });
+    return res.json({
+        error:false,
+        user,
+        accessToken,
+        message: "Registration Successful",
+    })
+
+})
 
 
 const port = process.env.PORT || 3000

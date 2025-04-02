@@ -2,6 +2,7 @@ import React from "react";
 import {MdClose} from "react-icons/md";
 import axios from "axios";
 import axiosInstance from "../../utils/axiosInstance.js";
+import {useSelector} from "react-redux";
 
 const OneProject = ({project,getJSProjects}) => {
 
@@ -14,13 +15,16 @@ const OneProject = ({project,getJSProjects}) => {
             console.error(e);
         }
     }
+    const loggedIn = useSelector(store => store.loggedIn.isLoggedIn);
+
 
     return (
         <div className="relative">
-            <button onClick={()=>deleteProject(project._id)}
-                    className="w-10 h-10 rounded-full flex items-center justify-center absolute top-2 right-2 hover:bg-slate-50 cursor-pointer">
+            {loggedIn && <button onClick={() => deleteProject(project._id)}
+                                 className="w-10 h-10 rounded-full flex items-center justify-center absolute top-2 right-2 hover:bg-slate-50 cursor-pointer">
                 <MdClose className="text-lg text-slate-400"/>
-            </button>
+            </button>}
+
             <div className=" h-full border-2 p-4 rounded-2xl min-w-80 min-h-40">
                 <img src={project.image} alt="Project" className="w-full h-40 object-cover"/>
                 <h1 className="text-lg font-bold mt-2">{project.title}</h1>

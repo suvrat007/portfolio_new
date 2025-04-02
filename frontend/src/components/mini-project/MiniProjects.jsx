@@ -5,11 +5,12 @@ import OneMajorProject from "../project/OneMajorProject.jsx";
 import {FaPlus} from "react-icons/fa";
 import AddJsProject from "./AddJsProject.jsx";
 import {MdClose} from "react-icons/md";
+import {useSelector} from "react-redux";
 
 const MiniProjects = () => {
     const [jsprojects, setJsprojects] = useState([]);
     const [showModal, setShowModal] = useState(false);
-
+    const loggedIn = useSelector(store => store.loggedIn.isLoggedIn);
     const getJSProjects =async () => {
         try{
             const response = await axiosInstance.get("/getJSProjects");
@@ -30,12 +31,13 @@ const MiniProjects = () => {
         return ()=>{};
     },[])
 
+
     console.log(jsprojects );
     return (
         <div className="w-full">
             <div className="flex flex-row items-center mt-8 justify-between">
                 <h1 className="text-3xl p-4">Mini-Projects</h1>
-                <button
+                {loggedIn && <button
                     onClick={() => setShowModal(prev=> !prev)}
                     className="text-lg py-2 px-6 bg-white text-black rounded-3xl flex items-center gap-2 cursor-pointer">
                     {!showModal ? (
@@ -46,7 +48,7 @@ const MiniProjects = () => {
                         <div className={"flex flex-row items-center justify-center gap-2"}>
                             <MdClose className="text-xl text-slate-400"/>Cancel
                         </div>}
-                </button>
+                </button>}
             </div>
 
 
