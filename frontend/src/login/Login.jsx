@@ -53,30 +53,34 @@ const Login = () => {
 
     }
     return (
-        <>
-            <div className="flex items-center justify-center mt-28 ">
-                <div className='w-95 border rounded  px-7 py-10'>
-                    <form onSubmit={handleLogin}>
-                        <h4 className={'text-2xl mb-7'}>LogIn</h4>
-                        <p>Enter Email-Id</p>
-                        <input type="text"
-                               value={email}
-                               placeholder="Enter your email"
-                               className="input-box"
-                               onChange={(e) => setEmail(e.target.value)}/>
+        <div className="flex items-center justify-center min-h-[35em] ">
+            <div className="w-96 border border-gray-800 rounded-lg bg-gray-900 shadow-lg px-7 py-10">
+                <form onSubmit={handleLogin}>
+                    <h4 className="text-2xl font-semibold text-white mb-5">Log In</h4>
 
-                        <p>Enter Password</p>
-                        <Password value={password}
-                                  onChange={(e) => setPassword(e.target.value)}/>
+                    <label className="block text-gray-400 mb-1">Email</label>
+                    <input
+                        type="email"
+                        value={email}
+                        placeholder="Enter your email"
+                        className="w-full bg-gray-900 text-white border border-gray-700 rounded-md px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
 
-                        {error && <p className="text-red-500 text-xs pb-1">{error}</p>}
-                        <button type="submit" className="btn-primary rounded-sm">Login</button>
+                    <label className="block text-gray-400 mb-1">Password</label>
+                    <Password value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                    </form>
-                </div>
+                    {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
+
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2 rounded-md mt-6 transition"
+                    >
+                        Log In
+                    </button>
+                </form>
             </div>
-
-        </>
-    )
+        </div>
+    );
 }
 export default Login

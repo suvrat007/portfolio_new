@@ -1,41 +1,72 @@
-import React from "react";
-import {MdClose} from "react-icons/md";
-import axios from "axios";
+import React, {useState} from "react";
+import { MdClose } from "react-icons/md";
 import axiosInstance from "../../utils/axiosInstance.js";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
+import {FaEdit} from "react-icons/fa";
+import AddJsProject from "./AddJsProject.jsx";
 
-const OneProject = ({project,getJSProjects}) => {
+const OneProject = ({ project, getJSProjects }) => {
+    const loggedIn = useSelector((store) => store.loggedIn.isLoggedIn);
 
-    const deleteProject = async(id) => {
-        try{
-            const response = await axiosInstance.delete(`/deleteJSProject/${id}`);
-            console.log(response);
+    const [isEdit, setIsEdit] = useState(true);
+
+    const deleteProject = async (id) => {
+        try {
+            await axiosInstance.delete(`/deleteJSProject/${id}`);
             getJSProjects();
-        }catch(e){
-            console.error(e);
+        } catch (error) {
+            console.error(error);
         }
-    }
-    const loggedIn = useSelector(store => store.loggedIn.isLoggedIn);
-
+    };
 
     return (
-        <div className="relative">
-            {loggedIn && <button onClick={() => deleteProject(project._id)}
-                                 className="w-10 h-10 rounded-full flex items-center justify-center absolute top-2 right-2 hover:bg-slate-50 cursor-pointer">
-                <MdClose className="text-lg text-slate-400"/>
-            </button>}
+        <>
+            {isEdit ? (
+                <div
+                    className="relative flex-shrink-0 w-[20em] snap-start bg-[#1A1A1A] border border-gray-700 rounded-xl p-4 mt-4 shadow-lg transition-all duration-300 hover:scale-105">
 
-            <div className=" h-full border-2 p-4 rounded-2xl min-w-80 min-h-40">
-                <img src={project.image} alt="Project" className="w-full h-40 object-cover"/>
-                <h1 className="text-lg font-bold mt-2">{project.title}</h1>
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-                    View on GitHub
-                </a>
-            </div>
-        </div>
+                    {loggedIn && (
+                        <button
+                            onClick={() => deleteProject(project._id)}
+                            className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-600 transition"
+                        >
+                            <MdClose className="text-white text-lg"/>
+                        </button>
+                    )}
 
+                    <img
+                        src={project.image}
+                        alt="Project"
+                        className="w-full h-40 object-cover rounded-md"
+                    />
+
+                    <h1 className="text-lg font-semibold text-white mt-3">{project.title}</h1>
+
+                    <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 text-sm hover:underline"
+                    >
+                        View on GitHub
+                    </a>
+
+                    {loggedIn && (
+                        <button
+                            onClick={() => setIsEdit(false)}
+                            className="absolute cursor-pointer   bottom-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-600 transition"
+                        >
+                            <FaEdit className="text-white text-lg"/>
+                        </button>
+                    )}
+                </div>
+
+            ): (<AddJsProject project={project} setIsEdit={setIsEdit} getJSProjects={getJSProjects} />)}
+
+
+
+        </>
     );
 };
 
 export default OneProject;
-

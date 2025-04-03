@@ -6,8 +6,6 @@ const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv');
 dotenv.config();
 
-
-
 mongoose.connect(config.connectionString)
 
 const app = express()
@@ -21,6 +19,9 @@ app.get("/",(req, res) => {
     res.json({data: "hello"})
 })
 
+const {authenticateToken} = require('./utilities');
+
+
 const FullStack = require("./models/FullStack")
 const ReactJS = require("./models/ReactJS")
 const JS = require("./models/JSProjects")
@@ -30,7 +31,7 @@ const User = require("./models/User")
 const error = require("jsonwebtoken/lib/JsonWebTokenError");
 
 
-app.post("/addFullStackProject", async (req, res) => {
+app.post("/addFullStackProject",authenticateToken, async (req, res) => {
     try {
         const newProject = new FullStack(req.body);
         await newProject.save();
@@ -39,7 +40,7 @@ app.post("/addFullStackProject", async (req, res) => {
         res.status(500).json({ message: "Error adding project", error: error.message });
     }
 });
-app.post("/addReactJSProject", async (req, res) => {
+app.post("/addReactJSProject",authenticateToken, async (req, res) => {
     try {
         const newProject = new ReactJS(req.body);
         await newProject.save();
@@ -48,7 +49,7 @@ app.post("/addReactJSProject", async (req, res) => {
         res.status(500).json({ message: "Error adding project", error: error.message });
     }
 });
-app.post("/addJSProject", async (req, res) => {
+app.post("/addJSProject",authenticateToken, async (req, res) => {
     try {
         const newProject = new JS(req.body);
         await newProject.save();
@@ -57,7 +58,7 @@ app.post("/addJSProject", async (req, res) => {
         res.status(500).json({ message: "Error adding project", error: error.message });
     }
 });
-app.post("/addTopFourProject", async (req, res) => {
+app.post("/addTopFourProject",authenticateToken, async (req, res) => {
     try {
         console.log("Received data:", req.body);  // Debugging line
 
@@ -71,7 +72,7 @@ app.post("/addTopFourProject", async (req, res) => {
     }
 });
 
-app.delete("/deleteTopFourProject/:id", async (req, res) => {
+app.delete("/deleteTopFourProject/:id",authenticateToken, async (req, res) => {
     const {id} = req.params;
     try {
         const deletedCategory = await TopFour.findOneAndDelete({_id:id});
@@ -85,7 +86,7 @@ app.delete("/deleteTopFourProject/:id", async (req, res) => {
         res.status(500).json({ message: "Error deleting category", error: err });
     }
 })
-app.delete("/deleteJSProject/:id", async (req, res) => {
+app.delete("/deleteJSProject/:id",authenticateToken, async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -101,7 +102,7 @@ app.delete("/deleteJSProject/:id", async (req, res) => {
         res.status(500).json({ message: "Error deleting project", error: err.message });
     }
 });
-app.delete("/deleteReactJSProject/:id", async (req, res) => {
+app.delete("/deleteReactJSProject/:id", authenticateToken,async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -117,7 +118,7 @@ app.delete("/deleteReactJSProject/:id", async (req, res) => {
         res.status(500).json({ message: "Error deleting project", error: err.message });
     }
 });
-app.delete("/deleteFullStackProject/:id", async (req, res) => {
+app.delete("/deleteFullStackProject/:id",authenticateToken, async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -133,7 +134,6 @@ app.delete("/deleteFullStackProject/:id", async (req, res) => {
         res.status(500).json({ message: "Error deleting project", error: err.message });
     }
 });
-
 
 
 app.get("/getFullStackProjects", async (req, res) => {
@@ -168,9 +168,16 @@ app.get("/getTopFourProjects", async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
+app.get("/technologies", async (req, res) => {
+    try {
+        const techs = await Tech.find();
+        res.status(200).json(techs);
+    } catch (err) {
+        res.status(500).json({ message: "Error fetching technologies", error: err });
+    }
+});
 
-
-app.put("/updateFullStackProject/:id", async (req, res) => {
+app.put("/updateFullStackProject/:id",authenticateToken, async (req, res) => {
     const id = req.params.id;
     try{
         const updatedProject = await FullStack.findByIdAndUpdate(id, req.body, {new: true});
@@ -182,7 +189,7 @@ app.put("/updateFullStackProject/:id", async (req, res) => {
         res.status(500).json({ message: "Error updating project", error: error.message });
     }
 })
-app.put("/updateReactJSProject/:id", async (req, res) => {
+app.put("/updateReactJSProject/:id", authenticateToken,async (req, res) => {
     const id = req.params.id;
     try{
         const updatedProject = await ReactJS.findByIdAndUpdate(id, req.body, {new: true});
@@ -194,7 +201,7 @@ app.put("/updateReactJSProject/:id", async (req, res) => {
         res.status(500).json({ message: "Error updating project", error: error.message });
     }
 })
-app.put("/updateJSProject/:id", async (req, res) => {
+app.put("/updateJSProject/:id",authenticateToken, async (req, res) => {
     const id = req.params.id;
     try{
         const updatedProject = await JS.findByIdAndUpdate(id, req.body, {new: true});
@@ -206,7 +213,7 @@ app.put("/updateJSProject/:id", async (req, res) => {
         res.status(500).json({ message: "Error updating project", error: error.message });
     }
 })
-app.put("/updateTopFourProject/:id", async (req, res) => {
+app.put("/updateTopFourProject/:id", authenticateToken,async (req, res) => {
     const id = req.params.id;
     try{
         const updatedProject = await TopFour.findByIdAndUpdate(id, req.body, {new: true});
@@ -220,15 +227,8 @@ app.put("/updateTopFourProject/:id", async (req, res) => {
 })
 
 // Technologies
-app.get("/technologies", async (req, res) => {
-    try {
-        const techs = await Tech.find();
-        res.status(200).json(techs);
-    } catch (err) {
-        res.status(500).json({ message: "Error fetching technologies", error: err });
-    }
-});
-app.post("/technologies/add-category", async (req, res) => {
+
+app.post("/technologies/add-category",authenticateToken, async (req, res) => {
     const { category } = req.body;
 
     try {
@@ -245,7 +245,7 @@ app.post("/technologies/add-category", async (req, res) => {
         res.status(500).json({ message: "Error adding category", error: err });
     }
 });
-app.post("/technologies/:category", async (req, res) => {
+app.post("/technologies/:category",authenticateToken, async (req, res) => {
     const { category } = req.params;
     const { technology } = req.body;
 
@@ -268,7 +268,7 @@ app.post("/technologies/:category", async (req, res) => {
         res.status(500).json({ message: "Error adding technology", error: err });
     }
 });
-app.delete("/technologies/:category/:technology", async (req, res) => {
+app.delete("/technologies/:category/:technology", authenticateToken,async (req, res) => {
     const { category, technology } = req.params;
 
     try {
@@ -286,7 +286,7 @@ app.delete("/technologies/:category/:technology", async (req, res) => {
         res.status(500).json({ message: "Error removing technology", error: err });
     }
 });
-app.delete("/technologies/:category", async (req, res) => {
+app.delete("/technologies/:category",authenticateToken, async (req, res) => {
     const { category } = req.params;
 
     try {

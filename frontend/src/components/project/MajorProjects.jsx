@@ -38,39 +38,34 @@ const MajorProjects = () =>{
 
 
     return (
-        <div className="border-2 w-full mt-8 ">
-            <div className="flex flex-row items-center mt-8 justify-between">
-                <h1 className="text-3xl p-4">Recent-Works</h1>
+        <div className="w-full mt-8 text-white rounded-lg p-6 shadow-lg">
+            <div className="flex flex-row items-center justify-between border-b border-gray-800 pb-4">
+                <h1 className="text-3xl font-semibold">Recent Works</h1>
                 {loggedIn && (
-                    <button onClick={() => setModalIsOpen(prev => !prev)}
-                            className="text-lg py-2 px-6 bg-white text-black rounded-3xl flex items-center gap-2 cursor-pointer mr-4">
+                    <button
+                        onClick={() => setModalIsOpen(prev => !prev)}
+                        className="text-lg py-2 px-6 cursor-pointer bg-[#1A1A1A] text-white border border-gray-600 rounded-3xl flex items-center gap-2 hover:bg-gray-800 transition"
+
+                    >
                         {!modalIsOpen ? (
-                                <div className={"flex flex-row items-center justify-center gap-2"}>
-                                    <FaPlus size={18}/>Add
-                                </div>
-                            ) :
-                            <div className={"flex flex-row items-center justify-center gap-2"}>
-                                <MdClose className="text-xl text-slate-400"/>Cancel
-                            </div>}
-
-
+                            <FaPlus size={18} />
+                        ) : (
+                            <MdClose className="text-xl text-gray-300" />
+                        )}
+                        {modalIsOpen ? "Cancel" : "Add"}
                     </button>
                 )}
-
             </div>
 
-            {modalIsOpen && (<AddProject setModalIsOpen={setModalIsOpen} getTopFourProjects={getTopFourProjects}/>)}
+            {modalIsOpen && <AddProject setModalIsOpen={setModalIsOpen} getTopFourProjects={getTopFourProjects} />}
 
-
-            <div className="border-2 w-full p-10 flex flex-row flex-wrap gap-20 items-center justify-center">
-                {topFour.slice(-4).reverse().map((project, index) => (
-                    <OneMajorProject key={project._id} project={project} getTopFourProjects={getTopFourProjects}/>
+            <div className="w-full p-6 flex flex-wrap gap-8 items-center justify-center">
+                {topFour.slice(-4).reverse().map((project) => (
+                    <OneMajorProject key={project._id} project={project} getTopFourProjects={getTopFourProjects} />
                 ))}
             </div>
-
-
         </div>
+    );
 
-    )
 }
 export default MajorProjects;

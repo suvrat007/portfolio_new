@@ -3,24 +3,38 @@ import React, { useState } from "react";
 import axiosInstance from "../utils/axiosInstance.js";
 import addProject from "../components/project/AddProject.jsx";
 
-const AddNewProject = ({ setShowModal,dbNames,fetchProjects }) => {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [github, setGithub] = useState("");
-    const [image, setImage] = useState("");
+const AddNewProject = ({ setShowModal,dbNames,fetchProjects,project,setIsEdit}) => {
+    const [title, setTitle] = useState(project?.name || "");
+    const [content, setContent] = useState(project?.description||"");
+    const [github, setGithub] = useState(project?.github||"");
+    const [image, setImage] = useState(project?.image||"");
     const [error, setError] = useState(null);
 
     const getApiEndpoint = () => {
-        switch (dbNames) {
-            case "JavaScript":
-                return "/addJSProject";
-            case "ReactJS":
-                return "/addReactJSProject";
-            case "Full Stack":
-                return "/addFullStackProject";
-            default:
-                return null;
+        if (!project) {
+            switch (dbNames) {
+                case "JavaScript":
+                    return "/addJSProject";
+                case "ReactJS":
+                    return "/addReactJSProject";
+                case "Full Stack":
+                    return "/addFullStackProject";
+                default:
+                    return null;
+            }
+        }else{
+            switch (dbNames) {
+                case "JavaScript":
+                    return "/updateJSProject";
+                case "ReactJS":
+                    return "/updateReactJSProject";
+                case "Full Stack":
+                    return "/updateFullStackProject";
+                default:
+                    return null;
+            }
         }
+
     };
 
     const addProject = async () => {
@@ -45,6 +59,29 @@ const AddNewProject = ({ setShowModal,dbNames,fetchProjects }) => {
         }
     };
 
+    const editProject = async (id) => {
+        const apiEndpoint = getApiEndpoint();
+        if (!apiEndpoint) {
+            setError("Invalid database selection.");
+            return;
+        }
+        try {
+            const response = await axiosInstance.put(`${apiEndpoint}/${id}`, {
+                name: title,
+                description: content,
+                github,
+                image,
+            });
+
+            console.log(response.data);
+            // Close modal and reset edit mode
+            setIsEdit(true);
+            // setShowModal(false);
+            fetchProjects()
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
 
     return (
@@ -52,13 +89,21 @@ const AddNewProject = ({ setShowModal,dbNames,fetchProjects }) => {
             {/* Modal Content */}
             <div className="relative w-[90%] max-w-lg bg-white p-6 rounded-2xl shadow-lg transition-transform transform scale-100">
 
-                {/* Close Button */}
-                <button
-                    onClick={()=>setShowModal(false)}
-                    className="absolute cursor-pointer top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition-all"
-                >
-                    <MdClose className="text-2xl text-gray-600 hover:text-black" />
-                </button>
+                {!project ? (
+                    <button
+                        onClick={() => setShowModal(false)}
+                        className="w-7 h-7 rounded-full flex items-center justify-center absolute top-2 right-2 hover:bg-gray-200 transition"
+                    >
+                        <MdClose className="text-gray-400 hover:text-white text-lg"/>
+                    </button>
+                ) : (
+                    <button
+                        onClick={() => setIsEdit(true)}
+                        className="w-9 h-9 rounded-full flex items-center justify-center absolute top-2 right-2 hover:bg-gray-200 transition"
+                    >
+                        <MdClose className="text-gray-400 hover:text-white text-lg"/>
+                    </button>
+                )}
 
                 <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">{`Add New Project to ${dbNames} database`}</h2>
 
@@ -120,12 +165,25 @@ const AddNewProject = ({ setShowModal,dbNames,fetchProjects }) => {
                     )}
                 </div>
 
-                {/* Add Button */}
-                <button onClick={addProject}
-                    className="w-full bg-blue-600 text-white py-2 rounded-md mt-4 hover:bg-blue-700 transition-all cursor-pointer"
-                >
-                    Add Project
-                </button>
+                {!project ? (
+                    <div className="flex flex-col gap-2 mt-4">
+                        <button
+                            onClick={addProject}
+                            className="cursor-pointer bg-blue-600 hover:bg-blue-500 text-white text-lg px-4 py-2 rounded-3xl transition"
+                        >
+                            Add Project
+                        </button>
+                    </div>
+                ) : (
+                    <div className="flex flex-col gap-2 mt-4">
+                        <button
+                            onClick={()=>editProject(project?._id)}
+                            className="cursor-pointer bg-blue-600 hover:bg-blue-500 text-white text-lg px-4 py-2 rounded-3xl transition"
+                        >
+                            Update Project
+                        </button>
+                    </div>
+                )}
 
                 {/* Error Message */}
                 {error && <p className="text-red-500 text-xs mt-2">{error}</p>}

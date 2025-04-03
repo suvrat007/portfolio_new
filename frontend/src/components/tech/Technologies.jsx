@@ -1,110 +1,86 @@
-import Category from "./Category.jsx";
+import { FaPlus } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import axiosInstance from "../../utils/axiosInstance.js";
-import React, {useEffect, useState} from "react";
-import {FaPlus} from "react-icons/fa";
-import {MdClose} from "react-icons/md";
-import {useSelector} from "react-redux";
+import Category from "./Category.jsx";
 
 
-const Technologies = ()=>{
-    const [data,setData]=useState([]);
-    // const [openAddEditModal, setOpenAddEditModal] = useState({
-    //     isShown: false,
-    //     type:"add",
-    //     data: null
-    // });
+const Technologies = () => {
+    const [data, setData] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [newCategory, setNewCategory] = useState("");
-    const getTechnologies = async ()=>{
-        try{
-            const response = await axiosInstance.get("/technologies");
-            // console.log(response);
 
-            if (response?.data){
+    const getTechnologies = async () => {
+        try {
+            const response = await axiosInstance.get("/technologies");
+            if (response?.data) {
                 setData(response?.data);
             }
-        }catch (error){
+        } catch (error) {
             console.log(error);
         }
-    }
+    };
 
-    const addCategory = async (category)=>{
-        try{
-            const response = await axiosInstance.post("/technologies/add-category",{
-                "category": newCategory
+    const addCategory = async () => {
+        try {
+            await axiosInstance.post("/technologies/add-category", {
+                category: newCategory,
             });
-            console.log(response.data);
             setOpenModal(false);
             await getTechnologies();
-        }catch(error){
+        } catch (error) {
             console.log(error);
         }
-    }
+    };
 
-    useEffect(()=>{
+    useEffect(() => {
         getTechnologies();
-        return ()=>{}
-    },[])
-    const loggedIn = useSelector(store => store.loggedIn.isLoggedIn);
+    }, []);
 
+    const loggedIn = useSelector((store) => store.loggedIn.isLoggedIn);
 
-    // console.log(data)
     return (
-        <div className="flex flex-col m-10 justify-between border-2 w-full p-10">
-            <div className="text-4xl">
-                <h1>Technologies I'm using</h1>
-            </div>
+        <div className="technologies-container">
+            <h1 className="technologies-title">Technologies I'm using</h1>
 
-            <div className="flex flex-row items-center gap-10 mt-10 overflow-x-scroll">
+            <div className="technologies-grid">
                 {data.map((tech, index) => (
                     <Category key={index} category={tech?.category} technologies={tech?.technologies} getTechnologies={getTechnologies} />
                 ))}
 
                 {openModal && (
-                    <div className="border-2 border-dashed border-white rounded-2xl flex flex-col text-white p-4 w-[12em] relative">
-
-                        <button
-                            onClick={() => setOpenModal(false)}
-                            className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-700 transition"
-                        >
+                    <div className="technology-card relative">
+                        <button onClick={() => setOpenModal(false)} className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-700 transition">
                             <MdClose className="text-xl text-gray-400 hover:text-white transition" />
                         </button>
 
-                        {/* Input Field */}
                         <div className="flex flex-col gap-2">
                             <label className="text-lg font-semibold text-gray-300">Category</label>
                             <input
                                 type="text"
-                                className=" w-full px-3 py-1  border-b border-gray-600  outline-none focus:border-blue-400 transition"
+                                className="w-full px-3 py-1 border-b border-gray-600 outline-none focus:border-blue-400 transition bg-transparent text-white"
                                 placeholder="New Category"
                                 value={newCategory}
                                 onChange={(e) => setNewCategory(e.target.value)}
                             />
                         </div>
 
-                        {/* Add Button */}
-                        <button
-                            onClick={addCategory}
-                            className="mt-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
-                        >
+                        <button onClick={addCategory} className="mt-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
                             Add Category
                         </button>
                     </div>
                 )}
 
                 {loggedIn && (
-                    <button
-                        onClick={() => setOpenModal(true)}
-                        className="py-1 w-[10em] h-[5em] px-2 rounded-lg mt-1 flex items-center justify-center gap-2 border-dashed border-1 cursor-pointer">
-                        <FaPlus size={10}/> Add
+                    <button onClick={() => setOpenModal(true)} className="add-category">
+                        <FaPlus size={20} />
+                        <span>Add Category</span>
                     </button>
                 )}
-
-
             </div>
-
-
         </div>
-    )
-}
-export default Technologies
+    );
+};
+
+export default Technologies;

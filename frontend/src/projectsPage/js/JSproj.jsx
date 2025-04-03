@@ -26,29 +26,30 @@ const  JSproj = () => {
 
     console.log("Fetching projects:", projects);
     return (
-        <div className="w-full border-2 mt-10 ">
-            <div className="p-5 flex flex-row justify-between">
-                <h1>JavaScript Projects</h1>
+        <div className="w-full mt-10 ">
+            <div className="p-5 flex flex-row justify-between border-b-2 mb-6 border-dashed">
+                <h1 className={'text-3xl'}> <span className={'text-yellow-400'}>JavaScript </span> Projects</h1>
                 {loggedIn && (
                     <button
                         onClick={() => setShowModal(prev => !prev)}
-                        className="text-lg py-2 px-6 bg-white text-black rounded-3xl flex items-center gap-2 cursor-pointer">
-                        <div className={"flex flex-row items-center justify-center gap-2"}>
-                            <FaPlus size={18}/>Add
+                        className="text-lg py-2 px-6 bg-yellow-400 hover:bg-yellow-600 text-white rounded-full flex items-center gap-2 cursor-pointer transition-all">
+                        <div className="flex flex-row items-center justify-center gap-2">
+                            <FaPlus size={18}/> Add
                         </div>
                     </button>
+
                 )}
 
             </div>
             <div className="flex flex-col w-full overflow-x-auto">
                 <div className="flex flex-row gap-6 min-w-max p-5">
                     {projects.map((project, index) => (
-                        <EachJSProj project={project} setProjects={setProjects} key={index} projects={projects}/>
+                        <EachJSProj project={project} setProjects={setProjects} key={index} projects={projects} fetchProjects={fetchProjects}/>
                     ))}
 
                 </div>
             </div>
-            {showModal && <AddNewProject setShowModal={setShowModal} dbNames={"JavaScript"} fetchProject={fetchProjects}/>}
+            {showModal && <AddNewProject setShowModal={setShowModal} dbNames={"JavaScript"} fetchProjects={fetchProjects}/>}
 
 
         </div>

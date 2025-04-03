@@ -20,24 +20,24 @@ const  FSProj = () => {
     const loggedIn = useSelector(store => store.loggedIn.isLoggedIn);
 
     useEffect(() => {
-
         fetchProjects();
     }, []);
 
     console.log("Fetching projects:", projects);
 
     return (
-        <div className="w-full border-2 mt-30 ">
-            <div className="p-5 flex flex-row justify-between">
-                <h1>Full Stack Projects</h1>
+        <div className="w-full  mt-20 ">
+            <div className="p-5 flex flex-row justify-between border-b-2 mb-6 border-dashed ">
+                <h1 className={'text-3xl'}> <span className={'text-purple-400'}>Full Stack </span>Projects</h1>
                 {loggedIn && (
                     <button
                         onClick={() => setShowModal(prev => !prev)}
-                        className="text-lg py-2 px-6 bg-white text-black rounded-3xl flex items-center gap-2 cursor-pointer">
-                        <div className={"flex flex-row items-center justify-center gap-2"}>
-                            <FaPlus size={18}/>Add
+                        className="text-lg py-2 px-6 bg-purple-400 hover:bg-purple-600 text-white rounded-full flex items-center gap-2 cursor-pointer transition-all">
+                        <div className="flex flex-row items-center justify-center gap-2">
+                            <FaPlus size={18}/> Add
                         </div>
                     </button>
+
                 )}
 
             </div>
@@ -51,7 +51,7 @@ const  FSProj = () => {
 
                 </div>
             </div>
-            {showModal && <AddNewProject setShowModal={setShowModal} dbNames={"Full Stack"} fe/>}
+            {showModal && <AddNewProject setShowModal={setShowModal} dbNames={"Full Stack"} fetchProjects={fetchProjects}/>}
 
 
         </div>
