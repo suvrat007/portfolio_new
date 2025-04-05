@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const config = require('./config.json');
 dotenv.config();
 
 const { authenticateToken } = require('./utilities');
@@ -16,7 +15,8 @@ const Tech = require("./models/Technologies");
 const User = require("./models/User");
 
 // Connect to MongoDB
-mongoose.connect(config.connectionString);
+mongoose.connect(process.env.VITE_MONGO_URI);
+
 
 // Initialize Express
 const app = express();
