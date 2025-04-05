@@ -4,9 +4,10 @@ const Text = () => {
             <h1 className="text-6xl font-bold leading-tight">Hi! I'm Suvrat</h1>
 
             <p className="mt-6 text-lg text-gray-300">
-                I specialize in front-end development, crafting visually stunning
-                and user-friendly web experiences. Passionate about innovation and efficiency.
-                Let’s build something great together!
+                I’m a MERN stack developer with a strong eye for design and a focus on performance.
+                I build clean, responsive, and scalable web apps that don’t just work — they impress.
+                With a strong foundation in modern tech and a passion for problem-solving,
+                I’m here to turn smart ideas into seamless digital experiences.
             </p>
 
             <a href="https://drive.google.com/file/d/1R0XdSensp2eA8QgwDhGcI_gQxAOpGYWK/view?usp=sharing"
