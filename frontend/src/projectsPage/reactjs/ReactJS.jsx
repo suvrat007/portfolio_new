@@ -17,8 +17,8 @@ const  ReactJS = () => {
             console.error("Error fetching projects:", error);
         }
     };
-    useEffect(() => {
 
+    useEffect(() => {
         fetchProjects();
     }, []);
 
@@ -46,9 +46,9 @@ const  ReactJS = () => {
                     {projects.map((project, index) => (
                         <EachReactProj project={project} setProjects={setProjects} key={index} projects={projects} fetchProjects={fetchProjects}/>
                     ))}
-
                 </div>
             </div>
+
             {showModal && <AddNewProject setShowModal={setShowModal} dbNames={"ReactJS"} fetchProjects={fetchProjects}/>}
 
         </div>

@@ -25,35 +25,65 @@ const EachProject = ({project, projects,setProjects ,fetchProjects}) => {
     return (
         <>
             {isEdit ? (
-                <div
-                    className="flex flex-col items-center justify-center w-full sm:w-[30em] border-2 border-gray-300 shadow-lg rounded-lg p-4 bg-white hover:scale-105 transition-all">
+                <div className="relative w-[30em] h-[15rem] rounded-lg overflow-hidden group shadow-lg transition-transform hover:scale-[1.02] cursor-pointer">
+                    {/* IMAGE */}
+                    <img
+                        src={project.image}
+                        alt={project.name}
+                        className="h-full object-cover"
+                    />
+
+                    {/* DARK OVERLAY ON HOVER */}
+                    <div
+                        className="absolute inset-0 bg-black/50 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center p-4 text-center">
+                        <h2 className="text-white text-xl font-bold mb-2">{project.name}</h2>
+                        <p className="text-gray-300 text-sm mb-2">{project.description}</p>
+                        <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-400 underline hover:text-blue-300 text-sm"
+                        >
+                            View GitHub Repo
+                        </a>
+                    </div>
+
+
+                    {/* TITLE OVER IMAGE */}
+                    <div
+                        className="absolute bottom-0 left-0 w-full p-2 backdrop-blur-sm bg-black/50 text-white text-center text-lg font-semibold">
+                        {project.name}
+                    </div>
+
+
+                    {/* DELETE BUTTON */}
                     {loggedIn && (
-                        <button onClick={() => deleteProject(project._id)}
-                                className="w-10 h-10 rounded-full flex items-center justify-center absolute top-2 right-2 hover:bg-slate-50 cursor-pointer">
-                            <MdClose className="text-lg text-black"/>
+                        <button
+                            onClick={() => deleteProject(project._id)}
+                            className="absolute top-2 right-2 bg-black bg-opacity-50 hover:bg-red-600 text-white p-2 rounded-full z-20"
+                        >
+                            <MdClose className="text-md" />
                         </button>
                     )}
 
-                    <img src={project.image} alt={project.name} className="w-full h-40 object-cover rounded-md"/>
-                    <h1 className="text-lg font-semibold mt-2">{project.name}</h1>
-                    <p className="text-sm text-gray-600 text-center">{project.description}</p>
-                    <a href={project.github} target="_blank" rel="noopener noreferrer"
-                       className="text-blue-500 mt-2 hover:underline">GitHub</a>
+                    {/* EDIT BUTTON */}
                     {loggedIn && (
                         <button
                             onClick={() => setIsEdit(false)}
-                            className="absolute cursor-pointer   bottom-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-600 transition"
+                            className="absolute bottom-2 right-2 bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-full z-20"
                         >
-                            <FaEdit className="text-white text-lg"/>
+                            <FaEdit className="text-md" />
                         </button>
                     )}
                 </div>
-
-
             ) : (
-                <AddNewProject project={project} setIsEdit={setIsEdit} dbNames={"Full Stack"} fetchProjects={fetchProjects} />
+                <AddNewProject
+                    project={project}
+                    setIsEdit={setIsEdit}
+                    fetchProjects={fetchProjects}
+                    dbNames={"Full Stack"}
+                />
             )}
-
         </>
     );
 }

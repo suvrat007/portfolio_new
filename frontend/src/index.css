@@ -13,7 +13,7 @@
 
     /* Technologies.css */
     .technologies-container {
-        @apply flex flex-col items-center w-full p-10;
+        @apply flex flex-col items-center justify-center w-full px-4 py-10 ;
     }
 
     .technologies-title {
@@ -21,11 +21,11 @@
     }
 
     .technologies-grid {
-        @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10 w-full max-w-6xl;
+        @apply flex flex-row flex-wrap gap-8 mt-10 w-full justify-center;
     }
 
     .technology-card {
-        @apply bg-[#131313] border border-gray-800 rounded-xl p-6 w-full text-white shadow-md;
+        @apply border-2 rounded-xl p-6 w-full max-w-[20em] text-white shadow-md flex flex-col items-start;
     }
 
     .technology-title {
@@ -45,11 +45,12 @@
     }
 
     .add-category {
-        @apply flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded-xl p-6 text-white cursor-pointer hover:bg-gray-800 transition;
+        @apply flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded-xl p-6 text-white cursor-pointer hover:bg-gray-800 transition w-full max-w-[220px];
     }
 
     .add-category-button {
         @apply flex items-center gap-2 text-gray-400 hover:text-white transition;
     }
+
 
 }

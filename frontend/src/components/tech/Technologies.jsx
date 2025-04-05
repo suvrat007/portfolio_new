@@ -41,21 +41,29 @@ const Technologies = () => {
     const loggedIn = useSelector((store) => store.loggedIn.isLoggedIn);
 
     return (
-        <div className="technologies-container">
-            <h1 className="technologies-title">Technologies I'm using</h1>
+        <div className="flex flex-col items-center justify-center w-full px-4 py-10 ">
+            <h1 className="text-4xl text-white text-center ">Technologies I'm using</h1>
 
-            <div className="technologies-grid">
+            <div className="flex flex-row flex-wrap gap-10 mt-10 w-full justify-center">
                 {data.map((tech, index) => (
-                    <Category key={index} category={tech?.category} technologies={tech?.technologies} getTechnologies={getTechnologies} />
+                    <Category
+                        key={index}
+                        category={tech?.category}
+                        technologies={tech?.technologies}
+                        getTechnologies={getTechnologies}
+                    />
                 ))}
 
                 {openModal && (
-                    <div className="technology-card relative">
-                        <button onClick={() => setOpenModal(false)} className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-700 transition">
-                            <MdClose className="text-xl text-gray-400 hover:text-white transition" />
+                    <div className="border-1 rounded-xl p-6 w-full h-full max-w-[12em] text-white shadow-md flex flex-col items-start relative">
+                        <button
+                            onClick={() => setOpenModal(false)}
+                            className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-700 transition"
+                        >
+                            <MdClose className="text-xl text-gray-400 hover:text-white transition"/>
                         </button>
 
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 mt-2">
                             <label className="text-lg font-semibold text-gray-300">Category</label>
                             <input
                                 type="text"
@@ -66,21 +74,28 @@ const Technologies = () => {
                             />
                         </div>
 
-                        <button onClick={addCategory} className="mt-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                        <button
+                            onClick={addCategory}
+                            className="mt-3 py-1 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                        >
                             Add Category
                         </button>
                     </div>
                 )}
 
                 {loggedIn && (
-                    <button onClick={() => setOpenModal(true)} className="add-category">
-                        <FaPlus size={20} />
+                    <button
+                        onClick={() => setOpenModal(true)}
+                        className="flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded-xl p-6 text-white cursor-pointer hover:bg-gray-950 transition w-full max-w-[12em] h-[10em]"
+                    >
+                        <FaPlus size={20}/>
                         <span>Add Category</span>
                     </button>
                 )}
             </div>
         </div>
-    );
+
+    )
 };
 
 export default Technologies;

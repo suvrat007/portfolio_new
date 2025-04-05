@@ -30,8 +30,8 @@ const MiniProjects = () => {
 
     return (
         <div className="w-full relative ">
-            <div className="flex items-center justify-between mt-8 px-6">
-                <h1 className="text-3xl text-white font-semibold">Mini-Projects</h1>
+            <div className="flex items-center justify-between mt-8 px-6 border-b border-gray-800 pb-4">
+                <h1 className="text-3xl text-white font-semibold ">Mini-Projects</h1>
 
                 {loggedIn && (
                     <button

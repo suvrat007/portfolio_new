@@ -1,37 +1,36 @@
-const mongoose = require('mongoose')
-const express = require('express')
-const cors = require('cors')
-const config = require('./config.json')
-const jwt = require('jsonwebtoken')
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const config = require('./config.json');
 dotenv.config();
 
-mongoose.connect(config.connectionString)
+const { authenticateToken } = require('./utilities');
 
-const app = express()
-app.use(cors({
-    origin: "*",
-}))
-app.use(express.json())
+const FullStack = require("./models/FullStack");
+const ReactJS = require("./models/ReactJS");
+const JS = require("./models/JSProjects");
+const TopFour = require("./models/TopFour");
+const Tech = require("./models/Technologies");
+const User = require("./models/User");
 
+// Connect to MongoDB
+mongoose.connect(config.connectionString);
 
-app.get("/",(req, res) => {
-    res.json({data: "hello"})
-})
+// Initialize Express
+const app = express();
+app.use(cors({ origin: "*" }));
+app.use(express.json());
 
-const {authenticateToken} = require('./utilities');
+app.get("/", (req, res) => {
+    res.json({ data: "hello" });
+});
 
+// ======================= POST ROUTES =======================
 
-const FullStack = require("./models/FullStack")
-const ReactJS = require("./models/ReactJS")
-const JS = require("./models/JSProjects")
-const TopFour = require("./models/TopFour")
-const Tech = require("./models/Technologies")
-const User = require("./models/User")
-const error = require("jsonwebtoken/lib/JsonWebTokenError");
-
-
-app.post("/addFullStackProject",authenticateToken, async (req, res) => {
+// ADD PROJECTS
+app.post("/addFullStackProject", authenticateToken, async (req, res) => {
     try {
         const newProject = new FullStack(req.body);
         await newProject.save();
@@ -40,7 +39,7 @@ app.post("/addFullStackProject",authenticateToken, async (req, res) => {
         res.status(500).json({ message: "Error adding project", error: error.message });
     }
 });
-app.post("/addReactJSProject",authenticateToken, async (req, res) => {
+app.post("/addReactJSProject", authenticateToken, async (req, res) => {
     try {
         const newProject = new ReactJS(req.body);
         await newProject.save();
@@ -49,7 +48,7 @@ app.post("/addReactJSProject",authenticateToken, async (req, res) => {
         res.status(500).json({ message: "Error adding project", error: error.message });
     }
 });
-app.post("/addJSProject",authenticateToken, async (req, res) => {
+app.post("/addJSProject", authenticateToken, async (req, res) => {
     try {
         const newProject = new JS(req.body);
         await newProject.save();
@@ -58,83 +57,36 @@ app.post("/addJSProject",authenticateToken, async (req, res) => {
         res.status(500).json({ message: "Error adding project", error: error.message });
     }
 });
-app.post("/addTopFourProject",authenticateToken, async (req, res) => {
+app.post("/addTopFourProject", authenticateToken, async (req, res) => {
     try {
-        console.log("Received data:", req.body);  // Debugging line
-
         const newProject = new TopFour(req.body);
         await newProject.save();
-
         res.status(201).json({ message: "Added to Top Four", project: newProject });
     } catch (error) {
-        console.error("Error adding project:", error);  // Improved error logging
+        console.error("Error adding project:", error);
         res.status(500).json({ message: "Error adding project", error: error.message });
     }
 });
 
-app.delete("/deleteTopFourProject/:id",authenticateToken, async (req, res) => {
-    const {id} = req.params;
-    try {
-        const deletedCategory = await TopFour.findOneAndDelete({_id:id});
+// ======================= DELETE ROUTES =======================
 
-        if (!deletedCategory) {
-            return res.status(404).json({ message: "Category not found" });
-        }
-
-        res.json({ message: `Deleted category '${id}'`, deletedCategory });
-    } catch (err) {
-        res.status(500).json({ message: "Error deleting category", error: err });
-    }
-})
-app.delete("/deleteJSProject/:id",authenticateToken, async (req, res) => {
+const deleteRoute = (Model, name) => async (req, res) => {
     const { id } = req.params;
-
     try {
-        const deletedCategory = await JS.findOneAndDelete({ _id: id });
-        console.log(deletedCategory);
-        if (!deletedCategory) {
-            return res.status(404).json({ message: "Project not found" });
-        }
-
-        res.json({ message: `Deleted project '${id}' successfully`, deletedCategory });
-    } catch (err) {
-        console.error("Error deleting project:", err); // Improved error logging
-        res.status(500).json({ message: "Error deleting project", error: err.message });
+        const deleted = await Model.findByIdAndDelete(id);
+        if (!deleted) return res.status(404).json({ message: `${name} not found` });
+        res.json({ message: `${name} '${id}' deleted`, deleted });
+    } catch (error) {
+        res.status(500).json({ message: `Error deleting ${name}`, error: error.message });
     }
-});
-app.delete("/deleteReactJSProject/:id", authenticateToken,async (req, res) => {
-    const { id } = req.params;
+};
 
-    try {
-        const deletedCategory = await ReactJS.findOneAndDelete({ _id: id });
-        console.log(deletedCategory);
-        if (!deletedCategory) {
-            return res.status(404).json({ message: "Project not found" });
-        }
+app.delete("/deleteTopFourProject/:id", authenticateToken, deleteRoute(TopFour, "TopFour project"));
+app.delete("/deleteJSProject/:id", authenticateToken, deleteRoute(JS, "JS project"));
+app.delete("/deleteReactJSProject/:id", authenticateToken, deleteRoute(ReactJS, "ReactJS project"));
+app.delete("/deleteFullStackProject/:id", authenticateToken, deleteRoute(FullStack, "FullStack project"));
 
-        res.json({ message: `Deleted project '${id}' successfully`, deletedCategory });
-    } catch (err) {
-        console.error("Error deleting project:", err); // Improved error logging
-        res.status(500).json({ message: "Error deleting project", error: err.message });
-    }
-});
-app.delete("/deleteFullStackProject/:id",authenticateToken, async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const deletedCategory = await FullStack.findOneAndDelete({ _id: id });
-        console.log(deletedCategory);
-        if (!deletedCategory) {
-            return res.status(404).json({ message: "Project not found" });
-        }
-
-        res.json({ message: `Deleted project '${id}' successfully`, deletedCategory });
-    } catch (err) {
-        console.error("Error deleting project:", err); // Improved error logging
-        res.status(500).json({ message: "Error deleting project", error: err.message });
-    }
-});
-
+// ======================= GET ROUTES =======================
 
 app.get("/getFullStackProjects", async (req, res) => {
     try {
@@ -172,221 +124,125 @@ app.get("/technologies", async (req, res) => {
     try {
         const techs = await Tech.find();
         res.status(200).json(techs);
-    } catch (err) {
-        res.status(500).json({ message: "Error fetching technologies", error: err });
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching technologies", error: error.message });
     }
 });
 
-app.put("/updateFullStackProject/:id",authenticateToken, async (req, res) => {
-    const id = req.params.id;
-    try{
-        const updatedProject = await FullStack.findByIdAndUpdate(id, req.body, {new: true});
-        if (!updatedProject) {
-            res.status(404).json({ message: "FullStack not found", error: error.message });
-        }
-        res.status(200).json(updatedProject);
-    }catch(error){
-        res.status(500).json({ message: "Error updating project", error: error.message });
-    }
-})
-app.put("/updateReactJSProject/:id", authenticateToken,async (req, res) => {
-    const id = req.params.id;
-    try{
-        const updatedProject = await ReactJS.findByIdAndUpdate(id, req.body, {new: true});
-        if (!updatedProject) {
-            res.status(404).json({ message: "ReactJS not found", error: error.message });
-        }
-        res.status(200).json(updatedProject);
-    }catch(error){
-        res.status(500).json({ message: "Error updating project", error: error.message });
-    }
-})
-app.put("/updateJSProject/:id",authenticateToken, async (req, res) => {
-    const id = req.params.id;
-    try{
-        const updatedProject = await JS.findByIdAndUpdate(id, req.body, {new: true});
-        if (!updatedProject) {
-            res.status(404).json({ message: "JS not found", error: error.message });
-        }
-        res.status(200).json(updatedProject);
-    }catch(error){
-        res.status(500).json({ message: "Error updating project", error: error.message });
-    }
-})
-app.put("/updateTopFourProject/:id", authenticateToken,async (req, res) => {
-    const id = req.params.id;
-    try{
-        const updatedProject = await TopFour.findByIdAndUpdate(id, req.body, {new: true});
-        if (!updatedProject) {
-            res.status(404).json({ message: "TopFour not found", error: error.message });
-        }
-        res.status(200).json(updatedProject);
-    }catch(error){
-        res.status(500).json({ message: "Error updating project", error: error.message });
-    }
-})
+// ======================= UPDATE ROUTES =======================
 
-// Technologies
-
-app.post("/technologies/add-category",authenticateToken, async (req, res) => {
-    const { category } = req.body;
-
+const updateRoute = (Model, name) => async (req, res) => {
+    const { id } = req.params;
     try {
-        const existingCategory = await Tech.findOne({ category });
-        if (existingCategory) {
-            return res.status(400).json({ message: "Category already exists" });
-        }
+        const updated = await Model.findByIdAndUpdate(id, req.body, { new: true });
+        if (!updated) return res.status(404).json({ message: `${name} not found` });
+        res.status(200).json(updated);
+    } catch (error) {
+        res.status(500).json({ message: `Error updating ${name}`, error: error.message });
+    }
+};
+
+app.put("/updateFullStackProject/:id", authenticateToken, updateRoute(FullStack, "FullStack project"));
+app.put("/updateReactJSProject/:id", authenticateToken, updateRoute(ReactJS, "ReactJS project"));
+app.put("/updateJSProject/:id", authenticateToken, updateRoute(JS, "JS project"));
+app.put("/updateTopFourProject/:id", authenticateToken, updateRoute(TopFour, "TopFour project"));
+
+// ======================= TECHNOLOGIES =======================
+
+app.post("/technologies/add-category", authenticateToken, async (req, res) => {
+    const { category } = req.body;
+    try {
+        const exists = await Tech.findOne({ category });
+        if (exists) return res.status(400).json({ message: "Category already exists" });
 
         const newCategory = new Tech({ category, technologies: [] });
         await newCategory.save();
-
         res.json({ message: `Category '${category}' added successfully!` });
-    } catch (err) {
-        res.status(500).json({ message: "Error adding category", error: err });
+    } catch (error) {
+        res.status(500).json({ message: "Error adding category", error: error.message });
     }
 });
-app.post("/technologies/:category",authenticateToken, async (req, res) => {
+app.post("/technologies/:category", authenticateToken, async (req, res) => {
     const { category } = req.params;
     const { technology } = req.body;
 
     try {
-        const categoryDoc = await Tech.findOne({ category });
+        const doc = await Tech.findOne({ category });
+        if (!doc) return res.status(404).json({ message: "Category not found" });
 
-        if (!categoryDoc) {
-            return res.status(404).json({ message: "Category not found" });
-        }
-
-        if (categoryDoc.technologies.includes(technology)) {
+        if (doc.technologies.includes(technology)) {
             return res.status(400).json({ message: "Technology already exists" });
         }
 
-        categoryDoc.technologies.push(technology);
-        await categoryDoc.save();
-
-        res.json({ message: `Added ${technology} to ${category}`, updatedCategory: categoryDoc });
-    } catch (err) {
-        res.status(500).json({ message: "Error adding technology", error: err });
+        doc.technologies.push(technology);
+        await doc.save();
+        res.json({ message: `Added ${technology} to ${category}`, updatedCategory: doc });
+    } catch (error) {
+        res.status(500).json({ message: "Error adding technology", error: error.message });
     }
 });
-app.delete("/technologies/:category/:technology", authenticateToken,async (req, res) => {
+app.delete("/technologies/:category/:technology", authenticateToken, async (req, res) => {
     const { category, technology } = req.params;
-
     try {
-        const categoryDoc = await Tech.findOne({ category });
+        const doc = await Tech.findOne({ category });
+        if (!doc) return res.status(404).json({ message: "Category not found" });
 
-        if (!categoryDoc) {
-            return res.status(404).json({ message: "Category not found" });
-        }
-
-        categoryDoc.technologies = categoryDoc.technologies.filter((tech) => tech !== technology);
-        await categoryDoc.save();
-
-        res.json({ message: `Removed ${technology} from ${category}`, updatedCategory: categoryDoc });
-    } catch (err) {
-        res.status(500).json({ message: "Error removing technology", error: err });
+        doc.technologies = doc.technologies.filter(tech => tech !== technology);
+        await doc.save();
+        res.json({ message: `Removed ${technology} from ${category}`, updatedCategory: doc });
+    } catch (error) {
+        res.status(500).json({ message: "Error removing technology", error: error.message });
     }
 });
-app.delete("/technologies/:category",authenticateToken, async (req, res) => {
+app.delete("/technologies/:category", authenticateToken, async (req, res) => {
     const { category } = req.params;
-
     try {
-        const deletedCategory = await Tech.findOneAndDelete({ category });
+        const deleted = await Tech.findOneAndDelete({ category });
+        if (!deleted) return res.status(404).json({ message: "Category not found" });
 
-        if (!deletedCategory) {
-            return res.status(404).json({ message: "Category not found" });
-        }
-
-        res.json({ message: `Deleted category '${category}'`, deletedCategory });
-    } catch (err) {
-        res.status(500).json({ message: "Error deleting category", error: err });
+        res.json({ message: `Deleted category '${category}'`, deletedCategory: deleted });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting category", error: error.message });
     }
 });
 
-//User Authentication
+// ======================= AUTH =======================
+
 app.post("/login", async (req, res) => {
-    const {email, password} = req.body
+    const { email, password } = req.body;
+    if (!email || !password) return res.status(400).json({ error: true, message: "Email and Password Required" });
 
-    if(!email){
-        return res.status(400).json({error:true , message: "Email Required"})
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ error: true, message: "User doesn't exist" });
+
+    if (user.password !== password) return res.status(400).json({ error: true, message: "Invalid Credentials" });
+
+    const accessToken = jwt.sign({ user }, process.env.VITE_ACCESS_TOKEN_SECRET, { expiresIn: "36000m" });
+    return res.json({ error: false, message: "Login Successful", email, accessToken });
+});
+
+app.post("/create-account", async (req, res) => {
+    const { fullName, email, password } = req.body;
+
+    if (!fullName || !email || !password) {
+        return res.status(400).json({ error: true, message: "All fields are required" });
     }
 
-    if(!password){
-        return res.status(400).json({error:true , message: "Password Required"})
-    }
+    const existingUser = await User.findOne({ email });
+    if (existingUser) return res.status(400).json({ error: true, message: "User already exists" });
 
-    const userInfo = await User.findOne({email: email})
+    const newUser = new User({ fullName, email, password });
+    await newUser.save();
 
-    if(!userInfo){
-        res.status(400).json({
-            error:true ,
-            message:"User Doesn't exist"
-        })
-    }
+    const accessToken = jwt.sign({ user: newUser }, process.env.VITE_ACCESS_TOKEN_SECRET, { expiresIn: "36000m" });
+    return res.json({ error: false, user: newUser, accessToken, message: "Registration Successful" });
+});
 
-    if (userInfo.email===email && userInfo.password===password){
-        const user = {user:userInfo};
-        const accessToken = jwt.sign(user, process.env.VITE_ACCESS_TOKEN_SECRET, {
-            expiresIn: '36000m'
-        })
-        return res.json({
-            error:false,
-            message:"Login Successful",
-            email,
-            accessToken
-        })
-    } else {
-        return res.status(400).json({
-            error:true ,
-            message:"Invalid Credentials"
-        })
-    }
+// ======================= START SERVER =======================
 
-
-})
-
-//CREATE ACCOUNT
-app.post("/create-account", async(req, res) => {
-    const { fullName , email ,password } = req.body;
-
-    if(!fullName){
-        return res.status(400).json({error:true , message: "Full Name Required"})
-    }
-    if(!email){
-        return res.status(400).json({error:true , message: "Email Required"})
-    }
-    if(!password){
-        return res.status(400).json({error:true , message: "Password Required"})
-    }
-
-    const isUser = await User.findOne({email: email})
-    if(isUser){
-        return res.json({error:true , message:"User already exists"})
-    }
-
-    const user = new User({
-        fullName,
-        email,
-        password,
-    })
-
-    await user.save();
-
-    const accessToken = jwt.sign({user} , process.env.VITE_ACCESS_TOKEN_SECRET, {
-        expiresIn: '36000m'
-    });
-    return res.json({
-        error:false,
-        user,
-        accessToken,
-        message: "Registration Successful",
-    })
-
-})
-
-
-const port = process.env.PORT || 3000
-app.listen(port);
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
 
 module.exports = app;
-
-
