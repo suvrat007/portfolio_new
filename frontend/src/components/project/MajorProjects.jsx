@@ -28,9 +28,7 @@ const MajorProjects = () => {
     return (
         <div className="w-full relative mb-10">
 
-            {topFour.length === 0 && (
-                <ShimmerUI/>
-            )}
+
 
             <div className="flex items-center justify-between mt-8 px-6 border-b border-gray-800 pb-4">
                 <h1 className="text-3xl text-white font-semibold">Recent-Works</h1>
@@ -47,7 +45,9 @@ const MajorProjects = () => {
                     </button>
                 )}
             </div>
-
+            {topFour.length === 0 && (
+                <ShimmerUI/>
+            )}
             {modalIsOpen && (
                 <AddProject
                     setModalIsOpen={setModalIsOpen}

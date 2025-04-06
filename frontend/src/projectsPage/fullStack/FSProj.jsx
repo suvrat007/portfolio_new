@@ -28,9 +28,7 @@ const  FSProj = () => {
 
     return (
         <div className="w-full  mt-20 ">
-            {projects.length === 0 && (
-                <ShimmerUI/>
-            )}
+
             <div className="p-5 flex flex-row justify-between border-b-2 mb-6 border-dashed ">
                 <h1 className={'text-3xl'}> <span className={'text-purple-400'}>Full Stack </span>Projects</h1>
                 {loggedIn && (
@@ -45,6 +43,10 @@ const  FSProj = () => {
                 )}
 
             </div>
+
+            {projects.length === 0 && (
+                <ShimmerUI/>
+            )}
 
             <div className="flex flex-col w-full overflow-x-auto">
                 <div className="flex flex-row gap-6 min-w-max p-5">

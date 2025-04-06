@@ -28,9 +28,7 @@ const  JSproj = () => {
     console.log("Fetching projects:", projects);
     return (
         <div className="w-full mt-10 ">
-            {projects.length === 0 && (
-                <ShimmerUI/>
-            )}
+
             <div className="p-5 flex flex-row justify-between border-b-2 mb-6 border-dashed">
                 <h1 className={'text-3xl'}> <span className={'text-yellow-400'}>JavaScript </span> Projects</h1>
                 {loggedIn && (
@@ -44,7 +42,9 @@ const  JSproj = () => {
 
                 )}
 
-            </div>
+            </div>{projects.length === 0 && (
+            <ShimmerUI/>
+        )}
             <div className="flex flex-col w-full overflow-x-auto">
                 <div className="flex flex-row gap-6 min-w-max p-5">
                     {projects.map((project, index) => (

@@ -28,9 +28,7 @@ const MiniProjects = () => {
     return (
         <div className="w-full relative mb-10">
 
-            {jsProjects.length === 0 && (
-                <ShimmerUI/>
-            )}
+
 
             <div className="flex items-center justify-between mt-8 px-6 border-b border-gray-800 pb-4">
                 <h1 className="text-3xl text-white font-semibold">Mini-Projects</h1>
@@ -47,7 +45,9 @@ const MiniProjects = () => {
                     </button>
                 )}
             </div>
-
+            {jsProjects.length === 0 && (
+                <ShimmerUI/>
+            )}
             <div className="relative mt-6 overflow-hidden">
                 <div className="flex overflow-x-auto gap-6 pr-6 pb-5 scroll-smooth snap-x">
                     {jsProjects.map((project, i) => (
