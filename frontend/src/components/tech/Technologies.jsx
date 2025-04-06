@@ -1,9 +1,10 @@
 import { FaPlus } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axiosInstance from "../../utils/axiosInstance.js";
 import Category from "./Category.jsx";
+import ShimmerUI from "../../utils/ShimmerUI.jsx";
 
 const Technologies = () => {
     const [data, setData] = useState([]);
@@ -44,6 +45,10 @@ const Technologies = () => {
             <h1 className="text-3xl md:text-4xl font-bold text-white text-center mb-10">
                 Technologies I'm Using
             </h1>
+
+            {data.length === 0 && (
+                <ShimmerUI/>
+            )}
 
             <div className="flex flex-wrap gap-10 justify-center w-full ">
                 {data.map((tech, index) => (
