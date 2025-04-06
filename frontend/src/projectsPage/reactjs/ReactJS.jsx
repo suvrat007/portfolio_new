@@ -5,6 +5,7 @@ import EachReactProj from "./EachReactProj.jsx";
 import {FaPlus} from "react-icons/fa";
 import AddNewProject from "../AddNewProject.jsx";
 import {useSelector} from "react-redux";
+import ShimmerUI from "../../utils/ShimmerUI.jsx";
 
 const  ReactJS = () => {
     const [projects, setProjects] = useState([]);
@@ -28,6 +29,9 @@ const  ReactJS = () => {
 
     return (
         <div className="w-full mt-10 ">
+            {projects.length === 0 && (
+                <ShimmerUI/>
+            )}
             <div className="p-5 flex flex-row justify-between border-b-2 border-gray-200 mb-6 border-dashed">
                 <h1 className={'text-3xl '}> <span className={"text-blue-400"}>ReactJS </span>Projects</h1>
                 {loggedIn && (

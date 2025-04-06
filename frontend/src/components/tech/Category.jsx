@@ -47,7 +47,9 @@ const Category = ({ category, technologies,getTechnologies }) => {
     }
 
     return (
-        <div className="border-1 rounded-xl p-6 w-full max-w-[12em] h-full text-white shadow-md flex flex-col relative ">
+        <div className="border-2 border-purple-500 rounded-xl p-6 w-full max-w-[12em] h-full text-white flex flex-col relative
+                shadow-[0_0_10px_rgba(192,132,252,0.5),0_0_20px_rgba(192,132,252,0.4),0_0_30px_rgba(192,132,252,0.3)]
+                transition-all duration-300 hover:shadow-[0_0_20px_rgba(192,132,252,0.8),0_0_30px_rgba(192,132,252,0.6),0_0_40px_rgba(192,132,252,0.5)]">
             <h1 className="text-lg font-semibold mb-3">{category}</h1>
 
             {loggedIn && (

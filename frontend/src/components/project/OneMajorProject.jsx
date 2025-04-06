@@ -11,8 +11,7 @@ const OneMajorProject = ({ project, getTopFourProjects }) => {
 
     const deleteTopFour = async (id) => {
         try {
-            const response = await axiosInstance.delete(`/deleteTopFourProject/${id}`);
-            console.log(response);
+            await axiosInstance.delete(`/deleteTopFourProject/${id}`);
             getTopFourProjects();
         } catch (error) {
             console.log("An unexpected error occurred: " + error.message);
@@ -22,57 +21,44 @@ const OneMajorProject = ({ project, getTopFourProjects }) => {
     return (
         <>
             {isEdit ? (
-                <div className="relative w-[90%] md:w-[40%] min-h-[28em] rounded-2xl overflow-hidden shadow-md transition-shadow duration-300 hover:shadow-xl border border-gray-800 bg-[#121212]">
-
+                <div className="relative w-full h-full  sm:w-[45%] lg:w-[35%]  bg-[#1A1A1A] rounded-xl overflow-hidden border border-gray-800 shadow-lg hover:shadow-2xl transition">
                     {loggedIn && (
                         <button
                             onClick={() => deleteTopFour(project._id)}
-                            className="absolute top-3 right-3 text-white/50 hover:text-red-500 transition z-10"
+                            className="absolute top-3 right-3 text-white/60 hover:text-red-500 transition z-10"
                             title="Delete"
                         >
                             <MdClose size={22} />
                         </button>
                     )}
 
-                    {/* Image Top Half */}
-                    <div className="h-1/2 w-full">
-                        <img
-                            src={project.image}
-                            alt="Project"
-                            className="w-full h-full object-cover"
-                        />
+                    <div className="h-48 md:h-52">
+                        <img src={project.image} alt="Project" className="w-full h-full object-cover" />
                     </div>
 
-
-                    {/* Bottom Content */}
-                    <div className="min-h-[50%] p-5 flex flex-col justify-between bg-transparent">
+                    <div className="p-5 flex flex-col justify-between h-full gap-6">
                         <div>
-                            <h1 className="text-white text-2xl font-bold mb-1">{project.name}</h1>
-                            <p className="text-gray-400 text-sm line-clamp-3">{project.description}</p>
+                            <h1 className="text-2xl font-bold text-white">{project.name}</h1>
+                            <p className="lg:text-sm text-lg text-gray-400 mt-2 line-clamp-4 md:line-clamp-6">{project.description}</p>
                         </div>
 
-                        <div className="mt-4">
+                        <div className="flex flex-row justify-between items-center mt-2">
                             <a
                                 href={project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center text-blue-400 hover:text-blue-500 text-sm gap-1 transition"
+                                className="flex items-center gap-2 text-purple-400 hover:text-blue-500 text-xl lg:text-lg"
                             >
-                                <FaGithub /> View on GitHub
+                                <FaGithub size={20}/> GitHub
                             </a>
+                            {loggedIn && (
+                                <button
+                                    onClick={() => setIsEdit(false)}
+                                    className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-600 transition"
+                                >
+                                    <FaEdit className="text-white text-base" />
+                                </button>
+                            )}
                         </div>
                     </div>
-
-                    {/* Edit Button */}
-                    {loggedIn && (
-                        <button
-                            onClick={() => setIsEdit(false)}
-                            className="absolute bottom-3 right-3 w-9 h-9 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-full transition"
-                            title="Edit"
-                        >
-                            <FaEdit className="text-white text-base" />
-                        </button>
-                    )}
                 </div>
             ) : (
                 <AddProject

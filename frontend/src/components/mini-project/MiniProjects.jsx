@@ -1,70 +1,59 @@
 import React, { useEffect, useState } from "react";
 import OneProject from "./OneProject";
-import axiosInstance from "../../utils/axiosInstance.js";
+import axiosInstance from "../../utils/axiosInstance";
 import { FaPlus } from "react-icons/fa";
-import AddJsProject from "./AddJsProject.jsx";
 import { MdClose } from "react-icons/md";
+import AddJsProject from "./AddJsProject";
 import { useSelector } from "react-redux";
+import ShimmerUI from "../../utils/ShimmerUI.jsx";
 
 const MiniProjects = () => {
-    const [jsprojects, setJsprojects] = useState([]);
+    const [jsProjects, setJsProjects] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const loggedIn = useSelector((store) => store.loggedIn.isLoggedIn);
+    const isLoggedIn = useSelector((state) => state.loggedIn.isLoggedIn);
 
-    const getJSProjects = async () => {
+    const fetchProjects = async () => {
         try {
-            const response = await axiosInstance.get("/getJSProjects");
-            if (response?.data) {
-                setJsprojects(response?.data);
-            } else {
-                console.log("No JS projects found.");
-            }
-        } catch (error) {
-            console.log("An unexpected error occurred.");
+            const res = await axiosInstance.get("/getJSProjects");
+            setJsProjects(res.data || []);
+        } catch (err) {
+            console.error("Failed to fetch projects.", err);
         }
     };
 
     useEffect(() => {
-        getJSProjects();
+        fetchProjects();
     }, []);
 
     return (
-        <div className="w-full relative ">
+        <div className="w-full relative mb-10">
+
+            {jsProjects.length === 0 && (
+                <ShimmerUI/>
+            )}
 
             <div className="flex items-center justify-between mt-8 px-6 border-b border-gray-800 pb-4">
-                <h1 className="text-3xl text-white font-semibold ">Mini-Projects</h1>
-
-                {loggedIn && (
+                <h1 className="text-3xl text-white font-semibold">Mini-Projects</h1>
+                {isLoggedIn && (
                     <button
-                        onClick={() => setShowModal((prev) => !prev)}
-                        className="text-lg py-2 px-6 bg-[#1A1A1A] cursor-pointer text-white border border-gray-600 rounded-3xl flex items-center gap-2 hover:bg-gray-800 transition"
+                        onClick={() => setShowModal(prev => !prev)}
+                        className="text-lg py-2 px-6 bg-[#1A1A1A] text-white border border-gray-600 rounded-3xl flex items-center gap-2 hover:bg-gray-800 transition"
                     >
-                        {!showModal ? (
-                            <div className="flex items-center gap-2">
-                                <FaPlus size={18} /> Add
-                            </div>
+                        {showModal ? (
+                            <><MdClose className="text-xl text-gray-400" /> Cancel</>
                         ) : (
-                            <div className="flex items-center gap-2">
-                                <MdClose className="text-xl text-gray-400" /> Cancel
-                            </div>
+                            <><FaPlus size={18} /> Add</>
                         )}
                     </button>
                 )}
             </div>
 
-
             <div className="relative mt-6 overflow-hidden">
-                {/* Left & Right Fade Overlay */}
-                {/*<div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#131313] to-transparent pointer-events-none"></div>*/}
-                {/*<div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#131313] to-transparent pointer-events-none"></div>*/}
-
-
-                <div className="flex overflow-x-auto gap-6 px-6 pb-5 scroll-smooth snap-x">
-                    {jsprojects.map((project, index) => (
-                        <OneProject key={index} project={project} getJSProjects={getJSProjects} />
+                <div className="flex overflow-x-auto gap-6 pr-6 pb-5 scroll-smooth snap-x">
+                    {jsProjects.map((project, i) => (
+                        <OneProject key={i} project={project} fetchProjects={fetchProjects} />
                     ))}
-                    {showModal && <AddJsProject getJSProjects={getJSProjects} setShowModal={setShowModal} />}
-
+                    {showModal && <AddJsProject fetchProjects={fetchProjects} setShowModal={setShowModal} />}
                 </div>
             </div>
         </div>

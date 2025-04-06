@@ -5,17 +5,17 @@ import { useSelector } from "react-redux";
 import axiosInstance from "../../utils/axiosInstance.js";
 import Category from "./Category.jsx";
 
-
 const Technologies = () => {
     const [data, setData] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [newCategory, setNewCategory] = useState("");
+    const loggedIn = useSelector((store) => store.loggedIn.isLoggedIn);
 
     const getTechnologies = async () => {
         try {
             const response = await axiosInstance.get("/technologies");
             if (response?.data) {
-                setData(response?.data);
+                setData(response.data);
             }
         } catch (error) {
             console.log(error);
@@ -28,6 +28,7 @@ const Technologies = () => {
                 category: newCategory,
             });
             setOpenModal(false);
+            setNewCategory("");
             await getTechnologies();
         } catch (error) {
             console.log(error);
@@ -38,13 +39,13 @@ const Technologies = () => {
         getTechnologies();
     }, []);
 
-    const loggedIn = useSelector((store) => store.loggedIn.isLoggedIn);
-
     return (
-        <div className="flex flex-col items-center justify-center w-full px-4 py-10 ">
-            <h1 className="text-4xl text-white text-center ">Technologies I'm using</h1>
+        <div className="flex flex-col items-center w-full px-4 py-10 ">
+            <h1 className="text-3xl md:text-4xl font-bold text-white text-center mb-10">
+                Technologies I'm Using
+            </h1>
 
-            <div className="flex flex-row flex-wrap gap-10 mt-10 w-full justify-center">
+            <div className="flex flex-wrap gap-10 justify-center w-full ">
                 {data.map((tech, index) => (
                     <Category
                         key={index}
@@ -55,28 +56,25 @@ const Technologies = () => {
                 ))}
 
                 {openModal && (
-                    <div className="border-1 rounded-xl p-6 w-full h-full max-w-[12em] text-white shadow-md flex flex-col items-start relative">
+                    <div className="border border-gray-700 bg-gray-900 rounded-2xl p-5 w-full max-w-[14em] text-white shadow-lg relative flex flex-col">
                         <button
                             onClick={() => setOpenModal(false)}
-                            className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-700 transition"
+                            className="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-700 transition"
                         >
-                            <MdClose className="text-xl text-gray-400 hover:text-white transition"/>
+                            <MdClose className="text-xl text-gray-400 hover:text-white" />
                         </button>
 
-                        <div className="flex flex-col gap-2 mt-2">
-                            <label className="text-lg font-semibold text-gray-300">Category</label>
-                            <input
-                                type="text"
-                                className="w-full px-3 py-1 border-b border-gray-600 outline-none focus:border-blue-400 transition bg-transparent text-white"
-                                placeholder="New Category"
-                                value={newCategory}
-                                onChange={(e) => setNewCategory(e.target.value)}
-                            />
-                        </div>
-
+                        <label className="text-sm mb-2 text-gray-300">New Category</label>
+                        <input
+                            type="text"
+                            value={newCategory}
+                            onChange={(e) => setNewCategory(e.target.value)}
+                            placeholder="Enter category"
+                            className="px-3 py-1.5 rounded-md bg-transparent border border-gray-600 outline-none focus:ring-2 focus:ring-blue-400 mb-3"
+                        />
                         <button
                             onClick={addCategory}
-                            className="mt-3 py-1 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                            className="py-1.5 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
                         >
                             Add Category
                         </button>
@@ -86,16 +84,15 @@ const Technologies = () => {
                 {loggedIn && (
                     <button
                         onClick={() => setOpenModal(true)}
-                        className="flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded-xl p-6 text-white cursor-pointer hover:bg-gray-950 transition w-full max-w-[12em] h-[10em]"
+                        className="flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded-2xl p-5 text-white hover:bg-gray-950 transition w-full max-w-[14em] h-[10em]"
                     >
-                        <FaPlus size={20}/>
-                        <span>Add Category</span>
+                        <FaPlus size={22} />
+                        <span className="mt-2">Add Category</span>
                     </button>
                 )}
             </div>
         </div>
-
-    )
+    );
 };
 
 export default Technologies;

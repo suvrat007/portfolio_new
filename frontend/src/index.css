@@ -52,5 +52,9 @@
         @apply flex items-center gap-2 text-gray-400 hover:text-white transition;
     }
 
+    .neon-purple-border{
+        @apply border-2 border-purple-500 shadow-[0_0_10px_2px_rgba(192,132,252,0.8)] rounded-xl p-4;
+    }
+
 
 }

@@ -1,33 +1,22 @@
-import {MdClose} from "react-icons/md";
-import React, {useState} from "react";
+import { MdClose } from "react-icons/md";
+import React, { useState } from "react";
 import axiosInstance from "../../utils/axiosInstance.js";
 
-const AddProject = ({setModalIsOpen, getTopFourProjects,project , setIsEdit}) => {
+const AddProject = ({ setModalIsOpen, getTopFourProjects, project, setIsEdit }) => {
     const [title, setTitle] = useState(project?.name || "");
-    const [content, setContent] = useState(project?.description||"");
-    const [github, setGithub] = useState(project?.github||"");
-    const [image, setImage] = useState(project?.image||"");
+    const [content, setContent] = useState(project?.description || "");
+    const [github, setGithub] = useState(project?.github || "");
+    const [image, setImage] = useState(project?.image || "");
     const [error, setError] = useState(null);
 
-    const addProject = async () => {
+    const handleSubmit = async () => {
         try {
-            const response = await axiosInstance.post("/addTopFourProject", {
-                name: title,
-                description: content,
-                github,
-                image,
-            });
-            console.log(response.data);
-            getTopFourProjects();
-            setModalIsOpen(false);  // Close modal on success
-        } catch (e) {
-            setError("Failed to add project. Please try again.");
-            console.log(e);
-        }
-    };
-    const editProject = async (id) => {
-        try {
-            const response = await axiosInstance.put(`/updateTopFourProject/${id}`, {
+            const method = project ? 'put' : 'post';
+            const url = project
+                ? `/updateTopFourProject/${project._id}`
+                : `/addTopFourProject`;
+
+            const response = await axiosInstance[method](url, {
                 name: title,
                 description: content,
                 github,
@@ -35,109 +24,72 @@ const AddProject = ({setModalIsOpen, getTopFourProjects,project , setIsEdit}) =>
             });
 
             console.log(response.data);
-
-            // Call getJSProjects() to refresh the project list
             getTopFourProjects();
-
-            // Close modal and reset edit mode
-            setIsEdit(true);
-            setModalIsOpen(false);
+            setModalIsOpen?.(false);
+            setIsEdit?.(true);
         } catch (err) {
-            console.log(err);
+            setError("Something went wrong. Please try again.");
+            console.error(err);
         }
     };
 
     return (
-        <div className=" flex items-center justify-center bg-black mt-5">
-            <div className="relative bg-[#1A1A1A] border border-gray-800 p-6 rounded-lg shadow-md min-w-[32em] min-h-[28em]">
-                {!project ? (
-                    <button
-                        onClick={() => setModalIsOpen(false)}
-                        className="w-7 h-7 rounded-full flex items-center justify-center absolute top-2 right-2 bg-gray-800 cursor-pointer hover:bg-gray-700 transition"
-                    >
-                        <MdClose className="text-gray-400 hover:text-white text-lg"/>
-                    </button>
-                ) : (
-                    <button
-                        onClick={() => setIsEdit(true)}
-                        className="w-7 h-7 rounded-full flex items-center justify-center absolute top-2 right-2 bg-gray-800 cursor-pointer hover:bg-gray-700 transition"
-                    >
-                        <MdClose className="text-gray-400 hover:text-white text-lg"/>
-                    </button>
-                )}
+        <div className="flex items-center justify-center mt-6 px-4">
+            <div className="relative bg-[#1A1A1A] border border-gray-800 p-6 rounded-xl w-full max-w-xl shadow-xl">
+                <button
+                    onClick={() => {
+                        project ? setIsEdit(true) : setModalIsOpen(false);
+                    }}
+                    className="absolute top-3 right-3 bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white w-8 h-8 rounded-full flex items-center justify-center transition"
+                >
+                    <MdClose />
+                </button>
 
-                <h2 className="text-2xl font-semibold mb-4">Add Project</h2>
+                <h2 className="text-xl font-semibold mb-5 text-white">
+                    {project ? "Edit Project" : "Add Project"}
+                </h2>
 
                 <div className="flex flex-col gap-4">
-                    <div>
-                        <label className="text-gray-400">Image Link</label>
-                        <input
-                            type="text"
-                            className="w-full border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter image link"
-                            value={image}
-                            onChange={(e) => setImage(e.target.value)}
-                        />
-                    </div>
+                    <input
+                        type="text"
+                        placeholder="Image URL"
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
+                        className="input-field"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="input-field"
+                    />
+                    <textarea
+                        placeholder="Description"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        rows={4}
+                        className="input-field"
+                    />
+                    <input
+                        type="text"
+                        placeholder="GitHub Link"
+                        value={github}
+                        onChange={(e) => setGithub(e.target.value)}
+                        className="input-field"
+                    />
+                    {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
-                    <div>
-                        <label className="text-gray-400 ">Title</label>
-                        <input
-                            type="text"
-                            className="w-full border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter project title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
-                    </div>
-
-                    <div>
-                        <label className="text-gray-400">Project Description</label>
-                        <textarea
-                            className="w-full border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-blue-500"
-                            placeholder="Describe your project"
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                            rows={5}
-                        />
-                    </div>
-
-                    <div>
-                        <label className="text-gray-400">GitHub Link</label>
-                        <input
-                            type="text"
-                            className="w-full border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter GitHub link"
-                            value={github}
-                            onChange={(e) => setGithub(e.target.value)}
-                        />
-                    </div>
+                    <button
+                        onClick={handleSubmit}
+                        className="w-full py-2 mt-2 bg-blue-600 hover:bg-blue-500 text-white rounded-3xl font-medium transition"
+                    >
+                        {project ? "Update Project" : "Add Project"}
+                    </button>
                 </div>
-
-                {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
-
-                {!project ? (
-                    <div className="flex flex-col gap-2 mt-4">
-                        <button
-                            onClick={addProject}
-                            className="cursor-pointer bg-blue-600 hover:bg-blue-500 text-white text-lg px-4 py-2 rounded-3xl transition"
-                        >
-                            Add Project
-                        </button>
-                    </div>
-                ) : (
-                    <div className="flex flex-col gap-2 mt-4">
-                        <button
-                            onClick={()=>editProject(project?._id)}
-                            className="cursor-pointer bg-blue-600 hover:bg-blue-500 text-white text-lg px-4 py-2 rounded-3xl transition"
-                        >
-                            Update Project
-                        </button>
-                    </div>
-                )}
             </div>
         </div>
+    );
+};
 
-    )
-}
-export default AddProject
+export default AddProject;
