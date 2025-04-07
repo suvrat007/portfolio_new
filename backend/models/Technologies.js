@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
-
 const TechnologySchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
         unique: true,
     },
-    technologies: {
-        type: [String],
-        default: [],
-    },
+    techs: [
+        {
+            name: { type: String, required: true },
+            image: { type: String, required: true },
+        },
+    ],
 });
 
-module.exports = mongoose.model("Technology", TechnologySchema);
+module.exports = mongoose.model('TechnologySchema', TechnologySchema);
+

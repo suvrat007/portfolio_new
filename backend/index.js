@@ -120,14 +120,7 @@ app.get("/getTopFourProjects", async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
-app.get("/technologies", async (req, res) => {
-    try {
-        const techs = await Tech.find();
-        res.status(200).json(techs);
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching technologies", error: error.message });
-    }
-});
+
 
 // ======================= UPDATE ROUTES =======================
 
@@ -149,13 +142,21 @@ app.put("/updateTopFourProject/:id", authenticateToken, updateRoute(TopFour, "To
 
 // ======================= TECHNOLOGIES =======================
 
+app.get("/technologies",  async (req, res) => {
+    try {
+        const techs = await Tech.find();
+        res.status(200).json(techs);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching technologies", error: error.message });
+    }
+});
 app.post("/technologies/add-category", authenticateToken, async (req, res) => {
     const { category } = req.body;
     try {
         const exists = await Tech.findOne({ category });
         if (exists) return res.status(400).json({ message: "Category already exists" });
 
-        const newCategory = new Tech({ category, technologies: [] });
+        const newCategory = new Tech({ category, techs: [] });
         await newCategory.save();
         res.json({ message: `Category '${category}' added successfully!` });
     } catch (error) {
@@ -164,36 +165,55 @@ app.post("/technologies/add-category", authenticateToken, async (req, res) => {
 });
 app.post("/technologies/:category", authenticateToken, async (req, res) => {
     const { category } = req.params;
-    const { technology } = req.body;
+    const { name, image } = req.body;
 
     try {
         const doc = await Tech.findOne({ category });
         if (!doc) return res.status(404).json({ message: "Category not found" });
 
-        if (doc.technologies.includes(technology)) {
+        const alreadyExists = doc.techs.some(tech => tech.name.toLowerCase() === name.toLowerCase());
+        if (alreadyExists) {
             return res.status(400).json({ message: "Technology already exists" });
         }
 
-        doc.technologies.push(technology);
+        doc.techs.push({ name, image });
         await doc.save();
-        res.json({ message: `Added ${technology} to ${category}`, updatedCategory: doc });
+
+        res.json({
+            message: `Added ${name} to ${category}`,
+            updatedCategory: doc,
+        });
     } catch (error) {
-        res.status(500).json({ message: "Error adding technology", error: error.message });
+        res.status(500).json({
+            message: "Error adding technology",
+            error: error.message,
+        });
     }
 });
+
 app.delete("/technologies/:category/:technology", authenticateToken, async (req, res) => {
     const { category, technology } = req.params;
     try {
         const doc = await Tech.findOne({ category });
         if (!doc) return res.status(404).json({ message: "Category not found" });
 
-        doc.technologies = doc.technologies.filter(tech => tech !== technology);
+        const filtered = doc.techs.filter(
+            tech => tech.name.toLowerCase() !== technology.toLowerCase()
+        );
+
+        if (filtered.length === doc.techs.length) {
+            return res.status(404).json({ message: "Technology not found in this category" });
+        }
+
+        doc.techs = filtered;
         await doc.save();
+
         res.json({ message: `Removed ${technology} from ${category}`, updatedCategory: doc });
     } catch (error) {
         res.status(500).json({ message: "Error removing technology", error: error.message });
     }
 });
+
 app.delete("/technologies/:category", authenticateToken, async (req, res) => {
     const { category } = req.params;
     try {

@@ -15,16 +15,21 @@ const Technologies = () => {
     const getTechnologies = async () => {
         try {
             const response = await axiosInstance.get("/technologies");
+            console.log(response?.data);
+            // setData(response?.data);
+
             if (response?.data) {
-                setData(response.data);
+                const filteredData = response.data.filter(item => Array.isArray(item.techs));
+                setData(filteredData);
             }
         } catch (error) {
-            console.log(error);
+            console.log("Fetch error:", error);
         }
     };
 
     const addCategory = async () => {
         try {
+            if (!newCategory.trim()) return;
             await axiosInstance.post("/technologies/add-category", {
                 category: newCategory,
             });
@@ -32,7 +37,7 @@ const Technologies = () => {
             setNewCategory("");
             await getTechnologies();
         } catch (error) {
-            console.log(error);
+            console.log("Add category error:", error);
         }
     };
 
@@ -40,28 +45,27 @@ const Technologies = () => {
         getTechnologies();
     }, []);
 
+    console.log(data)
     return (
-        <div className="flex flex-col items-center w-full px-4 py-10 ">
+        <div className="flex flex-col items-center w-full px-4 py-10  ">
             <h1 className="text-3xl md:text-4xl font-bold text-white text-center mb-10">
                 Technologies I'm Using
             </h1>
 
-            {data.length === 0 && (
-                <ShimmerUI/>
-            )}
+            {data.length === 0 && <ShimmerUI />}
 
-            <div className="flex flex-wrap gap-10 justify-center w-full ">
+            <div className="flex flex-wrap gap-10 justify-center w-full">
                 {data.map((tech, index) => (
                     <Category
-                        key={index}
-                        category={tech?.category}
-                        technologies={tech?.technologies}
+                        key={tech._id || index}
+                        category={tech.category}
+                        technologies={tech.techs}
                         getTechnologies={getTechnologies}
                     />
                 ))}
 
                 {openModal && (
-                    <div className="border border-gray-700 bg-gray-900 rounded-2xl p-5 w-full max-w-[14em] text-white shadow-lg relative flex flex-col">
+                    <div className="border-2 border-purple-500 rounded-xl p-6 w-full max-w-[12em] h-full text-white flex flex-col relative shadow-[0_0_10px_rgba(192,132,252,0.5),0_0_20px_rgba(192,132,252,0.4),0_0_30px_rgba(192,132,252,0.3)] transition-all duration-300 hover:shadow-[0_0_20px_rgba(192,132,252,0.8),0_0_30px_rgba(192,132,252,0.6),0_0_40px_rgba(192,132,252,0.5)]">
                         <button
                             onClick={() => setOpenModal(false)}
                             className="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-700 transition"
