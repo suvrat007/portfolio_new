@@ -27,14 +27,14 @@ const  JSproj = () => {
 
     console.log("Fetching projects:", projects);
     return (
-        <div className="w-full mt-10 ">
+        <div className="w-full mt-20 px-4 md:px-10 overflow-hidden">
 
-            <div className="p-5 flex flex-row justify-between border-b-2 mb-6 border-dashed">
-                <h1 className={'text-3xl'}> <span className={'text-yellow-400'}>JavaScript </span> Projects</h1>
+            <div className="p-5 flex flex-col md:flex-row justify-between items-start md:items-center border-b border-dashed border-yellow-500 mb-6">
+                <h1 className={'text-4xl'}> <span className={'text-yellow-400'}>JavaScript </span> Projects</h1>
                 {loggedIn && (
                     <button
                         onClick={() => setShowModal(prev => !prev)}
-                        className="text-lg py-2 px-6 bg-yellow-400 hover:bg-yellow-600 text-white rounded-full flex items-center gap-2 cursor-pointer transition-all">
+                        className="text-lg  py-2 px-6 bg-yellow-400 hover:bg-yellow-600 text-white rounded-full flex items-center gap-2 cursor-pointer transition-all">
                         <div className="flex flex-row items-center justify-center gap-2">
                             <FaPlus size={18}/> Add
                         </div>

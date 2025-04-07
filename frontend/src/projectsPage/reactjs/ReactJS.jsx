@@ -28,10 +28,10 @@ const  ReactJS = () => {
     // console.log("Fetching projects:", projects);
 
     return (
-        <div className="w-full mt-10 ">
+        <div className="w-full mt-20 px-4 md:px-10 overflow-hidden">
 
-            <div className="p-5 flex flex-row justify-between border-b-2 border-gray-200 mb-6 border-dashed">
-                <h1 className={'text-3xl '}> <span className={"text-blue-400"}>ReactJS </span>Projects</h1>
+            <div className="p-5 flex flex-col md:flex-row justify-between items-start md:items-center border-b border-dashed border-blue-500 mb-6">
+                <h1 className={'text-4xl '}> <span className={"text-blue-400"}>ReactJS </span>Projects</h1>
                 {loggedIn && (
                     <button
                         onClick={() => setShowModal(prev => !prev)}
