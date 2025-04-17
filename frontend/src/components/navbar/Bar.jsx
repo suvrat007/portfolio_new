@@ -35,32 +35,33 @@ const Bar = () => {
                 </button>
             </div>
 
-            {/* Mobile Login/Logout Button */}
-            {location.pathname !== "/login" && (
-                <div className="md:hidden fixed top-4 right-4 z-30">
-                    {loggedIn ? (
-                        <button
-                            onClick={handleLogout}
-                            className="text-white bg-purple-600 px-4 py-2 rounded-full text-lg shadow-md"
-                        >
-                            Logout
-                        </button>
-                    ) : (
-                        <button
-                            onClick={handleLogin}
-                            className="text-white bg-purple-600 px-4 py-2 rounded-full text-lg shadow-md"
-                        >
-                            Login
-                        </button>
-                    )}
-                </div>
-            )}
+
 
             {/* Mobile Menu Overlay */}
             {isMenuOpen && (
                 <div className="fixed inset-0 z-20 bg-black/70 backdrop-blur-md flex flex-col items-center justify-center gap-6 text-xl text-gray-200">
                     <Link to="/" onClick={() => setIsMenuOpen(false)} className="hover:text-purple-400 transition">Home</Link>
                     <Link to="/projects" onClick={() => setIsMenuOpen(false)} className="hover:text-purple-400 transition">Projects</Link>
+                    {/* Mobile Login/Logout Button */}
+                    {location.pathname !== "/login" && (
+                        <div className="md:hidden">
+                            {loggedIn ? (
+                                <button
+                                    onClick={handleLogout}
+                                    className="text-purple-600 px-4 py-2 rounded-full text-lg shadow-md"
+                                >
+                                    Logout
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={handleLogin}
+                                    className="text-purple-600 px-4 py-2 rounded-full text-lg shadow-md"
+                                >
+                                    Login
+                                </button>
+                            )}
+                        </div>
+                    )}
                     <div className="flex gap-4 text-2xl pt-4">
                         <a href="https://github.com/suvrat007" className="hover:text-white transition" target="_blank">
                             <FaGithub />
