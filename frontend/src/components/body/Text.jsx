@@ -12,7 +12,7 @@ const Text = () => {
             </p>
 
             <a
-                href="https://drive.google.com/file/d/1o8WVxAvruzlEAYkdF_wXOZsMM9ch_q0L/view?usp=sharing"
+                href="https://drive.google.com/file/d/1yGdpxaNCAj_G7BjVlSncMFwz2EgpVmVp/view?usp=sharing"
                 className="inline-block px-6 py-3 bg-purple-600 text-white font-medium rounded-full shadow-md hover:bg-purple-700 transition duration-300"
             >
                 Download Resume
