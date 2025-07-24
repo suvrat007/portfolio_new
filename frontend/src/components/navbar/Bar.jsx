@@ -81,23 +81,17 @@ const Bar = () => {
                 bg-gray-900/80 backdrop-blur-sm rounded-full shadow-lg border border-gray-700
                 flex-row items-center justify-between gap-4">
 
-                <span className="text-base font-bold text-gray-300">Suvrat</span>
+                <span className="text-base font-bold text-gray-300 cursor-pointer"
+                      onClick={handleLogin} >Suvrat</span>
 
-                <div className="flex gap-5 items-center text-sm">
-                    <Link to="/" className="text-purple-400 hover:text-white transition">Home</Link>
-                    <Link to="/projects" className="text-purple-400 hover:text-white transition">Projects</Link>
+                <div className="flex gap-5  items-center text-sm">
+                    <Link to="/" className="text-purple-400 hover:text-white transition cursor-pointer">Home</Link>
+                    <Link to="/projects" className="text-purple-400 hover:text-white transition cursor-pointer">Projects</Link>
                     {location.pathname !== "/login" && (
-                        !loggedIn ? (
-                            <button
-                                onClick={handleLogin}
-                                className="text-purple-400 hover:text-white transition"
-                            >
-                                Login
-                            </button>
-                        ) : (
+                        loggedIn && (
                             <button
                                 onClick={handleLogout}
-                                className="text-purple-400 hover:text-white transition"
+                                className="text-purple-400 hover:text-white transition cursor-pointer"
                             >
                                 Logout
                             </button>

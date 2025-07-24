@@ -45,7 +45,7 @@ const FSProj = () => {
             ) : (
                 <div className="flex flex-col w-full overflow-x-auto">
                     <div className="flex gap-6 min-w-max p-4">
-                        {projects.map((project, index) => (
+                        {projects.slice().reverse().map((project, index) => (
                             <EachProject
                                 key={index}
                                 project={project}

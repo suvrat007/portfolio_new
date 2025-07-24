@@ -25,12 +25,13 @@ const OneProject = ({ project, fetchProjects }) => {
             fetchProjects={fetchProjects}
         />
     ) : (
-        <div className="relative group min-w-[20em] h-64 rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300">
+        <div className="relative group m-2 min-w-[20em] h-64 rounded-xl overflow-hidden shadow-md hover:scale-105 transition-all duration-300">
             <img src={project.image} className="w-full h-full object-cover rounded-xl" />
             <div className="absolute bottom-0 left-0 w-full p-2 backdrop-blur-sm bg-black/50 text-white text-center text-lg font-semibold">
                 {project.name}
             </div>
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center px-4 text-center rounded-lg">
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100
+            transition-opacity duration-300 flex flex-col items-center justify-center px-4 text-center rounded-lg">
                 <h1 className="text-lg font-bold mb-2">{project.name}</h1>
                 <p className="text-sm mb-3">{project.description}</p>
                 <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-blue-400 underline hover:text-blue-300 transition">

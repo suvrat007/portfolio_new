@@ -21,7 +21,8 @@ const OneMajorProject = ({ project, getTopFourProjects }) => {
     return (
         <>
             {isEdit ? (
-                <div className="relative w-full h-full  sm:w-[45%] lg:w-[35%]  bg-[#1A1A1A] rounded-xl overflow-hidden border border-gray-800 shadow-lg hover:shadow-2xl transition">
+                <div className=" w-full h-[30em] flex flex-col sm:w-[45%] lg:w-[35%]  bg-[#1A1A1A] rounded-xl overflow-hidden
+                border border-gray-800 shadow-lg hover:shadow-2xl transition hover:scale-[1.05] ">
                     {loggedIn && (
                         <button
                             onClick={() => deleteTopFour(project._id)}
@@ -32,7 +33,7 @@ const OneMajorProject = ({ project, getTopFourProjects }) => {
                         </button>
                     )}
 
-                    <div className="h-48 md:h-52">
+                    <div className="h-1/2">
                         <img src={project.image} alt="Project" className="w-full h-full object-cover" />
                     </div>
 
