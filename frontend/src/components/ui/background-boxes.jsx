@@ -6,13 +6,14 @@ const Boxes = ({ className, ...rest }) => {
     const rows = Array(50).fill(1); // Reduced for performance
     const cols = Array(30).fill(1); // Reduced for performance
     const colors = [
-        "#6b7280", // Gray to match dark theme
-        "#8b5cf6", // Purple to match portfolio
-        "#ec4899", // Pink
-        "#10b981", // Green
-        "#f59e0b", // Amber
-        "#ef4444", // Red
-        "#3b82f6", // Blue
+        "#1f2937", // Dark gray
+        "#374151", // Medium dark gray
+        "#4b5563", // Lighter dark gray
+        "#6b7280", // Gray
+        "#111827", // Very dark gray
+        "#1e293b", // Dark slate
+        "#334155", // Medium slate
+        "#475569", // Light slate
     ];
 
     const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
@@ -23,7 +24,7 @@ const Boxes = ({ className, ...rest }) => {
                 transform: `translate(-40%, -60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)`,
             }}
             className={cn(
-                "absolute top-0 left-0 z-0 flex h-full w-full p-4 opacity-20", // Lower opacity for subtle background
+                "absolute top-0 left-0 z-0 flex h-full w-full p-4 opacity-15", // Even lower opacity for dark mode
                 className
             )}
             {...rest}
@@ -31,7 +32,7 @@ const Boxes = ({ className, ...rest }) => {
             {rows.map((_, i) => (
                 <motion.div
                     key={`row-${i}`}
-                    className="relative h-6 w-12 border-l border-gray-800" // Smaller boxes, darker borders
+                    className="relative h-6 w-12 border-l border-gray-900" // Darker borders for dark mode
                 >
                     {cols.map((_, j) => (
                         <motion.div
@@ -43,7 +44,7 @@ const Boxes = ({ className, ...rest }) => {
                             animate={{
                                 transition: { duration: 2 },
                             }}
-                            className="relative h-6 w-12 border-t border-r border-gray-800"
+                            className="relative h-6 w-12 border-t border-r border-gray-900"
                         >
                             {j % 2 === 0 && i % 2 === 0 && (
                                 <svg
@@ -52,7 +53,7 @@ const Boxes = ({ className, ...rest }) => {
                                     viewBox="0 0 24 24"
                                     strokeWidth="1"
                                     stroke="currentColor"
-                                    className="pointer-events-none absolute -top-3 -left-5 h-5 w-8 stroke-[1px] text-gray-700"
+                                    className="pointer-events-none absolute -top-3 -left-5 h-5 w-8 stroke-[1px] text-gray-800"
                                 >
                                     <path
                                         strokeLinecap="round"
