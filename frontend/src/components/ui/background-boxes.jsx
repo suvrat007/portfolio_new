@@ -1,73 +1,80 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../utils/bg.jsx";
 
-const Boxes = ({ className, ...rest }) => {
-    const rows = Array(50).fill(1); // Reduced for performance
-    const cols = Array(30).fill(1); // Reduced for performance
-    const colors = [
-        "#1f2937", // Dark gray
-        "#374151", // Medium dark gray
-        "#4b5563", // Lighter dark gray
-        "#6b7280", // Gray
-        "#111827", // Very dark gray
-        "#1e293b", // Dark slate
-        "#334155", // Medium slate
-        "#475569", // Light slate
-    ];
+const cn = (...classes) => {
+    return classes.filter(Boolean).join(' ');
+};
 
-    const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
+export const BackgroundGradient = ({
+                                children,
+                                className,
+                                containerClassName,
+                                animate = true
+                            }) => {
+    const variants = {
+        initial: {
+            backgroundPosition: "0 50%",
+        },
+        animate: {
+            backgroundPosition: ["0 50%", "100% 50%", "0 50%"],
+        },
+    };
 
     return (
-        <div
-            style={{
-                transform: `translate(-40%, -60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)`,
-            }}
-            className={cn(
-                "absolute top-0 left-0 z-0 flex h-full w-full p-4 opacity-15", // Even lower opacity for dark mode
-                className
-            )}
-            {...rest}
-        >
-            {rows.map((_, i) => (
-                <motion.div
-                    key={`row-${i}`}
-                    className="relative h-6 w-12 border-l border-gray-900" // Darker borders for dark mode
-                >
-                    {cols.map((_, j) => (
-                        <motion.div
-                            key={`col-${j}`}
-                            whileHover={{
-                                backgroundColor: getRandomColor(),
-                                transition: { duration: 0 },
-                            }}
-                            animate={{
-                                transition: { duration: 2 },
-                            }}
-                            className="relative h-6 w-12 border-t border-r border-gray-900"
-                        >
-                            {j % 2 === 0 && i % 2 === 0 && (
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1"
-                                    stroke="currentColor"
-                                    className="pointer-events-none absolute -top-3 -left-5 h-5 w-8 stroke-[1px] text-gray-800"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M12 6v12m6-6H6"
-                                    />
-                                </svg>
-                            )}
-                        </motion.div>
-                    ))}
-                </motion.div>
-            ))}
+        // Outer container: Keep thin padding for the border effect
+        <div className={cn("relative p-[1.5px] group", containerClassName)}>
+            {/* Blurry gradient layer: Maximum blur, full opacity, and vibrant purple/pink/blue neon colors */}
+            <motion.div
+                variants={animate ? variants : undefined}
+                initial={animate ? "initial" : undefined}
+                animate={animate ? "animate" : undefined}
+                transition={
+                    animate
+                        ? {
+                            duration: 4, // Slightly increased duration for a softer, pulsating glow
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                        }
+                        : undefined
+                }
+                style={{
+                    backgroundSize: animate ? "400% 400%" : undefined,
+                }}
+                className={cn(
+                    // MAXIMUM blur-3xl and full opacity for an incredibly strong, persistent glow
+                    "absolute inset-0 rounded-full z-[1] opacity-100 group-hover:opacity-100 blur-3xl transition duration-500 will-change-transform",
+                    // Custom radial gradient with even more intensely vibrant purple, pink, and blue neon hues
+                    "bg-[radial-gradient(circle_farthest-side_at_0_100%,#d8b4fe,transparent),radial-gradient(circle_farthest-side_at_100%_0,#f9a8d4,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#818cf8,transparent),radial-gradient(circle_farthest-side_at_0_0,#c4b5fd,#1a191c)]"
+                )}
+            />
+
+            {/* Sharp gradient layer: Matches the neon color palette, without blur */}
+            <motion.div
+                variants={animate ? variants : undefined}
+                initial={animate ? "initial" : undefined}
+                animate={animate ? "animate" : undefined}
+                transition={
+                    animate
+                        ? {
+                            duration: 4, // Consistent with the blurry layer
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                        }
+                        : undefined
+                }
+                style={{
+                    backgroundSize: animate ? "400% 400%" : undefined,
+                }}
+                className={cn(
+                    "absolute inset-0 rounded-full z-[1] will-change-transform",
+                    // Same intensely vibrant purple/pink/blue neon gradient for the sharp edge
+                    "bg-[radial-gradient(circle_farthest-side_at_0_100%,#d8b4fe,transparent),radial-gradient(circle_farthest-side_at_100%_0,#f9a8d4,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#818cf8,transparent),radial-gradient(circle_farthest-side_at_0_0,#c4b5fd,#1a191c)]"
+                )}
+            />
+
+            {/* Main content container */}
+            <div className={cn("relative z-10", className)}>{children}</div>
         </div>
     );
 };
 
-export default React.memo(Boxes);

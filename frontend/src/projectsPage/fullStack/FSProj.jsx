@@ -9,14 +9,21 @@ import ShimmerUI from "../../utils/ShimmerUI.jsx";
 const FSProj = () => {
     const [projects, setProjects] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const loggedIn = useSelector(store => store.loggedIn.isLoggedIn);
 
     const fetchProjects = async () => {
+        setIsLoading(true);
         try {
             const response = await axiosInstance.get("/getFullStackProjects");
-            setProjects(response.data);
+            const projectsArray = Array.isArray(response.data) ? response.data : [];
+            setProjects(projectsArray);
+
         } catch (error) {
             console.error("Error fetching projects:", error);
+            setProjects([]);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -40,14 +47,19 @@ const FSProj = () => {
                 )}
             </div>
 
-            {projects.length === 0 ? (
+            {/* Conditional Rendering based on loading state */}
+            {isLoading ? (
                 <ShimmerUI />
+            ) : projects.length === 0 ? (
+                <p className="text-gray-400 text-center p-8 text-lg">
+                    No full stack projects found. Click 'Add' to create one!
+                </p>
             ) : (
                 <div className="flex flex-col w-full overflow-x-auto">
                     <div className="flex gap-6 min-w-max p-4">
                         {projects.slice().reverse().map((project, index) => (
                             <EachProject
-                                key={index}
+                                key={project._id || index}
                                 project={project}
                                 setProjects={setProjects}
                                 projects={projects}

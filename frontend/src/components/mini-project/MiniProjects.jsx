@@ -15,7 +15,8 @@ const MiniProjects = () => {
     const fetchProjects = async () => {
         try {
             const res = await axiosInstance.get("/getJSProjects");
-            setJsProjects(res.data || []);
+            const projectsArray = Array.isArray(res.data) ? res.data : [];
+            setJsProjects(projectsArray);
         } catch (err) {
             console.error("Failed to fetch projects.", err);
         }
@@ -27,7 +28,7 @@ const MiniProjects = () => {
 
     return (
         <div className="w-full relative mb-10">
-            <div className="flex items-center justify-between mt-8 px-6 border-b border-gray-800 pb-4">
+            <div className="flex items-center justify-between mt-8 px-6 border-b border-while pb-4">
                 <h1 className="text-3xl text-white font-semibold">Mini-Projects</h1>
                 {isLoggedIn && (
                     <button

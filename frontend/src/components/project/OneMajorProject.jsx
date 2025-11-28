@@ -21,7 +21,7 @@ const OneMajorProject = ({ project, getTopFourProjects }) => {
     return (
         <>
             {isEdit ? (
-                <div className=" w-full h-[30em] flex flex-col sm:w-[45%] lg:w-[35%]  bg-[#1A1A1A] rounded-xl overflow-hidden
+                <div className=" w-full h-[30em] flex flex-col sm:w-[45%] lg:w-[35%]  backdrop-blur-[15px] rounded-xl overflow-hidden
                 border border-gray-800 shadow-lg hover:shadow-2xl transition hover:scale-[1.05] ">
                     {loggedIn && (
                         <button

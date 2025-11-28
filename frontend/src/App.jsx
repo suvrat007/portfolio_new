@@ -1,6 +1,7 @@
 import "./App.css";
 import { RouterProvider } from "react-router-dom";
-import appRouter from "./appRouter.jsx";  // Import router separately
+import appRouter from "./appRouter.jsx";
+import {BackgroundGradientAnimation} from "./components/ui/background-gradient-animation.jsx";  // Import router separately
 
 const clearLocalStorage = () => {
     localStorage.clear();
@@ -8,10 +9,14 @@ const clearLocalStorage = () => {
 
 function App() {
     return (
-        <div className="min-h-screen bg-[#000000] text-slate-200 overflow-x-hidden">
-            {clearLocalStorage()}
-            <RouterProvider router={appRouter} />
-        </div>
+        <BackgroundGradientAnimation
+            className="min-h-screen overflow-y-auto"
+        >
+            <div className="text-slate-200 overflow-auto">
+                {clearLocalStorage()}
+                <RouterProvider router={appRouter} />
+            </div>
+        </BackgroundGradientAnimation>
     );
 }
 
