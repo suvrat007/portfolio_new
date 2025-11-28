@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "https://project-api-y3d4.onrender.com/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
