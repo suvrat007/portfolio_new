@@ -128,7 +128,7 @@ export const Practice = () => (
         label={SECTIONS.practice.label}
         aside="Two disciplines, one job"
     >
-        <div className="flex flex-col gap-24 md:gap-32">
+        <div className="flex flex-col gap-16 md:gap-20">
             {PRACTICE_TRACKS.map((track) => (
                 <Track key={track.id} track={track} />
             ))}

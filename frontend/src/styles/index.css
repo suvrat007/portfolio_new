@@ -65,7 +65,12 @@
     --text-label--line-height: 1;
 
     --spacing-gutter: clamp(1.25rem, 4vw, 4rem);
-    --spacing-section: clamp(5rem, 11vw, 10rem);
+    /*
+     * Applied to the top AND bottom of every section, so the visible gap
+     * between two sections is twice this value. Keep that doubling in mind
+     * before raising it.
+     */
+    --spacing-section: clamp(2.5rem, 4.5vw, 4.5rem);
 
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out-quint: cubic-bezier(0.65, 0, 0.35, 1);

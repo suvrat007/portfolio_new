@@ -90,7 +90,7 @@ export const Profile = () => (
 
         {/* Numbers */}
         <RevealGroup
-            className="mt-20 grid grid-cols-2 gap-x-6 gap-y-12 md:mt-28 md:grid-cols-4"
+            className="mt-14 grid grid-cols-2 gap-x-6 gap-y-10 md:mt-16 md:grid-cols-4"
             stagger={STAGGER.base}
         >
             {STATS.map((stat) => (
@@ -99,7 +99,7 @@ export const Profile = () => (
         </RevealGroup>
 
         {/* Track record */}
-        <div className="mt-20 md:mt-28">
+        <div className="mt-14 md:mt-16">
             <Reveal className="u-label mb-8 text-faint">Track record</Reveal>
             <RevealGroup className="border-t border-line">
                 {EXPERIENCE.map((entry) => (

@@ -57,7 +57,7 @@ export const Roadmap = () => {
             aside={`${buildingCount} active · ${roadmap.length} committed`}
         >
             <RevealGroup
-                className="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-4"
+                className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-4"
                 stagger={STAGGER.base}
             >
                 {roadmap.map((entry, index) => (
@@ -66,7 +66,7 @@ export const Roadmap = () => {
             </RevealGroup>
 
             <motion.p
-                className="u-label mt-16 max-w-lg text-faint"
+                className="u-label mt-12 max-w-lg text-faint"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}

@@ -34,7 +34,7 @@ export const Section = ({
             {label ? (
                 <>
                     {withRule ? <Rule /> : null}
-                    <Reveal className="flex items-baseline justify-between gap-6 pt-5 pb-12 md:pb-16">
+                    <Reveal className="flex items-baseline justify-between gap-6 pt-4 pb-8 md:pb-10">
                         <div className="flex items-baseline gap-3 md:gap-5">
                             {index ? (
                                 <span className="u-label u-numeric text-faint">{index}</span>

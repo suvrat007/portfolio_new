@@ -26,7 +26,7 @@ export const Contact = () => {
                 className="u-display max-w-5xl"
             />
 
-            <div className="mt-16 grid gap-12 md:grid-cols-12 md:gap-8">
+            <div className="mt-12 grid gap-10 md:grid-cols-12 md:gap-8">
                 <Reveal className="md:col-span-5">
                     <p className="u-lede u-pretty max-w-lg text-ink">{CONTACT.lede}</p>
 

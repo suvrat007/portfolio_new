@@ -15,7 +15,7 @@ export const HERO = {
     meta: [
         { label: "Discipline", value: "Financial systems" },
         { label: "Based", value: "Noida, IN" },
-        { label: "Reading", value: "Filings & vol surfaces" },
+        { label: "Reading", value: "Filings & ratios" },
         { label: "Since", value: "2023" },
     ],
 };
@@ -25,7 +25,7 @@ export const PROFILE = {
         "I am a B.Tech IT & Engineering student specialising in machine learning and data analytics, and I spend the other half of my time on capital markets.",
     body: [
         "The engineering half is production-scale: real-time analytics dashboards, data pipelines and full-stack platforms. At Exly (YC W19) I built and optimised React data visualisation components on the creator analytics platform, reaching 67% of active users across a base of 10,000+ B2B customers, and stabilised a release pipeline that was failing its tests.",
-        "The markets half is deliberate, and it is coursework I set myself rather than a module I was assigned. Financial accounting through to cash-flow reconstruction. Portfolio theory through to the security market line. Black-Scholes, and DCF valuation currently in progress.",
+        "The markets half is deliberate, and it is coursework I set myself rather than a module I was assigned. Financial accounting and portfolio theory are what I am working through now, with options pricing and intrinsic valuation queued behind them.",
         "What connects them is a preference for the second artefact. A DCF is a model; a valuation engine is a system. A pricing formula is a formula; a pricing service with a live greeks surface is infrastructure. I am interested in building the second one.",
     ],
     signature: "Where data systems meet capital markets.",
@@ -107,14 +107,14 @@ export const PRACTICE_TRACKS = [
  * rather than asserted.
  */
 export const CURRICULUM = {
-    label: "Studied",
-    note: "Self-directed, alongside the degree.",
+    label: "Studying",
+    note: "A self-directed finance curriculum running alongside the degree.",
     items: [
-        { name: "Financial Accounting", detail: "General ledger, ratio analysis, cash flow statements", status: "Complete" },
-        { name: "Portfolio Theory", detail: "CAPM, security market line, efficient frontier", status: "Complete" },
-        { name: "Options Pricing", detail: "Black-Scholes, greeks, implied volatility", status: "Complete" },
-        { name: "Intrinsic Valuation", detail: "DCF, WACC, terminal value, sensitivity analysis", status: "In progress" },
-        { name: "Statistical Modelling", detail: "Regression, inference, time series", status: "Ongoing" },
+        { name: "Financial Accounting", detail: "General ledger, ratio analysis, cash flow statements", status: "In progress" },
+        { name: "Portfolio Theory", detail: "CAPM, security market line, efficient frontier", status: "In progress" },
+        { name: "Options Pricing", detail: "Black-Scholes, greeks, implied volatility", status: "Planned" },
+        { name: "Intrinsic Valuation", detail: "DCF, WACC, terminal value, sensitivity analysis", status: "Planned" },
+        { name: "Statistical Modelling", detail: "Regression, inference, time series", status: "Planned" },
     ],
 };
 
@@ -211,7 +211,7 @@ export const BOOT_FACTS = [
     "Studying financial statement analysis: general ledger mechanics, ratio decomposition and cash-flow reconstruction.",
     "Shipped React analytics components at Exly (YC W19) that reach 67% of active users across 10,000+ B2B customers.",
     "Building an equity research terminal and a Black-Scholes options pricing engine.",
-    "Portfolio theory in practice: CAPM, the security market line and risk-adjusted attribution.",
+    "Working through portfolio theory: CAPM, the security market line and risk-adjusted attribution.",
     "B.Tech IT & Engineering, specialising in machine learning and data analytics. CGPA 9.18 out of 10.",
     "Ru-Ok runs a real-time pipeline over 300+ categorised emotional signals with contextual tagging.",
     "192+ problems solved on LeetCode. 100+ SQL problems on HackerRank.",

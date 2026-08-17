@@ -31,7 +31,7 @@ export const FeaturedWork = () => {
                 emptyDescription="Projects added through the admin panel appear here."
             />
 
-            <Reveal className="mt-12 flex justify-end">
+            <Reveal className="mt-8 flex justify-end">
                 <Link
                     to={ROUTES.work}
                     className="group flex items-center gap-3 text-sm text-ink"

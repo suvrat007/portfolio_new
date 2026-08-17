@@ -93,7 +93,7 @@ const WorkPage = () => {
                 <DomainFilter options={options} active={domain} onChange={setDomain} />
             </Reveal>
 
-            <div className="mt-12">
+            <div className="mt-8">
                 <Rule />
             </div>
 
