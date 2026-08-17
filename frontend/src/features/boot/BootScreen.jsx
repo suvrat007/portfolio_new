@@ -67,7 +67,7 @@ export const BootScreen = ({ progress, statusLabel, elapsedSeconds, isReturningV
                 </motion.header>
 
                 {/* Rotating facts */}
-                <div className="flex flex-1 items-center py-16">
+                <div className="flex flex-1 items-center py-10 md:py-16">
                     <div className="w-full max-w-4xl">
                         <AnimatePresence mode="wait">
                             <motion.div
@@ -80,7 +80,7 @@ export const BootScreen = ({ progress, statusLabel, elapsedSeconds, isReturningV
                                 <p className="u-label u-numeric mb-6 text-faint">
                                     {pad(factIndex + 1)} / {pad(BOOT_FACTS.length)}
                                 </p>
-                                <p className="u-headline u-balance max-w-3xl">
+                                <p className="u-headline u-balance max-w-3xl text-[1.375rem] leading-snug sm:text-[length:var(--text-headline)] sm:leading-[1.05]">
                                     {BOOT_FACTS[factIndex]}
                                 </p>
                             </motion.div>

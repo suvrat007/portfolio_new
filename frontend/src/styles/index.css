@@ -53,18 +53,25 @@
     --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
     /* Fluid display scale. The page reflows rather than stepping at breakpoints. */
-    --text-display: clamp(2.75rem, 10.5vw, 10rem);
-    --text-display--line-height: 0.86;
-    --text-headline: clamp(2rem, 5.5vw, 4.25rem);
-    --text-headline--line-height: 0.94;
-    --text-title: clamp(1.5rem, 3vw, 2.25rem);
-    --text-title--line-height: 1.08;
-    --text-lede: clamp(1.0625rem, 1.4vw, 1.3125rem);
+    /*
+     * The lower bound of each clamp is what a phone actually gets, so it is
+     * tuned for a ~360px screen rather than being a token minimum. The vw term
+     * carries the growth from there.
+     */
+    --text-display: clamp(2.25rem, 11vw, 10rem);
+    --text-display--line-height: 0.9;
+    --text-headline: clamp(1.625rem, 5.5vw, 4.25rem);
+    --text-headline--line-height: 1;
+    --text-title: clamp(1.25rem, 3vw, 2.25rem);
+    --text-title--line-height: 1.15;
+    --text-lede: clamp(1rem, 1.4vw, 1.3125rem);
     --text-lede--line-height: 1.55;
     --text-label: 0.6875rem;
     --text-label--line-height: 1;
 
-    --spacing-gutter: clamp(1.25rem, 4vw, 4rem);
+    --spacing-gutter: clamp(1.5rem, 4vw, 4rem);
+    /* Minimum comfortable touch target. */
+    --spacing-tap: 2.75rem;
     /*
      * Applied to the top AND bottom of every section, so the visible gap
      * between two sections is twice this value. Keep that doubling in mind
@@ -108,6 +115,8 @@
         background-color: var(--paper);
         color: var(--ink);
         font-family: var(--font-sans);
+        /* A long URL or tag must never widen the page on a phone. */
+        overflow-wrap: break-word;
         font-synthesis-weight: none;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
@@ -208,25 +217,47 @@
         letter-spacing: -0.01em;
     }
 
+    /*
+     * Line height and tracking open up on small screens. Display settings that
+     * look composed at 160px are cramped and hard to read once the same words
+     * wrap across a phone.
+     */
     .u-display {
         font-size: var(--text-display);
-        line-height: 0.86;
-        letter-spacing: -0.045em;
+        line-height: 0.95;
+        letter-spacing: -0.03em;
         font-weight: 500;
     }
 
     .u-headline {
         font-size: var(--text-headline);
-        line-height: 0.96;
-        letter-spacing: -0.035em;
+        line-height: 1.05;
+        letter-spacing: -0.025em;
         font-weight: 500;
     }
 
     .u-title {
         font-size: var(--text-title);
-        line-height: 1.08;
-        letter-spacing: -0.02em;
+        line-height: 1.2;
+        letter-spacing: -0.015em;
         font-weight: 500;
+    }
+
+    @media (min-width: 768px) {
+        .u-display {
+            line-height: 0.86;
+            letter-spacing: -0.045em;
+        }
+
+        .u-headline {
+            line-height: 0.96;
+            letter-spacing: -0.035em;
+        }
+
+        .u-title {
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+        }
     }
 
     .u-lede {
@@ -296,6 +327,28 @@
         height: 1px;
         width: 100%;
         background-color: var(--line);
+    }
+
+    /*
+     * Guarantees a comfortable touch target without changing how the control
+     * looks: the box grows to size but the label stays where it was.
+     */
+    .u-tap {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .u-tap::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        min-width: var(--spacing-tap);
+        min-height: var(--spacing-tap);
+        width: 100%;
+        height: 100%;
     }
 }
 

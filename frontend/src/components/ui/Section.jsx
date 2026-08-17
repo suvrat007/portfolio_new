@@ -34,7 +34,9 @@ export const Section = ({
             {label ? (
                 <>
                     {withRule ? <Rule /> : null}
-                    <Reveal className="flex items-baseline justify-between gap-6 pt-4 pb-8 md:pb-10">
+                    {/* Wraps so a long aside stacks under the label rather than
+                        crushing it on a narrow screen. */}
+                    <Reveal className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 pt-4 pb-8 md:pb-10">
                         <div className="flex items-baseline gap-3 md:gap-5">
                             {index ? (
                                 <span className="u-label u-numeric text-faint">{index}</span>

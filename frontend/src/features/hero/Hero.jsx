@@ -83,7 +83,7 @@ export const Hero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: DURATION.slow, delay: 0.5, ease: EASE.out }}
                     >
-                        <div className="relative w-28 overflow-hidden bg-sunken md:w-full">
+                        <div className="relative w-24 overflow-hidden bg-sunken sm:w-28 md:w-full">
                             <img
                                 src={SITE.portraitUrl}
                                 alt={SITE.name}
@@ -135,7 +135,7 @@ export const Hero = () => {
 
                     {/* Meta column: the small print that anchors the claim. */}
                     <motion.dl
-                        className="flex flex-col gap-5 md:col-span-3 md:col-start-10"
+                        className="flex flex-col gap-4 md:col-span-3 md:col-start-10 md:gap-5"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: DURATION.slow, delay: 0.75 }}

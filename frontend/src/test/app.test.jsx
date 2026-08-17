@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 
@@ -139,6 +140,24 @@ describe("work page", () => {
 
         expect(screen.getByRole("button", { name: /Everything/i })).toBeInTheDocument();
         expect(screen.getByRole("button", { name: /Finance/i })).toBeInTheDocument();
+    });
+});
+
+describe("mobile navigation", () => {
+    // The header drops the clock, theme switch and sign-out below md. Those
+    // controls have to survive somewhere, or they are simply gone on a phone.
+    it("exposes navigation, contact and the theme switch once opened", async () => {
+        const user = userEvent.setup();
+        renderRoute(ROUTES.home);
+
+        await user.click(screen.getByRole("button", { name: /open menu/i }));
+
+        // The header keeps its own contact anchor, so match on any of them.
+        expect(screen.getAllByRole("link", { name: /contact/i }).length).toBeGreaterThan(0);
+        expect(
+            screen.getAllByRole("button", { name: /switch to .* theme/i }).length,
+        ).toBeGreaterThan(0);
+        expect(screen.getAllByRole("link", { name: /work/i }).length).toBeGreaterThan(0);
     });
 });
 

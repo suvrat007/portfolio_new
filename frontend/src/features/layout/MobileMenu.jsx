@@ -2,8 +2,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import { DURATION, EASE, STAGGER } from "../../constants/motion";
-import { NAV_LINKS, SOCIAL_LINKS, SITE } from "../../constants/site";
+import { NAV_LINKS, ROUTES, SECTIONS, SITE, SOCIAL_LINKS } from "../../constants/site";
+import { useAuth } from "../../hooks/useAuth";
+import { useClock } from "../../hooks/useClock";
 import { useLockBodyScroll } from "../../hooks/useLockBodyScroll";
+import { useTheme } from "../../app/ThemeProvider";
+import { ThemeToggle } from "./ThemeToggle";
 
 const panel = {
     hidden: { clipPath: "inset(0 0 100% 0)" },
@@ -22,9 +26,18 @@ const item = {
     visible: { y: "0%", transition: { duration: DURATION.slow, ease: EASE.entrance } },
 };
 
-/** Full-screen navigation for small viewports. */
+/**
+ * Full-screen navigation for phones.
+ *
+ * It carries the utilities the header drops at this width (theme, clock,
+ * sign-out) as well as the in-page contact anchor, so nothing is unreachable
+ * on a small screen.
+ */
 export const MobileMenu = ({ isOpen, onClose }) => {
     useLockBodyScroll(isOpen);
+    const theme = useTheme();
+    const time = useClock();
+    const { isAuthenticated, signOut } = useAuth();
 
     return (
         <AnimatePresence>
@@ -36,11 +49,12 @@ export const MobileMenu = ({ isOpen, onClose }) => {
                     animate="visible"
                     exit="exit"
                 >
-                    <div className="u-container flex flex-1 flex-col justify-between py-8">
-                        <div className="h-8" aria-hidden="true" />
+                    <div className="u-container flex flex-1 flex-col justify-between overflow-y-auto py-8">
+                        {/* Clears the fixed header. */}
+                        <div className="h-10 shrink-0" aria-hidden="true" />
 
                         <motion.nav
-                            className="flex flex-col gap-3"
+                            className="flex flex-col gap-2 py-8"
                             initial="hidden"
                             animate="visible"
                             transition={{ staggerChildren: STAGGER.loose, delayChildren: 0.15 }}
@@ -51,7 +65,7 @@ export const MobileMenu = ({ isOpen, onClose }) => {
                                         <Link
                                             to={link.to}
                                             onClick={onClose}
-                                            className="u-headline flex items-baseline gap-4"
+                                            className="u-headline flex items-baseline gap-4 py-1"
                                         >
                                             <span className="u-label u-numeric text-faint">
                                                 {link.index}
@@ -61,29 +75,75 @@ export const MobileMenu = ({ isOpen, onClose }) => {
                                     </motion.span>
                                 </span>
                             ))}
+
+                            <span className="u-mask">
+                                <motion.span className="block" variants={item}>
+                                    <Link
+                                        to={`${ROUTES.home}#${SECTIONS.contact.id}`}
+                                        onClick={onClose}
+                                        className="u-headline flex items-baseline gap-4 py-1"
+                                    >
+                                        <span className="u-label u-numeric text-faint">
+                                            {SECTIONS.contact.index}
+                                        </span>
+                                        Contact
+                                    </Link>
+                                </motion.span>
+                            </span>
                         </motion.nav>
 
                         <motion.div
-                            className="flex flex-col gap-6"
+                            className="flex shrink-0 flex-col gap-6"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.45, duration: DURATION.base }}
+                            transition={{ delay: 0.4, duration: DURATION.base }}
                         >
                             <div className="u-hairline" />
-                            <div className="flex flex-wrap gap-x-6 gap-y-3">
+
+                            <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                                 {SOCIAL_LINKS.map((social) => (
                                     <a
                                         key={social.id}
                                         href={social.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="u-label text-muted"
+                                        className="u-tap u-label py-2 text-muted"
                                     >
                                         {social.label} ↗
                                     </a>
                                 ))}
                             </div>
-                            <p className="u-label text-faint">{SITE.location}</p>
+
+                            <div className="u-hairline" />
+
+                            <div className="flex items-center justify-between gap-4 pb-2">
+                                <div className="flex flex-col gap-1.5">
+                                    <span className="u-label text-faint">{SITE.location}</span>
+                                    <span className="u-label u-numeric text-faint">
+                                        IST {time}
+                                    </span>
+                                </div>
+
+                                <div className="flex items-center gap-4">
+                                    {isAuthenticated ? (
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                signOut();
+                                                onClose();
+                                            }}
+                                            className="u-tap u-label px-1 text-muted"
+                                        >
+                                            Sign out
+                                        </button>
+                                    ) : null}
+
+                                    <ThemeToggle
+                                        isDark={theme.isDark}
+                                        onToggle={theme.toggleTheme}
+                                    />
+                                </div>
+                            </div>
                         </motion.div>
                     </div>
                 </motion.div>

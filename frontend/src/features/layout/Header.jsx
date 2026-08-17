@@ -85,8 +85,13 @@ export const Header = ({ theme }) => {
                         ) : null}
                     </nav>
 
-                    {/* Utilities */}
-                    <div className="flex items-center gap-4">
+                    {/*
+                      * Utilities. On phones only the menu button survives; the
+                      * clock, sign-out and theme switch move into the menu
+                      * itself, which keeps the bar uncrowded and every target
+                      * comfortably tappable.
+                      */}
+                    <div className="flex items-center gap-4 md:gap-5">
                         <span className="u-label u-numeric hidden text-faint lg:inline">
                             IST {time}
                         </span>
@@ -95,17 +100,21 @@ export const Header = ({ theme }) => {
                             <button
                                 type="button"
                                 onClick={signOut}
-                                className="u-label text-faint transition-colors hover:text-ink"
+                                className="u-tap u-label hidden text-faint transition-colors hover:text-ink md:inline-flex"
                             >
                                 Sign out
                             </button>
                         ) : null}
 
-                        <ThemeToggle isDark={theme.isDark} onToggle={theme.toggleTheme} />
+                        <ThemeToggle
+                            isDark={theme.isDark}
+                            onToggle={theme.toggleTheme}
+                            className="hidden md:inline-flex"
+                        />
 
                         <button
                             type="button"
-                            className="u-label text-ink md:hidden"
+                            className="u-tap u-label -mr-2 px-2 text-ink md:hidden"
                             onClick={() => setIsMenuOpen((open) => !open)}
                             aria-expanded={isMenuOpen}
                             aria-label={isMenuOpen ? "Close menu" : "Open menu"}

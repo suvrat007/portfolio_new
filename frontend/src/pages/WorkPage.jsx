@@ -25,7 +25,7 @@ const DomainFilter = ({ options, active, onChange }) => (
                     type="button"
                     onClick={() => onChange(option.value)}
                     className={cn(
-                        "u-label relative rounded-full px-4 py-2.5 transition-colors duration-300",
+                        "u-label relative rounded-full px-4 py-3 transition-colors duration-300",
                         isActive ? "text-paper" : "text-faint hover:text-ink",
                     )}
                 >

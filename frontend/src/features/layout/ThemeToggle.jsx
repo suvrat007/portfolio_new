@@ -13,7 +13,8 @@ export const ThemeToggle = ({ isDark, onToggle, className }) => (
         onClick={onToggle}
         aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
         className={cn(
-            "u-label relative h-8 w-16 overflow-hidden rounded-full border border-line",
+            // Tall enough to be a comfortable target on touch.
+            "u-label relative h-10 w-[4.5rem] overflow-hidden rounded-full border border-line",
             "text-faint transition-colors duration-500 hover:border-line-strong hover:text-ink",
             className,
         )}

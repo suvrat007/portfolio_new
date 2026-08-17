@@ -20,7 +20,7 @@ const PracticeItem = ({ item, index, isOpen, onToggle }) => (
             type="button"
             onClick={onToggle}
             aria-expanded={isOpen}
-            className="group flex w-full items-baseline gap-4 py-5 text-left md:gap-6"
+            className="group flex w-full items-baseline gap-4 py-4 text-left md:gap-6 md:py-5"
         >
             <span className="u-label u-numeric shrink-0 text-faint">{pad(index)}</span>
 
@@ -54,7 +54,7 @@ const PracticeItem = ({ item, index, isOpen, onToggle }) => (
                     transition={{ duration: DURATION.base, ease: EASE.out }}
                     className="overflow-hidden"
                 >
-                    <p className="u-pretty max-w-xl pb-6 pl-10 text-sm leading-relaxed text-muted md:pl-14">
+                    <p className="u-pretty max-w-xl pb-5 pl-9 text-sm leading-relaxed text-muted md:pb-6 md:pl-14">
                         {item.detail}
                     </p>
                 </motion.div>
