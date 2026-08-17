@@ -64,9 +64,9 @@ describe("home page", () => {
         renderRoute(ROUTES.home);
 
         await waitFor(() => {
-            expect(screen.getAllByText("Axon").length).toBeGreaterThan(0);
+            expect(screen.getAllByText("Ru-Ok").length).toBeGreaterThan(0);
         });
-        expect(screen.getAllByText("Ru-Ok").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("PacketLens").length).toBeGreaterThan(0);
     });
 
     it("renders the toolkit, including the markets competencies", () => {
@@ -81,6 +81,15 @@ describe("home page", () => {
 
         expect(screen.getByText("Equity Research Terminal")).toBeInTheDocument();
         expect(screen.getByText("Options Pricing Engine")).toBeInTheDocument();
+    });
+
+    it("lists the finance curriculum with its completion state", () => {
+        renderRoute(ROUTES.home);
+
+        expect(screen.getByText("Financial Accounting")).toBeInTheDocument();
+        // Also named as a practice-track item, so it appears more than once.
+        expect(screen.getAllByText("Intrinsic Valuation").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("In progress").length).toBeGreaterThan(0);
     });
 
     it("renders every numbered section anchor", () => {
@@ -104,7 +113,7 @@ describe("work page", () => {
     it("lists shipped and committed work together", () => {
         renderRoute(ROUTES.work);
 
-        expect(screen.getAllByText("Axon").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("Tutora").length).toBeGreaterThan(0);
         expect(screen.getByText("DCF Valuation Suite")).toBeInTheDocument();
     });
 

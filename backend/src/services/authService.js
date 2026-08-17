@@ -33,7 +33,7 @@ const login = async ({ email, password }) => {
     if (!email || !password) throw ApiError.badRequest(MESSAGES.MISSING_CREDENTIALS);
 
     const user = await User.findOne({ email: email.toLowerCase().trim() });
-    // Same error for "no such user" and "wrong password" — do not leak which.
+    // Same error for "no such user" and "wrong password". Do not leak which.
     if (!user) throw ApiError.unauthorized(MESSAGES.INVALID_CREDENTIALS);
 
     const valid = await verifyPassword(user, password);

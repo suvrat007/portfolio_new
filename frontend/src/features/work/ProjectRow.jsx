@@ -31,7 +31,7 @@ export const ProjectRow = ({ project, index, onHover, onLeave, onMove, actions }
             onMouseMove={onMove}
         >
             <div className="grid gap-4 py-8 md:grid-cols-12 md:gap-8 md:py-10">
-                {/* ── Identity ─────────────────────────────────────────────── */}
+                {/* Identity */}
                 <div className="flex items-start gap-4 md:col-span-4">
                     <span className="u-label u-numeric mt-1.5 shrink-0 text-faint">
                         {pad(index)}
@@ -55,7 +55,7 @@ export const ProjectRow = ({ project, index, onHover, onLeave, onMove, actions }
                     </div>
                 </div>
 
-                {/* ── Description ──────────────────────────────────────────── */}
+                {/* Description */}
                 <div className="md:col-span-5">
                     <p className="u-pretty max-w-xl text-sm leading-relaxed text-muted">
                         {project.description}
@@ -68,7 +68,7 @@ export const ProjectRow = ({ project, index, onHover, onLeave, onMove, actions }
                                     key={highlight}
                                     className="u-pretty flex gap-3 text-sm text-faint"
                                 >
-                                    <span aria-hidden="true">—</span>
+                                    <span aria-hidden="true">·</span>
                                     {highlight}
                                 </li>
                             ))}
@@ -85,7 +85,7 @@ export const ProjectRow = ({ project, index, onHover, onLeave, onMove, actions }
                     ) : null}
                 </div>
 
-                {/* ── Links ────────────────────────────────────────────────── */}
+                {/* Links */}
                 <div className="flex flex-wrap items-start gap-x-6 gap-y-3 md:col-span-3 md:justify-end">
                     {project.liveUrl ? (
                         <a

@@ -27,7 +27,7 @@ const projectFields = {
     },
     /** Free-form stack/technique labels, e.g. ["Python", "Black-Scholes"]. */
     tags: { type: [String], default: [] },
-    /** Human readable, e.g. "Jun 2025 — Aug 2025". */
+    /** Human readable, e.g. "Jun 2025 to Aug 2025". */
     timeline: { type: String, default: "", trim: true },
     /** Bullet points surfaced on the project detail row. */
     highlights: { type: [String], default: [] },

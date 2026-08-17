@@ -22,7 +22,7 @@ const DOT_TONE = {
 };
 
 /**
- * Status indicator. Only `live` pulses — a planned project shouldn't look like
+ * Status indicator. Only `live` pulses. A planned project shouldn't look like
  * it is doing something right now.
  */
 export const StatusDot = ({ status = PROJECT_STATUS.LIVE, withLabel = false, className }) => (

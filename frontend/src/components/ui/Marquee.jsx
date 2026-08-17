@@ -10,7 +10,7 @@ import { cn } from "../../lib/cn";
 export const Marquee = ({
     items,
     className,
-    separator = "—",
+    separator = "·",
     durationS = MOTION_CONFIG.marqueeDurationS,
     pauseOnHover = true,
 }) => {

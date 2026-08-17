@@ -21,14 +21,14 @@ export const Footer = () => {
         <footer className="border-t border-line">
             <div className="u-container py-16 md:py-20">
                 <Reveal className="grid gap-12 md:grid-cols-12">
-                    {/* ── Wordmark ─────────────────────────────────────────── */}
+                    {/* Wordmark */}
                     <div className="md:col-span-5">
                         <p className="u-title max-w-xs u-balance">{SITE.name}</p>
                         <p className="u-label mt-4 text-faint">{SITE.role}</p>
                         <p className="u-label mt-2 text-faint">{SITE.location}</p>
                     </div>
 
-                    {/* ── Navigation ───────────────────────────────────────── */}
+                    {/* Navigation */}
                     <nav className="md:col-span-3">
                         <p className="u-label mb-5 text-faint">Pages</p>
                         <ul className="flex flex-col gap-3">
@@ -47,7 +47,7 @@ export const Footer = () => {
                         </ul>
                     </nav>
 
-                    {/* ── Elsewhere ────────────────────────────────────────── */}
+                    {/* Elsewhere */}
                     <div className="md:col-span-4">
                         <p className="u-label mb-5 text-faint">Elsewhere</p>
                         <ul className="flex flex-col gap-3">

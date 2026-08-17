@@ -7,7 +7,7 @@ import { Button } from "../../components/ui/Button";
 import { Field } from "../../components/ui/Field";
 import { Reveal } from "../../components/ui/Reveal";
 
-/** Admin sign-in. Deliberately plain — it is not a public-facing surface. */
+/** Admin sign-in. Deliberately plain. It is not a public-facing surface. */
 export const LoginPanel = () => {
     const { signIn, isSubmitting, error, dismissError } = useAuth();
     const [values, setValues] = useState({ email: "", password: "" });

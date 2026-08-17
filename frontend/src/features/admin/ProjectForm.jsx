@@ -192,7 +192,7 @@ export const ProjectForm = ({
                     label="Timeline"
                     value={values.timeline}
                     onChange={setField("timeline")}
-                    placeholder="Jun 2026 — Aug 2026"
+                    placeholder="Jun 2026 to Aug 2026"
                 />
 
                 <div className="grid gap-6 sm:grid-cols-2">
@@ -215,7 +215,7 @@ export const ProjectForm = ({
                     value={values.image}
                     onChange={setField("image")}
                     placeholder="https://"
-                    hint="Optional — shown on hover in the work index"
+                    hint="Optional. Shown on hover in the work index"
                 />
 
                 {error ? <p className="text-sm text-signal">{error}</p> : null}

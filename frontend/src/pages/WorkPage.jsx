@@ -50,7 +50,7 @@ const WorkPage = () => {
     usePageMeta({
         title: "Work",
         description:
-            "Selected and complete work by Suvrat Mittal — financial systems, data pipelines and full-stack platforms.",
+            "Selected and complete work by Suvrat Mittal: financial systems, data pipelines and full-stack platforms.",
     });
 
     const { shipped, roadmap } = useContent();

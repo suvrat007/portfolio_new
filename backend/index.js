@@ -9,7 +9,7 @@ const start = async () => {
     const app = createApp();
 
     // Listen before the database resolves so the health check answers during a
-    // cold start — that is what lets the frontend's warm-up ping do its job.
+    // cold start. That is what lets the frontend's warm-up ping do its job.
     const server = app.listen(env.PORT, () => {
         console.log(`[api] listening on :${env.PORT} (${env.NODE_ENV})`);
     });

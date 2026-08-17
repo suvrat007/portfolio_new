@@ -12,7 +12,7 @@ import { BootScreen } from "./features/boot/BootScreen";
  *
  * The router renders underneath the cold-start screen from the very first
  * frame, so the page behind it is fully laid out and painted by the time the
- * overlay fades — there is no second load when the intro ends.
+ * overlay fades. There is no second load when the intro ends.
  */
 const App = () => {
     const { hasData, status, source } = useContentBootstrap();

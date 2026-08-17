@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { PRACTICE_TRACKS } from "../../constants/content";
+import { CURRICULUM, PRACTICE_TRACKS } from "../../constants/content";
 import { DURATION, EASE, fadeUp } from "../../constants/motion";
 import { SECTIONS } from "../../constants/site";
 import { cn } from "../../lib/cn";
@@ -90,6 +90,37 @@ const Track = ({ track }) => {
     );
 };
 
+/**
+ * The finance curriculum, listed plainly. Keeps the markets claim specific:
+ * named topics with a completion state, rather than an adjective.
+ */
+const Curriculum = () => (
+    <div className="grid gap-8 md:grid-cols-12">
+        <Reveal className="md:col-span-4">
+            <p className="u-label mb-4 text-faint">{CURRICULUM.label}</p>
+            <p className="u-pretty max-w-xs text-sm text-muted">{CURRICULUM.note}</p>
+        </Reveal>
+
+        <RevealGroup className="md:col-span-7 md:col-start-6">
+            {CURRICULUM.items.map((item) => (
+                <motion.div
+                    key={item.name}
+                    variants={fadeUp}
+                    className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line py-4"
+                >
+                    <span className="text-sm text-ink">{item.name}</span>
+                    <span className="u-label order-3 w-full text-faint sm:order-2 sm:w-auto sm:flex-1 sm:px-6">
+                        {item.detail}
+                    </span>
+                    <span className="u-label order-2 text-muted sm:order-3">
+                        {item.status}
+                    </span>
+                </motion.div>
+            ))}
+        </RevealGroup>
+    </div>
+);
+
 export const Practice = () => (
     <Section
         id={SECTIONS.practice.id}
@@ -101,6 +132,7 @@ export const Practice = () => (
             {PRACTICE_TRACKS.map((track) => (
                 <Track key={track.id} track={track} />
             ))}
+            <Curriculum />
         </div>
     </Section>
 );

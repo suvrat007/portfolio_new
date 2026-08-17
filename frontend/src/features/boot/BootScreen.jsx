@@ -13,7 +13,7 @@ const pad = (value) => String(value).padStart(2, "0");
  * The cold-start screen.
  *
  * It exists because the API sleeps on Render's free tier. The site already
- * paints from a bundled snapshot, so this is usually a brief intro — but on a
+ * paints from a bundled snapshot, so this is usually a brief intro, but on a
  * genuinely cold visit it holds for up to 30s, and it has to be worth reading
  * for that long. Hence: rotating facts about the work, a live elapsed counter,
  * and an honest status line rather than a spinner.
@@ -37,7 +37,7 @@ export const BootScreen = ({ progress, statusLabel, elapsedSeconds, isReturningV
                 },
             }}
         >
-            {/* A single hairline sweeping down the page — the only ambient motion. */}
+            {/* A single hairline sweeping down the page, the only ambient motion. */}
             {!reduceMotion ? (
                 <div
                     aria-hidden="true"
@@ -47,7 +47,7 @@ export const BootScreen = ({ progress, statusLabel, elapsedSeconds, isReturningV
             ) : null}
 
             <div className="u-container flex flex-1 flex-col justify-between py-8 md:py-12">
-                {/* ── Masthead ─────────────────────────────────────────────── */}
+                {/* Masthead */}
                 <motion.header
                     className="flex items-start justify-between gap-6"
                     initial={{ opacity: 0, y: -8 }}
@@ -66,7 +66,7 @@ export const BootScreen = ({ progress, statusLabel, elapsedSeconds, isReturningV
                     </div>
                 </motion.header>
 
-                {/* ── Rotating facts ───────────────────────────────────────── */}
+                {/* Rotating facts */}
                 <div className="flex flex-1 items-center py-16">
                     <div className="w-full max-w-4xl">
                         <AnimatePresence mode="wait">
@@ -88,7 +88,7 @@ export const BootScreen = ({ progress, statusLabel, elapsedSeconds, isReturningV
                     </div>
                 </div>
 
-                {/* ── Progress ─────────────────────────────────────────────── */}
+                {/* Progress */}
                 <motion.footer
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}

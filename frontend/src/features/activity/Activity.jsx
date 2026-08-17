@@ -5,7 +5,7 @@ import { useTheme } from "../../app/ThemeProvider";
 import { Reveal } from "../../components/ui/Reveal";
 import { Section } from "../../components/ui/Section";
 
-// Third-party, below the fold, and it calls an external API — keep it out of
+// Third-party, below the fold, and it calls an external API, so keep it out of
 // the initial bundle entirely. The package exposes a named export only, so it
 // is remapped to `default` for React.lazy.
 const GitHubCalendar = lazy(() =>

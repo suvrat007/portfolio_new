@@ -5,7 +5,7 @@ import { cn } from "../../lib/cn";
 
 /**
  * Renders each line inside its own clipping mask so the text slides up from
- * behind its baseline — the reveal used for every large heading on the site.
+ * behind its baseline. This is the reveal used for every large heading.
  *
  * @param {{ lines: Array<string|import('react').ReactNode> }} props
  */
@@ -29,7 +29,7 @@ export const MaskedLines = ({
             variants={staggerParent(stagger, delay)}
         >
             {lines.map((line, index) => (
-                // Lines are fixed, ordered content — index is a stable key here.
+                // Lines are fixed, ordered content, so index is a stable key here.
                 <span className="u-mask" key={index}>
                     <motion.span
                         className={cn("block", lineClassName)}

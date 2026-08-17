@@ -10,7 +10,7 @@ import { CONTENT_SOURCE, CONTENT_STATUS } from "../store/contentSlice";
  * Drives the cold-start screen.
  *
  * Three rules, in order:
- *  1. Never exit before MIN_DURATION_MS — a screen that flashes reads as a bug.
+ *  1. Never exit before MIN_DURATION_MS. A screen that flashes reads as a bug.
  *  2. Exit as soon as usable data exists past that floor. Because a snapshot is
  *     bundled, that is almost always immediate.
  *  3. Never hold past MAX_DURATION_MS, whatever the API is doing.

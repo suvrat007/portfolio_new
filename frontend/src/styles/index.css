@@ -52,7 +52,7 @@
     --font-serif: "Instrument Serif", "Times New Roman", serif;
     --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
-    /* Fluid display scale — the page reflows rather than stepping at breakpoints. */
+    /* Fluid display scale. The page reflows rather than stepping at breakpoints. */
     --text-display: clamp(2.75rem, 10.5vw, 10rem);
     --text-display--line-height: 0.86;
     --text-headline: clamp(2rem, 5.5vw, 4.25rem);
@@ -160,12 +160,25 @@
    ========================================================================== */
 
 @layer components {
-    /* The page grid. One gutter value governs every section's alignment. */
+    /*
+     * The page grid. Every section aligns to this, so the measure is set in
+     * exactly one place.
+     *
+     * On wide viewports the content column is 60% of the screen, centred. Below
+     * that a percentage width would strand the text in a sliver, so small
+     * screens fall back to full width with a gutter.
+     */
     .u-container {
         width: 100%;
-        max-width: 96rem;
         margin-inline: auto;
         padding-inline: var(--spacing-gutter);
+    }
+
+    @media (min-width: 1024px) {
+        .u-container {
+            width: 60%;
+            padding-inline: 0;
+        }
     }
 
     /* Vertical rhythm for a major section. Fluid, so it never steps abruptly. */
@@ -173,7 +186,7 @@
         padding-block: var(--spacing-section);
     }
 
-    /* Small uppercase mono label — the site's connective tissue. */
+    /* Small uppercase mono label, the site's connective tissue. */
     .u-label {
         font-family: var(--font-mono);
         font-size: var(--text-label);

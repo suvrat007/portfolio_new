@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const techSchema = new mongoose.Schema(
     {
         name: { type: String, required: true, trim: true },
-        /** Optional icon URL — finance competencies usually have none. */
+        /** Optional icon URL. Finance competencies usually have none. */
         image: { type: String, default: "", trim: true },
     },
     { _id: true },

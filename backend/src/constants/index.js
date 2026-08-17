@@ -56,7 +56,7 @@ const PROJECT_STATUS = {
     ARCHIVED: "archived",
 };
 
-/** Maps a URL segment to its mongoose model key — avoids four near-identical routers. */
+/** Maps a URL segment to its mongoose model key, avoiding four near-identical routers. */
 const COLLECTION = {
     FEATURED: "featured",
     FULLSTACK: "fullstack",

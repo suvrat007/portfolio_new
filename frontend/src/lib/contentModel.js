@@ -131,7 +131,7 @@ export const selectRoadmap = (content) => {
     return [...fromDatabase, ...fromConstants];
 };
 
-/** Shipped work only — the roadmap is presented in its own section. */
+/** Shipped work only. The roadmap is presented in its own section. */
 export const selectShipped = (content) =>
     selectAllProjects(content).filter((project) => !UNSHIPPED.has(project.status));
 

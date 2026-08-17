@@ -50,7 +50,7 @@ export const Contact = () => {
                     </div>
                 </Reveal>
 
-                {/* ── Direct links ─────────────────────────────────────────── */}
+                {/* Direct links */}
                 <RevealGroup
                     className="flex flex-col md:col-span-6 md:col-start-7"
                     stagger={STAGGER.base}

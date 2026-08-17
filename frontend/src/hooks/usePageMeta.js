@@ -9,11 +9,11 @@ const setMeta = (selector, attribute, value) => {
 
 /**
  * Per-route document title and description. A dependency-free stand-in for a
- * head manager — this site has three routes, not thirty.
+ * head manager. This site has three routes, not thirty.
  */
 export const usePageMeta = ({ title, description }) => {
     useEffect(() => {
-        const fullTitle = title ? `${title} — ${SITE.name}` : `${SITE.name} — ${SITE.role}`;
+        const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.role}`;
         const resolvedDescription = description ?? SITE.description;
 
         document.title = fullTitle;

@@ -4,20 +4,6 @@
   "projects": {
     "featured": [
       {
-        "_id": "seed-axon",
-        "name": "Axon",
-        "description": "A full-stack video collaboration platform built for engineering-focused meetings — low-latency rooms, shared context and session history.",
-        "image": "",
-        "github": "https://github.com/suvrat007",
-        "liveUrl": "",
-        "domain": "engineering",
-        "status": "live",
-        "tags": ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "WebRTC"],
-        "timeline": "Mar 2026 — May 2026",
-        "highlights": [],
-        "order": 0
-      },
-      {
         "_id": "seed-ruok",
         "name": "Ru-Ok",
         "description": "A mental-health analytics platform: a real-time dashboard over 300+ emotion categories with contextual tagging, and AI inference that surfaces insight from unstructured entries.",
@@ -27,7 +13,7 @@
         "domain": "data",
         "status": "live",
         "tags": ["React", "TypeScript", "Node.js", "MongoDB", "Gemini", "Groq", "Docker"],
-        "timeline": "Jun 2025 — Aug 2025",
+        "timeline": "Jun 2025 to Aug 2025",
         "highlights": [
           "Real-time analytics pipeline over 300+ categorised signals.",
           "Full ownership from ingestion through processing to visualisation.",
@@ -38,14 +24,14 @@
       {
         "_id": "seed-tutora",
         "name": "Tutora",
-        "description": "A CRM and analytics platform for educators — real-time scheduling, fee tracking and automated reminders, cutting manual operational errors by roughly 80%.",
+        "description": "A CRM and analytics platform for educators: real-time scheduling, fee tracking and automated reminders, cutting manual operational errors by roughly 80%.",
         "image": "",
         "github": "https://github.com/suvrat007",
         "liveUrl": "",
         "domain": "data",
         "status": "live",
         "tags": ["React", "Redux", "Node.js", "MongoDB", "Tailwind CSS", "CI/CD"],
-        "timeline": "Jul 2025 — Aug 2025",
+        "timeline": "Jul 2025 to Aug 2025",
         "highlights": [
           "Attendance and class-log analytics for data-driven decisions.",
           "CI/CD pipelines maintaining reliability in a live environment."
@@ -62,28 +48,12 @@
         "domain": "data",
         "status": "live",
         "tags": ["React", "Python", "C++", "Firebase", "Wireshark"],
-        "timeline": "Jan 2025 — Feb 2025",
+        "timeline": "Jan 2025 to Feb 2025",
         "highlights": [
           "Real-time capture and global visualisation of TCP traffic.",
           "Firebase-backed secure storage and authentication."
         ],
         "order": 3
-      }
-    ],
-    "fullstack": [
-      {
-        "_id": "seed-codecrush",
-        "name": "CodeCrush",
-        "description": "A social platform designed to connect developers — profiles, matching and conversation built around what people actually ship.",
-        "image": "",
-        "github": "https://github.com/suvrat007",
-        "liveUrl": "",
-        "domain": "engineering",
-        "status": "live",
-        "tags": ["React", "Node.js", "Express", "MongoDB"],
-        "timeline": "",
-        "highlights": [],
-        "order": 0
       }
     ],
     "react": [],

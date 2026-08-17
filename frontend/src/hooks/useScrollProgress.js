@@ -8,7 +8,7 @@ export const useScrollProgress = () => {
 };
 
 /**
- * Tracks scroll direction and whether the page has moved off the top — used to
+ * Tracks scroll direction and whether the page has moved off the top. Used to
  * collapse the header on the way down and restore it on the way up.
  */
 export const useScrollDirection = (threshold = 12) => {

@@ -29,7 +29,7 @@ export const Header = ({ theme }) => {
     const time = useClock();
     const { direction, isScrolled } = useScrollDirection();
 
-    // Collapse on the way down, restore on the way up — never hide the menu button.
+    // Collapse on the way down, restore on the way up. Never hide the menu button.
     const isHidden = direction === "down" && isScrolled && !isMenuOpen;
 
     return (
@@ -46,11 +46,11 @@ export const Header = ({ theme }) => {
                 transition={{ duration: DURATION.base, ease: EASE.out }}
             >
                 <div className="u-container flex h-16 items-center justify-between gap-6 md:h-20">
-                    {/* ── Identity ─────────────────────────────────────────── */}
+                    {/* Identity */}
                     <Link
                         to={ROUTES.home}
                         className="group flex items-baseline gap-3"
-                        aria-label={`${SITE.name} — home`}
+                        aria-label={`${SITE.name}, home`}
                     >
                         <span className="u-label text-ink">{SITE.name}</span>
                         <span className="u-label hidden text-faint sm:inline">
@@ -58,7 +58,7 @@ export const Header = ({ theme }) => {
                         </span>
                     </Link>
 
-                    {/* ── Navigation ───────────────────────────────────────── */}
+                    {/* Navigation */}
                     <nav className="hidden items-center gap-8 md:flex">
                         {NAV_LINKS.map((link) => (
                             <NavLink
@@ -86,7 +86,7 @@ export const Header = ({ theme }) => {
                         ) : null}
                     </nav>
 
-                    {/* ── Utilities ────────────────────────────────────────── */}
+                    {/* Utilities */}
                     <div className="flex items-center gap-4">
                         <span className="u-label u-numeric hidden text-faint lg:inline">
                             IST {time}

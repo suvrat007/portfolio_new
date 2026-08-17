@@ -13,8 +13,8 @@ import { CONTENT_STATUS, loadContent } from "../store/contentSlice";
 /**
  * Read path for site content.
  *
- * Data is already present on first render — from the previous visit's cache or
- * the build-time snapshot — so this never returns an empty result while the
+ * Data is already present on first render, from the previous visit's cache or
+ * the build-time snapshot, so this never returns an empty result while the
  * network catches up.
  *
  * Read-only by design: the fetch is owned by `useContentBootstrap` in App, so

@@ -86,7 +86,7 @@ export const AdminStackActions = ({ category }) => {
                             setValues((current) => ({ ...current, image: event.target.value }))
                         }
                         placeholder="https://"
-                        hint="Optional — omit for non-software competencies"
+                        hint="Optional. Omit for non-software competencies"
                     />
 
                     {error ? <p className="text-sm text-signal">{error}</p> : null}

@@ -12,7 +12,7 @@ const pad = (index) => String(index + 1).padStart(2, "0");
 
 /**
  * Committed but unshipped work. Presented as a manifest rather than a portfolio
- * grid — these are stated intentions, and the layout should say so.
+ * grid, these are stated intentions, and the layout should say so.
  */
 const RoadmapEntry = ({ entry, index }) => (
     <motion.article

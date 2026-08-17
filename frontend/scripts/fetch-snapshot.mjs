@@ -5,7 +5,7 @@
  * deployed site paints real content at t=0 with no network dependency at all,
  * then quietly revalidates against the API once it wakes.
  *
- * Failure is not fatal — the committed snapshot is kept and the build proceeds,
+ * Failure is not fatal. The committed snapshot is kept and the build proceeds,
  * so a sleeping API can never break a deploy.
  *
  * Usage: node scripts/fetch-snapshot.mjs
@@ -69,7 +69,7 @@ const main = async () => {
             };
 
             await writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`, "utf8");
-            log(`written — ${snapshot.stack.length} stack groups, generated ${snapshot.generatedAt}`);
+            log(`written: ${snapshot.stack.length} stack groups, generated ${snapshot.generatedAt}`);
             return;
         } catch (error) {
             log(`attempt ${attempt}/${ATTEMPTS} failed: ${error.message}`);

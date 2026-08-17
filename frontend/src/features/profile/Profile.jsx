@@ -3,15 +3,20 @@ import { motion } from "framer-motion";
 import { EXPERIENCE, PROFILE, STATS } from "../../constants/content";
 import { fadeUp, STAGGER } from "../../constants/motion";
 import { SECTIONS } from "../../constants/site";
-import { Counter } from "../../components/ui/Counter";
 import { Reveal, RevealGroup } from "../../components/ui/Reveal";
 import { Section } from "../../components/ui/Section";
 
-/** Oversized figure with its unit and caption — echoes the reference layout. */
+/**
+ * Oversized figure with its unit and caption.
+ *
+ * The value is rendered at its final size rather than counted up. A count-up
+ * grows the digit count as it runs ("8" to "192"), which shoves the unit
+ * suffix sideways on every frame and reads as a twitch.
+ */
 const Stat = ({ stat }) => (
     <motion.div variants={fadeUp} className="group border-t border-line pt-5">
         <p className="u-numeric flex items-baseline gap-1.5 text-[clamp(2.5rem,6vw,4.5rem)] font-medium leading-[0.9] tracking-[-0.05em]">
-            <Counter value={stat.value} />
+            {stat.value}
             {stat.unit ? (
                 <span className="u-label mb-1 text-faint">{stat.unit}</span>
             ) : null}
@@ -40,9 +45,7 @@ const ExperienceRow = ({ entry }) => (
             <ul className="mt-4 flex flex-col gap-2.5">
                 {entry.points.map((point) => (
                     <li key={point} className="u-pretty flex gap-3 text-sm text-muted">
-                        <span aria-hidden="true" className="text-faint">
-                            —
-                        </span>
+                        <span aria-hidden="true" className="text-faint">·</span>
                         {point}
                     </li>
                 ))}
@@ -63,7 +66,7 @@ export const Profile = () => (
         label={SECTIONS.profile.label}
         aside="Engineering × Markets"
     >
-        {/* ── Statement ────────────────────────────────────────────────────── */}
+        {/* Statement */}
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
             <Reveal className="md:col-span-7">
                 <p className="u-headline u-balance">{PROFILE.lead}</p>
@@ -85,7 +88,7 @@ export const Profile = () => (
             </RevealGroup>
         </div>
 
-        {/* ── Numbers ──────────────────────────────────────────────────────── */}
+        {/* Numbers */}
         <RevealGroup
             className="mt-20 grid grid-cols-2 gap-x-6 gap-y-12 md:mt-28 md:grid-cols-4"
             stagger={STAGGER.base}
@@ -95,7 +98,7 @@ export const Profile = () => (
             ))}
         </RevealGroup>
 
-        {/* ── Track record ─────────────────────────────────────────────────── */}
+        {/* Track record */}
         <div className="mt-20 md:mt-28">
             <Reveal className="u-label mb-8 text-faint">Track record</Reveal>
             <RevealGroup className="border-t border-line">

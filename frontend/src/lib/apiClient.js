@@ -35,7 +35,7 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Fires the cheapest possible request at the API so a spun-down instance starts
- * booting immediately. Called once at module load, before React mounts —
+ * booting immediately. Called once at module load, before React mounts.
  * deliberately not awaited by anything.
  */
 export const warmUpApi = () => {

@@ -15,7 +15,7 @@ export const useInterval = (callback, delayMs) => {
     }, [delayMs]);
 };
 
-/** Cycles an index through `length` on an interval — used by the boot facts. */
+/** Cycles an index through `length` on an interval. Used by the boot facts. */
 export const useRotatingIndex = (length, delayMs, { active = true } = {}) => {
     const [index, setIndex] = useState(0);
 

@@ -34,14 +34,14 @@ export const Hero = () => {
         offset: ["start start", "end start"],
     });
 
-    // The headline drifts up slightly faster than the page — a small depth cue.
+    // The headline drifts up slightly faster than the page, a small depth cue.
     const headlineY = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
     const fadeOut = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
 
     return (
         <section ref={containerRef} className="relative pt-10 md:pt-16">
             <div className="u-container">
-                {/* ── Availability ─────────────────────────────────────────── */}
+                {/* Availability */}
                 <motion.div
                     className="flex items-center justify-between gap-6 pb-8"
                     initial={{ opacity: 0 }}
@@ -59,7 +59,7 @@ export const Hero = () => {
 
                 <div className="u-hairline" />
 
-                {/* ── Headline ─────────────────────────────────────────────── */}
+                {/* Headline */}
                 <motion.div
                     style={reduceMotion ? undefined : { y: headlineY, opacity: fadeOut }}
                     className="py-10 md:py-16"
@@ -74,9 +74,9 @@ export const Hero = () => {
 
                 <div className="u-hairline" />
 
-                {/* ── Statement ────────────────────────────────────────────── */}
+                {/* Statement */}
                 <div className="grid gap-10 py-10 md:grid-cols-12 md:gap-8 md:py-14">
-                    {/* Portrait — small, deliberately not the focus. */}
+                    {/* Portrait: small, deliberately not the focus. */}
                     <motion.div
                         className="md:col-span-2"
                         initial={{ opacity: 0, y: 20 }}
@@ -133,7 +133,7 @@ export const Hero = () => {
                         </div>
                     </motion.div>
 
-                    {/* Meta column — the small print that anchors the claim. */}
+                    {/* Meta column: the small print that anchors the claim. */}
                     <motion.dl
                         className="flex flex-col gap-5 md:col-span-3 md:col-start-10"
                         initial={{ opacity: 0 }}
@@ -153,7 +153,7 @@ export const Hero = () => {
                 </div>
             </div>
 
-            {/* ── Capability ticker ────────────────────────────────────────── */}
+            {/* Capability ticker */}
             <div className="border-y border-line py-4">
                 <Marquee items={MARQUEE_ITEMS} />
             </div>

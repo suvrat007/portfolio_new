@@ -3,7 +3,7 @@
  *
  * The site ships with a build-time snapshot, so in practice the screen exits at
  * MIN_DURATION_MS. MAX_DURATION_MS only matters on a genuinely cold visit with
- * no snapshot and no cache — it guarantees the visitor is never held longer
+ * no snapshot and no cache. It guarantees the visitor is never held longer
  * than the API's realistic worst case.
  */
 export const BOOT_TIMING = {
