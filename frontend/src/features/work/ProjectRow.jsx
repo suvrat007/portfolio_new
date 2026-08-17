@@ -4,35 +4,31 @@ import { DOMAIN_LABELS, PROJECT_STATUS } from "../../constants/api";
 import { fadeUp } from "../../constants/motion";
 import { cn } from "../../lib/cn";
 import { StatusDot, Tag } from "../../components/ui/Tag";
+import { ExternalLinkIcon, SourceIcon } from "../../components/ui/icons";
 
 const pad = (index) => String(index + 1).padStart(2, "0");
 
 const MAX_VISIBLE_TAGS = 5;
 
 /**
- * Outbound project link, styled as a pill so it reads as a target rather than
- * as running text. Opens in a new tab and severs the opener reference.
+ * Outbound project link. A raised, icon-led pill so it reads unmistakably as a
+ * button rather than as running text. Opens in a new tab with the opener
+ * reference severed.
  */
-const ProjectLink = ({ href, label, primary = false }) => (
+const ProjectLink = ({ href, label, icon: Icon }) => (
     <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
-            "u-label group/link inline-flex items-center gap-2 rounded-full border px-3.5 py-2",
+            "inline-flex items-center gap-2 rounded-full border border-line bg-raised",
+            "px-4 py-2 text-[0.8125rem] font-medium tracking-[-0.01em] text-ink shadow-sm",
             "transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
-            primary
-                ? "border-line-strong text-ink hover:bg-ink hover:text-paper"
-                : "border-line text-muted hover:border-line-strong hover:text-ink",
+            "hover:border-ink hover:bg-ink hover:text-paper",
         )}
     >
+        <Icon />
         {label}
-        <span
-            aria-hidden="true"
-            className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
-        >
-            ↗
-        </span>
     </a>
 );
 
@@ -109,24 +105,35 @@ export const ProjectRow = ({ project, index, onHover, onLeave, onMove, actions }
                             {extraTags > 0 ? <Tag>+{extraTags}</Tag> : null}
                         </div>
                     ) : null}
+
+                    {/* Links sit directly under the stack, where the eye lands last. */}
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                        {project.liveUrl ? (
+                            <ProjectLink
+                                href={project.liveUrl}
+                                label="Website"
+                                icon={ExternalLinkIcon}
+                            />
+                        ) : null}
+
+                        {project.github ? (
+                            <ProjectLink
+                                href={project.github}
+                                label="Source"
+                                icon={SourceIcon}
+                            />
+                        ) : null}
+
+                        {!project.liveUrl && !project.github ? (
+                            <span className="u-label text-faint">
+                                {isUnshipped ? "In progress" : "Not public"}
+                            </span>
+                        ) : null}
+                    </div>
                 </div>
 
-                {/* Links */}
+                {/* Admin controls only; the outbound links live with the content. */}
                 <div className="flex flex-wrap items-start gap-2 md:col-span-3 md:justify-end">
-                    {project.liveUrl ? (
-                        <ProjectLink href={project.liveUrl} label="Website" primary />
-                    ) : null}
-
-                    {project.github ? (
-                        <ProjectLink href={project.github} label="Source" />
-                    ) : null}
-
-                    {!project.liveUrl && !project.github ? (
-                        <span className="u-label py-2 text-faint">
-                            {isUnshipped ? "In progress" : "Private"}
-                        </span>
-                    ) : null}
-
                     {actions}
                 </div>
             </div>

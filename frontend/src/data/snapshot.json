@@ -9,7 +9,7 @@
         "description": "A mental-health analytics platform: a real-time dashboard over 300+ emotion categories with contextual tagging, and AI inference that surfaces insight from unstructured entries.",
         "image": "",
         "github": "https://github.com/suvrat007/RUOK-frontend",
-        "liveUrl": "",
+        "liveUrl": "https://ru-ok.in",
         "domain": "data",
         "status": "live",
         "tags": [
@@ -35,7 +35,7 @@
         "description": "A CRM and analytics platform for educators: real-time scheduling, fee tracking and automated reminders, cutting manual operational errors by roughly 80%.",
         "image": "",
         "github": "https://github.com/suvrat007/tutora",
-        "liveUrl": "",
+        "liveUrl": "https://tutor-a.vercel.app",
         "domain": "data",
         "status": "live",
         "tags": [
@@ -59,7 +59,7 @@
         "description": "A network traffic intelligence tool: live TCP packet capture rendered as a global map, turning a raw stream into something an operator can actually read.",
         "image": "",
         "github": "https://github.com/suvrat007/packetLens",
-        "liveUrl": "",
+        "liveUrl": "https://packetlens.vercel.app",
         "domain": "data",
         "status": "live",
         "tags": [

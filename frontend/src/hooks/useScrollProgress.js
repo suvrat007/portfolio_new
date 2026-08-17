@@ -8,29 +8,22 @@ export const useScrollProgress = () => {
 };
 
 /**
- * Tracks scroll direction and whether the page has moved off the top. Used to
- * collapse the header on the way down and restore it on the way up.
+ * True once the page has moved off the top. The header stays fixed at all
+ * times and uses this only to decide when to sit on a background and a rule,
+ * so that it separates from the content scrolling underneath it.
  */
-export const useScrollDirection = (threshold = 12) => {
+export const useIsScrolled = (threshold = 48) => {
     const { scrollY } = useScroll();
-    const [state, setState] = useState({ direction: "up", isScrolled: false });
+    const [isScrolled, setIsScrolled] = useState(false);
 
     useMotionValueEvent(scrollY, "change", (current) => {
-        const previous = scrollY.getPrevious() ?? 0;
-        const delta = current - previous;
-
-        setState((last) => {
-            const isScrolled = current > threshold * 4;
-            if (Math.abs(delta) < threshold) {
-                return last.isScrolled === isScrolled ? last : { ...last, isScrolled };
-            }
-            const direction = delta > 0 ? "down" : "up";
-            if (last.direction === direction && last.isScrolled === isScrolled) return last;
-            return { direction, isScrolled };
+        setIsScrolled((last) => {
+            const next = current > threshold;
+            return last === next ? last : next;
         });
     });
 
-    return state;
+    return isScrolled;
 };
 
 /**

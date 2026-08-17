@@ -92,7 +92,7 @@ describe("home page", () => {
         expect(screen.getAllByText("In progress").length).toBeGreaterThan(0);
     });
 
-    it("gives each project a working outbound source link", () => {
+    it("gives each project a working source and website link", () => {
         renderRoute(ROUTES.home);
 
         const [source] = screen.getAllByRole("link", { name: /source/i });
@@ -100,6 +100,13 @@ describe("home page", () => {
         expect(source).toHaveAttribute("href", expect.stringMatching(/github\.com\/[^/]+\/.+/));
         expect(source).toHaveAttribute("target", "_blank");
         expect(source).toHaveAttribute("rel", expect.stringContaining("noopener"));
+
+        const websites = screen.getAllByRole("link", { name: /website/i });
+        expect(websites.length).toBeGreaterThan(0);
+        websites.forEach((link) => {
+            expect(link).toHaveAttribute("href", expect.stringMatching(/^https:\/\//));
+            expect(link).toHaveAttribute("target", "_blank");
+        });
     });
 
     it("renders every numbered section anchor", () => {

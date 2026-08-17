@@ -2,11 +2,10 @@ import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import { DURATION, EASE } from "../../constants/motion";
 import { NAV_LINKS, ROUTES, SECTIONS, SITE } from "../../constants/site";
 import { useAuth } from "../../hooks/useAuth";
 import { useClock } from "../../hooks/useClock";
-import { useScrollDirection, useScrollProgress } from "../../hooks/useScrollProgress";
+import { useIsScrolled, useScrollProgress } from "../../hooks/useScrollProgress";
 import { cn } from "../../lib/cn";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "./ThemeToggle";
@@ -27,14 +26,16 @@ export const Header = ({ theme }) => {
     const { pathname } = useLocation();
     const { isAuthenticated, signOut } = useAuth();
     const time = useClock();
-    const { direction, isScrolled } = useScrollDirection();
-
-    // Collapse on the way down, restore on the way up. Never hide the menu button.
-    const isHidden = direction === "down" && isScrolled && !isMenuOpen;
+    const isScrolled = useIsScrolled();
 
     return (
         <>
-            <motion.header
+            {/*
+              * Pinned for the whole session. Once the page moves off the top it
+              * picks up a translucent background and a rule so it stays legible
+              * over whatever scrolls beneath it.
+              */}
+            <header
                 className={cn(
                     "fixed inset-x-0 top-0 z-[160]",
                     "transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
@@ -42,8 +43,6 @@ export const Header = ({ theme }) => {
                         ? "border-b border-line bg-paper/80 backdrop-blur-xl"
                         : "border-b border-transparent",
                 )}
-                animate={{ y: isHidden ? "-100%" : "0%" }}
-                transition={{ duration: DURATION.base, ease: EASE.out }}
             >
                 <div className="u-container flex h-16 items-center justify-between gap-6 md:h-20">
                     {/* Identity */}
@@ -117,7 +116,7 @@ export const Header = ({ theme }) => {
                 </div>
 
                 <ScrollProgress />
-            </motion.header>
+            </header>
 
             <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
         </>
