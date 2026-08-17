@@ -168,6 +168,11 @@
         padding-inline: var(--spacing-gutter);
     }
 
+    /* Vertical rhythm for a major section. Fluid, so it never steps abruptly. */
+    .u-section-y {
+        padding-block: var(--spacing-section);
+    }
+
     /* Small uppercase mono label — the site's connective tissue. */
     .u-label {
         font-family: var(--font-mono);

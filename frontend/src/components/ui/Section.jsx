@@ -29,7 +29,7 @@ export const Section = ({
     contentClassName,
     withRule = true,
 }) => (
-    <section id={id} className={cn("py-[--spacing-section]", className)}>
+    <section id={id} className={cn("u-section-y", className)}>
         <div className="u-container">
             {label ? (
                 <>
