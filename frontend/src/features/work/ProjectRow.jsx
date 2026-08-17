@@ -3,12 +3,38 @@ import { motion } from "framer-motion";
 import { DOMAIN_LABELS, PROJECT_STATUS } from "../../constants/api";
 import { fadeUp } from "../../constants/motion";
 import { cn } from "../../lib/cn";
-import { Arrow } from "../../components/ui/Button";
 import { StatusDot, Tag } from "../../components/ui/Tag";
 
 const pad = (index) => String(index + 1).padStart(2, "0");
 
 const MAX_VISIBLE_TAGS = 5;
+
+/**
+ * Outbound project link, styled as a pill so it reads as a target rather than
+ * as running text. Opens in a new tab and severs the opener reference.
+ */
+const ProjectLink = ({ href, label, primary = false }) => (
+    <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn(
+            "u-label group/link inline-flex items-center gap-2 rounded-full border px-3.5 py-2",
+            "transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            primary
+                ? "border-line-strong text-ink hover:bg-ink hover:text-paper"
+                : "border-line text-muted hover:border-line-strong hover:text-ink",
+        )}
+    >
+        {label}
+        <span
+            aria-hidden="true"
+            className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+        >
+            ↗
+        </span>
+    </a>
+);
 
 /**
  * One project, as a row in an index rather than a card in a grid. Keeps a long
@@ -86,33 +112,19 @@ export const ProjectRow = ({ project, index, onHover, onLeave, onMove, actions }
                 </div>
 
                 {/* Links */}
-                <div className="flex flex-wrap items-start gap-x-6 gap-y-3 md:col-span-3 md:justify-end">
+                <div className="flex flex-wrap items-start gap-2 md:col-span-3 md:justify-end">
                     {project.liveUrl ? (
-                        <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/link u-label flex items-center gap-1.5 text-ink"
-                        >
-                            <span className="u-link">Live</span>
-                            <Arrow />
-                        </a>
+                        <ProjectLink href={project.liveUrl} label="Website" primary />
                     ) : null}
 
                     {project.github ? (
-                        <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/link u-label flex items-center gap-1.5 text-muted"
-                        >
-                            <span className="u-link">Source</span>
-                            <Arrow />
-                        </a>
+                        <ProjectLink href={project.github} label="Source" />
                     ) : null}
 
-                    {isUnshipped && !project.liveUrl && !project.github ? (
-                        <span className="u-label text-faint">In progress</span>
+                    {!project.liveUrl && !project.github ? (
+                        <span className="u-label py-2 text-faint">
+                            {isUnshipped ? "In progress" : "Private"}
+                        </span>
                     ) : null}
 
                     {actions}

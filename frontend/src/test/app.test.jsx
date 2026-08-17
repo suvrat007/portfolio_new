@@ -92,6 +92,16 @@ describe("home page", () => {
         expect(screen.getAllByText("In progress").length).toBeGreaterThan(0);
     });
 
+    it("gives each project a working outbound source link", () => {
+        renderRoute(ROUTES.home);
+
+        const [source] = screen.getAllByRole("link", { name: /source/i });
+        // A repository, not the profile root, and safe to open in a new tab.
+        expect(source).toHaveAttribute("href", expect.stringMatching(/github\.com\/[^/]+\/.+/));
+        expect(source).toHaveAttribute("target", "_blank");
+        expect(source).toHaveAttribute("rel", expect.stringContaining("noopener"));
+    });
+
     it("renders every numbered section anchor", () => {
         const { container } = renderRoute(ROUTES.home);
         const ids = [...container.querySelectorAll("section[id]")].map((el) => el.id);

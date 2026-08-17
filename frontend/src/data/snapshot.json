@@ -8,11 +8,19 @@
         "name": "Ru-Ok",
         "description": "A mental-health analytics platform: a real-time dashboard over 300+ emotion categories with contextual tagging, and AI inference that surfaces insight from unstructured entries.",
         "image": "",
-        "github": "https://github.com/suvrat007",
+        "github": "https://github.com/suvrat007/RUOK-frontend",
         "liveUrl": "",
         "domain": "data",
         "status": "live",
-        "tags": ["React", "TypeScript", "Node.js", "MongoDB", "Gemini", "Groq", "Docker"],
+        "tags": [
+          "React",
+          "TypeScript",
+          "Node.js",
+          "MongoDB",
+          "Gemini",
+          "Groq",
+          "Docker"
+        ],
         "timeline": "Jun 2025 to Aug 2025",
         "highlights": [
           "Real-time analytics pipeline over 300+ categorised signals.",
@@ -26,11 +34,18 @@
         "name": "Tutora",
         "description": "A CRM and analytics platform for educators: real-time scheduling, fee tracking and automated reminders, cutting manual operational errors by roughly 80%.",
         "image": "",
-        "github": "https://github.com/suvrat007",
+        "github": "https://github.com/suvrat007/tutora",
         "liveUrl": "",
         "domain": "data",
         "status": "live",
-        "tags": ["React", "Redux", "Node.js", "MongoDB", "Tailwind CSS", "CI/CD"],
+        "tags": [
+          "React",
+          "Redux",
+          "Node.js",
+          "MongoDB",
+          "Tailwind CSS",
+          "CI/CD"
+        ],
         "timeline": "Jul 2025 to Aug 2025",
         "highlights": [
           "Attendance and class-log analytics for data-driven decisions.",
@@ -43,11 +58,17 @@
         "name": "PacketLens",
         "description": "A network traffic intelligence tool: live TCP packet capture rendered as a global map, turning a raw stream into something an operator can actually read.",
         "image": "",
-        "github": "https://github.com/suvrat007",
+        "github": "https://github.com/suvrat007/packetLens",
         "liveUrl": "",
         "domain": "data",
         "status": "live",
-        "tags": ["React", "Python", "C++", "Firebase", "Wireshark"],
+        "tags": [
+          "React",
+          "Python",
+          "C++",
+          "Firebase",
+          "Wireshark"
+        ],
         "timeline": "Jan 2025 to Feb 2025",
         "highlights": [
           "Real-time capture and global visualisation of TCP traffic.",
@@ -65,13 +86,34 @@
       "category": "Markets & Valuation",
       "order": 0,
       "techs": [
-        { "name": "Financial Statement Analysis", "image": "" },
-        { "name": "Ratio Decomposition", "image": "" },
-        { "name": "Cash Flow Analysis", "image": "" },
-        { "name": "DCF Valuation", "image": "" },
-        { "name": "Portfolio Theory", "image": "" },
-        { "name": "CAPM / SML", "image": "" },
-        { "name": "Black-Scholes", "image": "" }
+        {
+          "name": "Financial Statement Analysis",
+          "image": ""
+        },
+        {
+          "name": "Ratio Decomposition",
+          "image": ""
+        },
+        {
+          "name": "Cash Flow Analysis",
+          "image": ""
+        },
+        {
+          "name": "DCF Valuation",
+          "image": ""
+        },
+        {
+          "name": "Portfolio Theory",
+          "image": ""
+        },
+        {
+          "name": "CAPM / SML",
+          "image": ""
+        },
+        {
+          "name": "Black-Scholes",
+          "image": ""
+        }
       ]
     },
     {
@@ -79,12 +121,30 @@
       "category": "Languages",
       "order": 1,
       "techs": [
-        { "name": "Python", "image": "" },
-        { "name": "JavaScript", "image": "" },
-        { "name": "TypeScript", "image": "" },
-        { "name": "SQL", "image": "" },
-        { "name": "Java", "image": "" },
-        { "name": "C++", "image": "" }
+        {
+          "name": "Python",
+          "image": ""
+        },
+        {
+          "name": "JavaScript",
+          "image": ""
+        },
+        {
+          "name": "TypeScript",
+          "image": ""
+        },
+        {
+          "name": "SQL",
+          "image": ""
+        },
+        {
+          "name": "Java",
+          "image": ""
+        },
+        {
+          "name": "C++",
+          "image": ""
+        }
       ]
     },
     {
@@ -92,11 +152,26 @@
       "category": "Data & ML",
       "order": 2,
       "techs": [
-        { "name": "Data Pipeline Architecture", "image": "" },
-        { "name": "Statistical Modelling", "image": "" },
-        { "name": "MongoDB", "image": "" },
-        { "name": "PostgreSQL", "image": "" },
-        { "name": "Firebase", "image": "" }
+        {
+          "name": "Data Pipeline Architecture",
+          "image": ""
+        },
+        {
+          "name": "Statistical Modelling",
+          "image": ""
+        },
+        {
+          "name": "MongoDB",
+          "image": ""
+        },
+        {
+          "name": "PostgreSQL",
+          "image": ""
+        },
+        {
+          "name": "Firebase",
+          "image": ""
+        }
       ]
     },
     {
@@ -104,11 +179,26 @@
       "category": "Interface",
       "order": 3,
       "techs": [
-        { "name": "React", "image": "" },
-        { "name": "Next.js", "image": "" },
-        { "name": "Redux", "image": "" },
-        { "name": "TailwindCSS", "image": "" },
-        { "name": "ShadCN UI", "image": "" }
+        {
+          "name": "React",
+          "image": ""
+        },
+        {
+          "name": "Next.js",
+          "image": ""
+        },
+        {
+          "name": "Redux",
+          "image": ""
+        },
+        {
+          "name": "TailwindCSS",
+          "image": ""
+        },
+        {
+          "name": "ShadCN UI",
+          "image": ""
+        }
       ]
     },
     {
@@ -116,12 +206,30 @@
       "category": "Backend & Infra",
       "order": 4,
       "techs": [
-        { "name": "Node.js", "image": "" },
-        { "name": "Express", "image": "" },
-        { "name": "Prisma", "image": "" },
-        { "name": "Docker", "image": "" },
-        { "name": "CI/CD", "image": "" },
-        { "name": "Cloudflare Developers", "image": "" }
+        {
+          "name": "Node.js",
+          "image": ""
+        },
+        {
+          "name": "Express",
+          "image": ""
+        },
+        {
+          "name": "Prisma",
+          "image": ""
+        },
+        {
+          "name": "Docker",
+          "image": ""
+        },
+        {
+          "name": "CI/CD",
+          "image": ""
+        },
+        {
+          "name": "Cloudflare Developers",
+          "image": ""
+        }
       ]
     },
     {
@@ -129,9 +237,18 @@
       "category": "Web3",
       "order": 5,
       "techs": [
-        { "name": "Solidity", "image": "" },
-        { "name": "Foundry", "image": "" },
-        { "name": "Hardhat", "image": "" }
+        {
+          "name": "Solidity",
+          "image": ""
+        },
+        {
+          "name": "Foundry",
+          "image": ""
+        },
+        {
+          "name": "Hardhat",
+          "image": ""
+        }
       ]
     }
   ]
