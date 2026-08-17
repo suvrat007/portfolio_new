@@ -1,0 +1,168 @@
+{
+  "generatedAt": null,
+  "_comment": "Build-time snapshot of /api/content, bundled so the site paints instantly even when the API is cold. Regenerate with `npm run snapshot` (runs automatically on `npm run build`). Values below are the committed fallback used when the API is unreachable at build time.",
+  "projects": {
+    "featured": [
+      {
+        "_id": "seed-axon",
+        "name": "Axon",
+        "description": "A full-stack video collaboration platform built for engineering-focused meetings — low-latency rooms, shared context and session history.",
+        "image": "",
+        "github": "https://github.com/suvrat007",
+        "liveUrl": "",
+        "domain": "engineering",
+        "status": "live",
+        "tags": ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "WebRTC"],
+        "timeline": "Mar 2026 — May 2026",
+        "highlights": [],
+        "order": 0
+      },
+      {
+        "_id": "seed-ruok",
+        "name": "Ru-Ok",
+        "description": "A mental-health analytics platform: a real-time dashboard over 300+ emotion categories with contextual tagging, and AI inference that surfaces insight from unstructured entries.",
+        "image": "",
+        "github": "https://github.com/suvrat007",
+        "liveUrl": "",
+        "domain": "data",
+        "status": "live",
+        "tags": ["React", "TypeScript", "Node.js", "MongoDB", "Gemini", "Groq", "Docker"],
+        "timeline": "Jun 2025 — Aug 2025",
+        "highlights": [
+          "Real-time analytics pipeline over 300+ categorised signals.",
+          "Full ownership from ingestion through processing to visualisation.",
+          "Deployed to production with containerised services."
+        ],
+        "order": 1
+      },
+      {
+        "_id": "seed-tutora",
+        "name": "Tutora",
+        "description": "A CRM and analytics platform for educators — real-time scheduling, fee tracking and automated reminders, cutting manual operational errors by roughly 80%.",
+        "image": "",
+        "github": "https://github.com/suvrat007",
+        "liveUrl": "",
+        "domain": "data",
+        "status": "live",
+        "tags": ["React", "Redux", "Node.js", "MongoDB", "Tailwind CSS", "CI/CD"],
+        "timeline": "Jul 2025 — Aug 2025",
+        "highlights": [
+          "Attendance and class-log analytics for data-driven decisions.",
+          "CI/CD pipelines maintaining reliability in a live environment."
+        ],
+        "order": 2
+      },
+      {
+        "_id": "seed-packetlens",
+        "name": "PacketLens",
+        "description": "A network traffic intelligence tool: live TCP packet capture rendered as a global map, turning a raw stream into something an operator can actually read.",
+        "image": "",
+        "github": "https://github.com/suvrat007",
+        "liveUrl": "",
+        "domain": "data",
+        "status": "live",
+        "tags": ["React", "Python", "C++", "Firebase", "Wireshark"],
+        "timeline": "Jan 2025 — Feb 2025",
+        "highlights": [
+          "Real-time capture and global visualisation of TCP traffic.",
+          "Firebase-backed secure storage and authentication."
+        ],
+        "order": 3
+      }
+    ],
+    "fullstack": [
+      {
+        "_id": "seed-codecrush",
+        "name": "CodeCrush",
+        "description": "A social platform designed to connect developers — profiles, matching and conversation built around what people actually ship.",
+        "image": "",
+        "github": "https://github.com/suvrat007",
+        "liveUrl": "",
+        "domain": "engineering",
+        "status": "live",
+        "tags": ["React", "Node.js", "Express", "MongoDB"],
+        "timeline": "",
+        "highlights": [],
+        "order": 0
+      }
+    ],
+    "react": [],
+    "js": []
+  },
+  "stack": [
+    {
+      "_id": "seed-markets",
+      "category": "Markets & Valuation",
+      "order": 0,
+      "techs": [
+        { "name": "Financial Statement Analysis", "image": "" },
+        { "name": "Ratio Decomposition", "image": "" },
+        { "name": "Cash Flow Analysis", "image": "" },
+        { "name": "DCF Valuation", "image": "" },
+        { "name": "Portfolio Theory", "image": "" },
+        { "name": "CAPM / SML", "image": "" },
+        { "name": "Black-Scholes", "image": "" }
+      ]
+    },
+    {
+      "_id": "seed-languages",
+      "category": "Languages",
+      "order": 1,
+      "techs": [
+        { "name": "Python", "image": "" },
+        { "name": "JavaScript", "image": "" },
+        { "name": "TypeScript", "image": "" },
+        { "name": "SQL", "image": "" },
+        { "name": "Java", "image": "" },
+        { "name": "C++", "image": "" }
+      ]
+    },
+    {
+      "_id": "seed-data",
+      "category": "Data & ML",
+      "order": 2,
+      "techs": [
+        { "name": "Data Pipeline Architecture", "image": "" },
+        { "name": "Statistical Modelling", "image": "" },
+        { "name": "MongoDB", "image": "" },
+        { "name": "PostgreSQL", "image": "" },
+        { "name": "Firebase", "image": "" }
+      ]
+    },
+    {
+      "_id": "seed-frontend",
+      "category": "Interface",
+      "order": 3,
+      "techs": [
+        { "name": "React", "image": "" },
+        { "name": "Next.js", "image": "" },
+        { "name": "Redux", "image": "" },
+        { "name": "TailwindCSS", "image": "" },
+        { "name": "ShadCN UI", "image": "" }
+      ]
+    },
+    {
+      "_id": "seed-backend",
+      "category": "Backend & Infra",
+      "order": 4,
+      "techs": [
+        { "name": "Node.js", "image": "" },
+        { "name": "Express", "image": "" },
+        { "name": "Prisma", "image": "" },
+        { "name": "Docker", "image": "" },
+        { "name": "CI/CD", "image": "" },
+        { "name": "Cloudflare Developers", "image": "" }
+      ]
+    },
+    {
+      "_id": "seed-web3",
+      "category": "Web3",
+      "order": 5,
+      "techs": [
+        { "name": "Solidity", "image": "" },
+        { "name": "Foundry", "image": "" },
+        { "name": "Hardhat", "image": "" }
+      ]
+    }
+  ]
+}
