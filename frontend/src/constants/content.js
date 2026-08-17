@@ -21,14 +21,13 @@ export const HERO = {
 };
 
 export const PROFILE = {
-    lead:
-        "I am a B.Tech IT & Engineering student specialising in machine learning and data analytics, and I spend the other half of my time on capital markets.",
+    /** Kept to one short line. It is set large, so length costs a lot of height. */
+    lead: "I build data systems. I study markets.",
     body: [
-        "The engineering half is production-scale: real-time analytics dashboards, data pipelines and full-stack platforms. At Exly (YC W19) I built and optimised React data visualisation components on the creator analytics platform, reaching 67% of active users across a base of 10,000+ B2B customers, and stabilised a release pipeline that was failing its tests.",
-        "The markets half is deliberate, and it is coursework I set myself rather than a module I was assigned. Financial accounting and portfolio theory are what I am working through now, with options pricing and intrinsic valuation queued behind them.",
-        "What connects them is a preference for the second artefact. A DCF is a model; a valuation engine is a system. A pricing formula is a formula; a pricing service with a live greeks surface is infrastructure. I am interested in building the second one.",
+        "B.Tech IT & Engineering, specialising in ML and data analytics. At Exly (YC W19) I shipped React analytics components reaching 67% of active users across 10,000+ B2B customers.",
+        "The markets side is self-taught and deliberate: accounting and portfolio theory now, options pricing and valuation next.",
     ],
-    signature: "Where data systems meet capital markets.",
+    signature: "A DCF is a model. A valuation engine is a system. I build the second one.",
 };
 
 /** The giant-numeral stat row, echoing the reference layout. */

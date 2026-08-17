@@ -68,8 +68,12 @@ export const Profile = () => (
     >
         {/* Statement */}
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
+            {/*
+              * Set at title rather than headline size: this column is 7 of 12,
+              * so display-scale type here runs to a dozen lines.
+              */}
             <Reveal className="md:col-span-7">
-                <p className="u-headline u-balance">{PROFILE.lead}</p>
+                <p className="u-title u-balance max-w-lg">{PROFILE.lead}</p>
             </Reveal>
 
             <RevealGroup className="flex flex-col gap-6 md:col-span-4 md:col-start-9 md:pt-3">
