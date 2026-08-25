@@ -4,42 +4,48 @@
  */
 
 export const HERO = {
-    eyebrow: "Available for 2027 analyst & engineering roles",
+    eyebrow: "Available for 2027 analyst and engineering roles",
     headline: ["I build", "financial", "systems."],
     /** Rendered in the accent serif; sits inside the headline block. */
     accentWord: "financial",
     lede:
-        "Engineer by training, markets by intent. I build the pipelines, models and terminals that turn raw market and operating data into decisions, then ship them to production.",
+        "Portfolio risk engines, statement analysis terminals and valuation models. I build the quant core, the data pipeline underneath it and the interface on top, then ship the whole thing.",
     primaryCta: { label: "Read the resume", target: "resume" },
     secondaryCta: { label: "Selected work", target: "work" },
     meta: [
         { label: "Discipline", value: "Financial systems" },
         { label: "Based", value: "Noida, IN" },
-        { label: "Reading", value: "Filings & ratios" },
+        { label: "Shortlisted", value: "Barclays HK, 2026" },
         { label: "Since", value: "2023" },
     ],
 };
 
 export const PROFILE = {
     /** Kept to one short line. It is set large, so length costs a lot of height. */
-    lead: "I build data systems. I study markets.",
+    lead: "I build quantitative systems, end to end.",
     body: [
-        "B.Tech IT & Engineering, specialising in ML and data analytics. At Exly (YC W19) I shipped React analytics components reaching 67% of active users across 10,000+ B2B customers.",
-        "The markets side is self-taught and deliberate: accounting and portfolio theory now, options pricing and valuation next.",
+        "B.Tech IT & Engineering at MAIT. Shortlisted for the Barclays Hong Kong Electronic Trading Associate summer internship, 2026.",
+        "The finance work is not notebooks. Quantfolio runs a C++17 core behind a reproducible data pipeline; FinSight OS builds linked three-statement models from live filings. Both are deployed and both have tests.",
     ],
     signature: "A DCF is a model. A valuation engine is a system. I build the second one.",
 };
 
 /** The giant-numeral stat row, echoing the reference layout. */
 export const STATS = [
-    { value: "9.18", unit: "/ 10", label: "CGPA", note: "ML & Data Analytics" },
-    { value: "10k+", unit: "", label: "B2B users reached", note: "Exly · YC W19" },
-    { value: "1.6k", unit: "commits", label: "Last 12 months", note: "GitHub" },
-    { value: "192+", unit: "", label: "Problems solved", note: "LeetCode" },
+    {
+        value: "380",
+        unit: "x faster",
+        label: "Frontier computation",
+        note: "57s to 150ms, C++ core",
+    },
+    { value: "9.14", unit: "/ 10", label: "CGPA", note: "B.Tech IT, MAIT" },
+    { value: "10k+", unit: "", label: "Customers reached", note: "Exly, YC-19" },
+    { value: "200+", unit: "", label: "DSA problems", note: "Java, plus 100+ SQL" },
 ];
 
 /**
  * Two practice tracks. Finance leads deliberately, because it is the positioning.
+ * Every claim here is carried by something in the work index.
  */
 export const PRACTICE_TRACKS = [
     {
@@ -51,22 +57,22 @@ export const PRACTICE_TRACKS = [
             {
                 name: "Financial Statement Analysis",
                 detail:
-                    "General ledger mechanics, ratio decomposition and cash-flow reconstruction. Reading a business from its filings rather than from its narrative, and knowing which of the three statements is lying.",
+                    "Linked three-statement models, DuPont decomposition, and liquidity, efficiency and solvency ratios, with balance sheet integrity checks built in. FinSight OS normalises accounting nomenclature across sources before it computes anything, because the alternative is comparing two things that were never the same line item.",
+            },
+            {
+                name: "Portfolio & Risk",
+                detail:
+                    "Mean-variance optimisation, efficient frontier, Sharpe and Sortino, VaR and CVaR, maximum drawdown, Euler risk decomposition and Ledoit-Wolf shrinkage covariance estimation. All of it shipped in Quantfolio rather than described.",
             },
             {
                 name: "Intrinsic Valuation",
                 detail:
-                    "DCF construction from the drivers up: revenue build, margin bridge, working capital, WACC, terminal value, then sensitivity and scenario grids. Built in Excel first, because a model you cannot audit by hand is a model you do not understand.",
+                    "FCFF discounted cash flow with WACC built up through CAPM, a five-year free cash flow projection, Gordon Growth terminal value and a sensitivity grid across WACC and terminal growth.",
             },
             {
-                name: "Portfolio Management",
+                name: "Reading the Divergence",
                 detail:
-                    "CAPM and the security market line, efficient frontiers, beta decomposition and risk-adjusted return attribution. Judging a return by the risk that produced it.",
-            },
-            {
-                name: "Derivatives & Pricing",
-                detail:
-                    "Black-Scholes, the greeks and implied volatility surfaces, written as pricing engines meant to be deployed and queried rather than plotted once in a notebook.",
+                    "The Asian Paints model landed roughly 60% below market. The useful work was tracing that gap to conservative terminal growth assumptions rather than trusting the number the sheet printed. A valuation is an argument, not an output.",
             },
         ],
     },
@@ -74,46 +80,71 @@ export const PRACTICE_TRACKS = [
         id: "systems",
         index: "B",
         title: "Systems & Data",
-        summary: "The infrastructure that makes the analysis operational.",
+        summary: "The engineering that makes the analysis trustworthy.",
         items: [
+            {
+                name: "Quant Core Engineering",
+                detail:
+                    "A C++17 core bound into Python through ctypes, taking efficient frontier computation from 57 seconds to 150 milliseconds. The optimiser is FISTA with exact projections for max-Sharpe and min-variance, validated against SciPy SLSQP so the speedup is not bought with wrong answers.",
+            },
             {
                 name: "Data Pipeline Architecture",
                 detail:
-                    "Ingestion through processing to visualisation, owned end to end. The same shape a research dashboard needs to monitor signals across a large dataset without falling over.",
+                    "A Parquet lake behind nine quality gates, with point-in-time corporate action adjustment and idempotent ingest. Those gates caught a Yahoo Finance split-adjustment bug that had silently corrupted every downstream statistic, which is the entire argument for having them.",
             },
             {
-                name: "Real-time Analytics",
+                name: "Testing & Release",
                 detail:
-                    "Streaming dashboards that stay legible under load. Ru-Ok categorises 300+ emotional signals with contextual tagging and keeps the view current while it does it.",
+                    "102 tests running across three operating systems on GitHub Actions, plus Docker deployment. Catching failures before they reach anyone is the same discipline as operations risk under a different name.",
             },
             {
                 name: "Full-stack Delivery",
                 detail:
-                    "React, Redux, TypeScript, Node, Express, MongoDB and PostgreSQL. Modular, production-ready components shipped on agile cycles and reviewed before they merge.",
-            },
-            {
-                name: "Production Infrastructure",
-                detail:
-                    "Docker, CI/CD and release stability. Catching failures before they reach the client, which is the same discipline as operations risk under a different name.",
+                    "React, Redux, Node, Express and MongoDB. At Exly I shipped modular production components on a creator platform reaching 67% of active users across 10,000+ customers, and helped stabilise its release pipeline.",
             },
         ],
     },
 ];
 
 /**
- * The self-directed finance curriculum, listed plainly. Rendered as an appendix
- * under the practice tracks so the claim to a markets background is specific
- * rather than asserted.
+ * The self-directed finance curriculum. Rendered as an appendix under the
+ * practice tracks so the claim to a markets background is specific rather than
+ * asserted. "Applied" means there is a shipped project behind it.
  */
 export const CURRICULUM = {
-    label: "Studying",
-    note: "A self-directed finance curriculum running alongside the degree.",
+    label: "Curriculum",
+    note: "Self-directed, alongside the degree.",
     items: [
-        { name: "Financial Accounting", detail: "General ledger, ratio analysis, cash flow statements", status: "In progress" },
-        { name: "Portfolio Theory", detail: "CAPM, security market line, efficient frontier", status: "In progress" },
-        { name: "Options Pricing", detail: "Black-Scholes, greeks, implied volatility", status: "Planned" },
-        { name: "Intrinsic Valuation", detail: "DCF, WACC, terminal value, sensitivity analysis", status: "Planned" },
-        { name: "Statistical Modelling", detail: "Regression, inference, time series", status: "Planned" },
+        {
+            name: "Financial Statement Analysis",
+            detail: "3-statement models, DuPont, liquidity, solvency",
+            status: "Applied",
+        },
+        {
+            name: "Portfolio Theory & CAPM",
+            detail: "Efficient frontier, security market line, beta",
+            status: "Applied",
+        },
+        {
+            name: "Mean-Variance Optimisation",
+            detail: "Max-Sharpe, min-variance, shrinkage covariance",
+            status: "Applied",
+        },
+        {
+            name: "Intrinsic Valuation",
+            detail: "FCFF DCF, WACC, Gordon Growth, sensitivity",
+            status: "Applied",
+        },
+        {
+            name: "Statistical Modelling",
+            detail: "Regression, inference, time series",
+            status: "In progress",
+        },
+        {
+            name: "Options Pricing",
+            detail: "Black-Scholes, greeks, implied volatility",
+            status: "Planned",
+        },
     ],
 };
 
@@ -124,34 +155,18 @@ export const CURRICULUM = {
  */
 export const ROADMAP = [
     {
-        name: "Equity Research Terminal",
-        description:
-            "A screening and coverage terminal: filings ingestion, ratio history, comparable sets and a written thesis per name. The analyst workflow as one deployed surface rather than nine spreadsheets.",
-        tags: ["React", "Node.js", "PostgreSQL", "Market Data APIs"],
-        status: "building",
-        domain: "finance",
-    },
-    {
         name: "Options Pricing Engine",
         description:
-            "Black-Scholes and binomial pricing with a live greeks surface and implied volatility solving, exposed as both an API and an interactive board.",
-        tags: ["Python", "Black-Scholes", "Greeks", "Implied Volatility"],
-        status: "building",
-        domain: "finance",
-    },
-    {
-        name: "DCF Valuation Suite",
-        description:
-            "Intrinsic valuation from the statements up: driver-based forecasting, WACC construction and sensitivity grids. Shipped as a linked Excel model and a web build, so the workings stay inspectable.",
-        tags: ["Excel", "DCF", "WACC", "Scenario Analysis"],
+            "Black-Scholes and binomial pricing with a live greeks surface and implied volatility solving, exposed as both an API and an interactive board. The natural next layer on top of the risk engine.",
+        tags: ["Python", "C++17", "Black-Scholes", "Implied Volatility"],
         status: "planned",
         domain: "finance",
     },
     {
-        name: "Portfolio Risk Dashboard",
+        name: "Equity Research Terminal",
         description:
-            "CAPM and SML attribution over a live holdings set, with drawdown, beta decomposition and efficient-frontier positioning.",
-        tags: ["Portfolio Theory", "CAPM", "Risk Attribution"],
+            "Screening and coverage built on top of FinSight OS: comparable sets, ratio history and a written thesis per name, so the analysis and the argument live in the same place.",
+        tags: ["Python", "Streamlit", "Market Data APIs"],
         status: "planned",
         domain: "finance",
     },
@@ -160,14 +175,14 @@ export const ROADMAP = [
 export const EXPERIENCE = [
     {
         org: "Exly",
-        badge: "YC W19",
+        badge: "YC-19",
         role: "Software Engineer Intern, Frontend",
         period: "Jan 2026 to Apr 2026",
-        location: "Mumbai (Remote)",
+        location: "Mumbai, remote",
         points: [
-            "Built and optimised React data visualisation components for the creator analytics platform, reaching 67% of active users across 10,000+ B2B customers.",
-            "Resolved critical failing tests and stabilised the release pipeline.",
-            "Shipped modular, production-ready components across agile sprint cycles.",
+            "Developed and optimised React interfaces for a high-scale creator platform, directly impacting 67% of active users across 10,000+ customers.",
+            "Engineered modular, production-ready components alongside design and backend, improving maintainability and accelerating delivery.",
+            "Owned features end to end through agile sprints and partnered with QA to stabilise the release pipeline.",
         ],
     },
     {
@@ -175,22 +190,10 @@ export const EXPERIENCE = [
         badge: "B.Tech",
         role: "Information Technology & Engineering",
         period: "2023 to 2027",
-        location: "Specialisation: ML & Data Analytics",
+        location: "CGPA 9.14 / 10",
         points: [
-            "CGPA 9.18 / 10.",
-            "Core: machine learning, statistical modelling, system design, databases.",
-            "Self-directed finance track running alongside: accounting, portfolio theory, options pricing, valuation.",
-        ],
-    },
-    {
-        org: "Practice",
-        badge: "Ongoing",
-        role: "Problem solving and fundamentals",
-        period: "2023 to present",
-        location: "LeetCode · HackerRank",
-        points: [
-            "192+ problems solved on LeetCode.",
-            "100+ SQL problems solved on HackerRank.",
+            "Shortlisted for the Barclays Hong Kong Electronic Trading Associate summer internship, 2026.",
+            "200+ data structures and algorithms problems in Java, and 100+ SQL problems on HackerRank.",
         ],
     },
 ];
@@ -207,18 +210,16 @@ export const CONTACT = {
  * to finish before the next one rotates in.
  */
 export const BOOT_FACTS = [
-    "Studying financial statement analysis: general ledger mechanics, ratio decomposition and cash-flow reconstruction.",
-    "Shipped React analytics components at Exly (YC W19) that reach 67% of active users across 10,000+ B2B customers.",
-    "Building an equity research terminal and a Black-Scholes options pricing engine.",
-    "Working through portfolio theory: CAPM, the security market line and risk-adjusted attribution.",
-    "B.Tech IT & Engineering, specialising in machine learning and data analytics. CGPA 9.18 out of 10.",
-    "Ru-Ok runs a real-time pipeline over 300+ categorised emotional signals with contextual tagging.",
-    "192+ problems solved on LeetCode. 100+ SQL problems on HackerRank.",
-    "Intrinsic valuation, built in Excel first, then rewritten as something that deploys.",
-    "PacketLens captures live TCP traffic and renders it as a global intelligence map.",
-    "Tutora cut manual operational errors by roughly 80% for the educators running on it.",
-    "Also writes Solidity: Foundry, Anvil and Hardhat, for when the ledger is the product.",
-    "1,668 GitHub contributions in the last twelve months.",
+    "Quantfolio runs a C++17 quant core behind Python, taking efficient frontier computation from 57 seconds to 150 milliseconds.",
+    "Shortlisted for the Barclays Hong Kong Electronic Trading Associate summer internship, 2026.",
+    "FinSight OS builds linked three-statement models from live filings, with DuPont decomposition and 15+ ratios.",
+    "Nine data quality gates caught a Yahoo Finance split-adjustment bug that had corrupted every downstream statistic.",
+    "An FCFF discounted cash flow on Asian Paints came out roughly 60% below market. The interesting part was why.",
+    "102 tests across three operating systems, running on GitHub Actions.",
+    "At Exly, React interfaces reaching 67% of active users across 10,000+ customers.",
+    "Risk decomposition in practice: Sharpe, Sortino, VaR, CVaR, maximum drawdown and Euler contributions.",
+    "B.Tech IT & Engineering, CGPA 9.14. 200+ DSA problems in Java.",
+    "Ledoit-Wolf shrinkage, because a sample covariance matrix on sixty names is mostly noise.",
 ];
 
 /** Honest status lines for the cold-start screen, keyed to the fetch state. */
@@ -234,5 +235,5 @@ export const BOOT_STATUS = {
 
 export const FOOTER = {
     note: "Designed and built from scratch. React, Vite, Node and MongoDB.",
-    colophon: "Inter Tight · Instrument Serif · JetBrains Mono",
+    colophon: "Inter Tight, Instrument Serif, JetBrains Mono",
 };

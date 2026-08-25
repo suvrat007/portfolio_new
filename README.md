@@ -103,9 +103,8 @@ Only `name` and `description` are required, so an Excel valuation model or a
 research note publishes as cleanly as a deployed app.
 
 **Finance work specifically.** `src/constants/content.js` holds a `ROADMAP` array
-listing committed-but-unshipped work (equity research terminal, options pricing
-engine, DCF suite, portfolio risk dashboard). Those render in the *In Development*
-section. Publish a real project with the same name and the placeholder disappears
+listing committed-but-unshipped work (options pricing engine, equity research
+terminal). Those render in the *In Development* section. Publish a real project with the same name and the placeholder disappears
 on its own, with no code change needed. Set its `status` to `building` or `planned`
 to keep it in that section, or `live` to move it into the work index.
 

@@ -12,12 +12,13 @@ import { Marquee } from "../../components/ui/Marquee";
 import { StatusDot } from "../../components/ui/Tag";
 
 const MARQUEE_ITEMS = [
-    "Financial Statement Analysis",
-    "Intrinsic Valuation",
-    "Portfolio Theory",
-    "Options Pricing",
-    "Data Pipelines",
-    "Real-time Analytics",
+    "Mean-Variance Optimisation",
+    "Efficient Frontier",
+    "VaR / CVaR",
+    "DuPont Decomposition",
+    "FCFF Valuation",
+    "C++ Quant Cores",
+    "Point-in-Time Data",
     "Production Systems",
 ];
 

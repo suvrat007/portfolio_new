@@ -15,7 +15,7 @@ export const SITE = {
         "https://i.ibb.co/w5969Jt/Whats-App-Image-2025-03-29-at-22-55-08-82521ab9.jpg",
     githubUsername: "suvrat007",
     description:
-        "Suvrat Mittal builds financial systems: valuation models, pricing engines and market data pipelines, shipped to production.",
+        "Suvrat Mittal builds financial systems: portfolio risk engines, statement analysis terminals and valuation models, shipped to production.",
     url: "https://suvratmittal.vercel.app",
     foundedYear: 2023,
 };

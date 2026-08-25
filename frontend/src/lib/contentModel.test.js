@@ -128,8 +128,19 @@ describe("bundled snapshot", () => {
         expect(content.stack.length).toBeGreaterThan(0);
     });
 
-    it("leads the toolkit with the markets track", () => {
+    // Finance leads the toolkit deliberately; it is the positioning.
+    it("leads the toolkit with the finance track", () => {
         const content = normaliseContent(snapshot);
-        expect(content.stack[0].category).toMatch(/markets/i);
+        expect(content.stack[0].category).toMatch(/quant|finance|markets/i);
+    });
+
+    it("gives the featured finance work both a repo and a live URL", () => {
+        const content = normaliseContent(snapshot);
+        const quantfolio = selectFeatured(content).find((p) => p.name === "Quantfolio");
+
+        expect(quantfolio).toBeDefined();
+        expect(quantfolio.domain).toBe(DOMAINS.FINANCE);
+        expect(quantfolio.github).toMatch(/^https:\/\/github\.com\//);
+        expect(quantfolio.liveUrl).toMatch(/^https:\/\//);
     });
 });

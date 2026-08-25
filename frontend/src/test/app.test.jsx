@@ -65,32 +65,33 @@ describe("home page", () => {
         renderRoute(ROUTES.home);
 
         await waitFor(() => {
-            expect(screen.getAllByText("Ru-Ok").length).toBeGreaterThan(0);
+            expect(screen.getAllByText("Quantfolio").length).toBeGreaterThan(0);
         });
-        expect(screen.getAllByText("PacketLens").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("FinSight OS").length).toBeGreaterThan(0);
     });
 
     it("renders the toolkit, including the markets competencies", () => {
         renderRoute(ROUTES.home);
 
-        expect(screen.getAllByText(/Markets & Valuation/i).length).toBeGreaterThan(0);
-        expect(screen.getAllByText("Black-Scholes").length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/Quant & Finance/i).length).toBeGreaterThan(0);
+        expect(screen.getAllByText("Mean-Variance Optimisation").length).toBeGreaterThan(0);
     });
 
     it("shows the in-development finance roadmap", () => {
         renderRoute(ROUTES.home);
 
-        expect(screen.getByText("Equity Research Terminal")).toBeInTheDocument();
         expect(screen.getByText("Options Pricing Engine")).toBeInTheDocument();
+        expect(screen.getByText("Equity Research Terminal")).toBeInTheDocument();
     });
 
     it("lists the finance curriculum with its completion state", () => {
         renderRoute(ROUTES.home);
 
-        expect(screen.getByText("Financial Accounting")).toBeInTheDocument();
-        // Also named as a practice-track item, so it appears more than once.
+        // Also named as practice-track items, so these appear more than once.
+        expect(screen.getAllByText("Financial Statement Analysis").length).toBeGreaterThan(0);
         expect(screen.getAllByText("Intrinsic Valuation").length).toBeGreaterThan(0);
-        expect(screen.getAllByText("In progress").length).toBeGreaterThan(0);
+        // "Applied" means a shipped project backs the line.
+        expect(screen.getAllByText("Applied").length).toBeGreaterThan(0);
     });
 
     it("gives each project a working source and website link", () => {
@@ -132,7 +133,7 @@ describe("work page", () => {
         renderRoute(ROUTES.work);
 
         expect(screen.getAllByText("Tutora").length).toBeGreaterThan(0);
-        expect(screen.getByText("DCF Valuation Suite")).toBeInTheDocument();
+        expect(screen.getByText("Options Pricing Engine")).toBeInTheDocument();
     });
 
     it("offers a filter for every populated domain", () => {
