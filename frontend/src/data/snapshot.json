@@ -1,0 +1,374 @@
+{
+  "generatedAt": null,
+  "_comment": "Build-time snapshot of /api/content, bundled so the site paints instantly even when the API is cold. Regenerate with `npm run snapshot` (runs automatically on `npm run build`). Values below are the committed fallback used when the API is unreachable at build time.",
+  "projects": {
+    "featured": [
+      {
+        "_id": "seed-quantfolio",
+        "name": "Quantfolio",
+        "description": "Portfolio risk and mean-variance analytics for NSE-listed equities: a Streamlit terminal over a C++17 quant core and a reproducible data pipeline.",
+        "image": "",
+        "github": "https://github.com/suvrat007/portfolio_mngmnt",
+        "liveUrl": "https://portfolio-risk-management.streamlit.app/",
+        "domain": "data",
+        "status": "live",
+        "tags": [
+          "Python",
+          "C++17",
+          "NumPy",
+          "pandas",
+          "Plotly",
+          "Streamlit",
+          "Parquet",
+          "Docker"
+        ],
+        "timeline": "2026",
+        "highlights": [
+          "C++17 core bound via ctypes: efficient frontier computation from 57s to 150ms, a 380x speedup.",
+          "FISTA optimiser with exact projections for max-Sharpe and min-variance, validated against SciPy SLSQP.",
+          "Data pipeline with nine quality gates, a Parquet lake, point-in-time corporate action adjustment and idempotent ingest.",
+          "Covers Sharpe, Sortino, VaR/CVaR, max drawdown, Euler risk decomposition and Ledoit-Wolf shrinkage.",
+          "102 tests across three operating systems on GitHub Actions, plus Docker deployment."
+        ],
+        "order": 0
+      },
+      {
+        "_id": "seed-finsight",
+        "name": "FinSight OS",
+        "description": "A financial statement analysis and three-statement modelling terminal. Ingests company financials from multiple sources, normalises accounting nomenclature, then runs ratios, forensic review and forecasting.",
+        "image": "",
+        "github": "https://github.com/suvrat007/FSA",
+        "liveUrl": "https://fs-analysis.streamlit.app/",
+        "domain": "finance",
+        "status": "live",
+        "tags": [
+          "Python",
+          "pandas",
+          "yfinance",
+          "Plotly",
+          "Streamlit"
+        ],
+        "timeline": "2026",
+        "highlights": [
+          "Linked three-statement models built from live financial data, with balance sheet integrity validation.",
+          "15+ ratios including DuPont decomposition, liquidity, efficiency and solvency metrics.",
+          "Trend analysis across five years of history, with an automated health verdict per category."
+        ],
+        "order": 1
+      },
+      {
+        "_id": "seed-tutora",
+        "name": "Tutora",
+        "description": "A full-stack CRM for solo educators: multi-student and parent management, batches, fees, test scores and automated reminders, with a parent portal for real-time visibility.",
+        "image": "",
+        "github": "https://github.com/suvrat007/tutora",
+        "liveUrl": "https://tutor-a.vercel.app",
+        "domain": "engineering",
+        "status": "live",
+        "tags": [
+          "React",
+          "Redux",
+          "Node.js",
+          "Express.js",
+          "MongoDB",
+          "MediaPipe",
+          "Tailwind CSS",
+          "Docker",
+          "CI/CD"
+        ],
+        "timeline": "Jul 2025 to Aug 2025",
+        "highlights": [
+          "Shareable onboarding and test-submission links, eliminating manual data entry.",
+          "MediaPipe facial recognition for automated attendance marking.",
+          "Teacher calendar with auto-reminders triggered by scheduled tests and events; all data exportable to Excel."
+        ],
+        "order": 2
+      },
+      {
+        "_id": "seed-ruok",
+        "name": "Ru-Ok",
+        "description": "A mental health tracking application: 300+ emotion categories with contextual tagging, an AI companion built on Gemini and Groq, and analytics dashboards that surface triggers over time.",
+        "image": "",
+        "github": "https://github.com/suvrat007/RUOK-frontend",
+        "liveUrl": "https://ru-ok.in",
+        "domain": "data",
+        "status": "live",
+        "tags": [
+          "React",
+          "TypeScript",
+          "Node.js",
+          "Express.js",
+          "MongoDB",
+          "Gemini 2.5 Flash",
+          "Groq",
+          "Docker"
+        ],
+        "timeline": "Jun 2025 to Jul 2025",
+        "highlights": [
+          "300+ emotion categories with a contextual tagging system.",
+          "Sage, an AI companion using Gemini 2.5 Flash and Groq for context-aware support.",
+          "Real-time emotional analytics dashboards for identifying triggers and tracking progress."
+        ],
+        "order": 3
+      },
+      {
+        "_id": "seed-packetlens",
+        "name": "PacketLens",
+        "description": "A real-time network packet visualiser: parses Wireshark JSON, resolves addresses to geolocation and renders live traffic on an interactive global map.",
+        "image": "",
+        "github": "https://github.com/suvrat007/packetLens",
+        "liveUrl": "https://packetlens.vercel.app",
+        "domain": "engineering",
+        "status": "live",
+        "tags": [
+          "React",
+          "Python",
+          "Firebase",
+          "Firestore",
+          "Wireshark",
+          "Leaflet.js"
+        ],
+        "timeline": "Jan 2025 to Feb 2025",
+        "highlights": [
+          "Real-time pipeline parsing Wireshark output and resolving IPs to geolocation through external APIs.",
+          "Set-based destination deduplication, so no repeated destination is ever rendered.",
+          "Firebase for secure authentication and cloud storage."
+        ],
+        "order": 4
+      },
+      {
+        "_id": "seed-lft-infra",
+        "name": "Low Frequency Trading Infra",
+        "description": "A live market-data and execution stack: Binance WebSocket ingestion feeding a rolling metrics engine, a strategy layer and stateful position and P&L tracking.",
+        "image": "",
+        "github": "https://github.com/suvrat007/trading_infra",
+        "liveUrl": "",
+        "domain": "finance",
+        "status": "building",
+        "tags": [
+          "Node.js",
+          "C++17",
+          "WebSockets",
+          "Redis",
+          "SQLite",
+          "REST APIs"
+        ],
+        "timeline": "In progress",
+        "highlights": [
+          "Binance WebSocket feeds with auto-reconnect and exponential backoff for fault tolerance.",
+          "Producer-consumer threading over a lock-free queue.",
+          "Rolling metrics engine covering moving averages and volatility.",
+          "Stateful position and P&L tracking persisted to SQLite, behind a rate-limited REST layer."
+        ],
+        "order": 5
+      }
+    ],
+    "fullstack": [],
+    "react": [],
+    "js": []
+  },
+  "stack": [
+    {
+      "_id": "seed-languages",
+      "category": "Languages",
+      "order": 0,
+      "techs": [
+        {
+          "name": "Java",
+          "image": ""
+        },
+        {
+          "name": "Python",
+          "image": ""
+        },
+        {
+          "name": "C++17",
+          "image": ""
+        },
+        {
+          "name": "JavaScript",
+          "image": ""
+        },
+        {
+          "name": "TypeScript",
+          "image": ""
+        },
+        {
+          "name": "SQL",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "_id": "seed-backend",
+      "category": "Backend & Systems",
+      "order": 1,
+      "techs": [
+        {
+          "name": "Node.js",
+          "image": ""
+        },
+        {
+          "name": "Express.js",
+          "image": ""
+        },
+        {
+          "name": "REST APIs",
+          "image": ""
+        },
+        {
+          "name": "WebSockets",
+          "image": ""
+        },
+        {
+          "name": "Multithreading",
+          "image": ""
+        },
+        {
+          "name": "Producer-consumer architecture",
+          "image": ""
+        },
+        {
+          "name": "Docker",
+          "image": ""
+        },
+        {
+          "name": "CI/CD",
+          "image": ""
+        },
+        {
+          "name": "GitHub Actions",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "_id": "seed-data",
+      "category": "Data & Storage",
+      "order": 2,
+      "techs": [
+        {
+          "name": "MongoDB",
+          "image": ""
+        },
+        {
+          "name": "PostgreSQL",
+          "image": ""
+        },
+        {
+          "name": "Firebase",
+          "image": ""
+        },
+        {
+          "name": "Redis",
+          "image": ""
+        },
+        {
+          "name": "SQLite",
+          "image": ""
+        },
+        {
+          "name": "Parquet",
+          "image": ""
+        },
+        {
+          "name": "Time-series processing",
+          "image": ""
+        },
+        {
+          "name": "Data pipeline design",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "_id": "seed-quant",
+      "category": "Quant & Analytics",
+      "order": 3,
+      "techs": [
+        {
+          "name": "NumPy",
+          "image": ""
+        },
+        {
+          "name": "pandas",
+          "image": ""
+        },
+        {
+          "name": "SciPy",
+          "image": ""
+        },
+        {
+          "name": "Plotly",
+          "image": ""
+        },
+        {
+          "name": "Streamlit",
+          "image": ""
+        },
+        {
+          "name": "Mean-variance optimisation",
+          "image": ""
+        },
+        {
+          "name": "VaR / CVaR",
+          "image": ""
+        },
+        {
+          "name": "Efficient frontier",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "_id": "seed-frontend",
+      "category": "Frontend",
+      "order": 4,
+      "techs": [
+        {
+          "name": "React.js",
+          "image": ""
+        },
+        {
+          "name": "Redux",
+          "image": ""
+        },
+        {
+          "name": "Tailwind CSS",
+          "image": ""
+        },
+        {
+          "name": "TypeScript",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "_id": "seed-tools",
+      "category": "Tools",
+      "order": 5,
+      "techs": [
+        {
+          "name": "Wireshark",
+          "image": ""
+        },
+        {
+          "name": "MediaPipe",
+          "image": ""
+        },
+        {
+          "name": "Leaflet.js",
+          "image": ""
+        },
+        {
+          "name": "Postman",
+          "image": ""
+        },
+        {
+          "name": "Figma",
+          "image": ""
+        }
+      ]
+    }
+  ]
+}

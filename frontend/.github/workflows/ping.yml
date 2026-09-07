@@ -1,14 +1,32 @@
-name: Keep Render Alive
+name: Keep API warm
+
+# Render's free tier spins an instance down after ~15 minutes of inactivity, and
+# the cold start costs 30-50s. Pinging every 10 minutes keeps it resident.
+#
+# This is a best-effort optimisation, not the guarantee: GitHub throttles
+# scheduled workflows under load, so the site also ships a build-time snapshot
+# and revalidates in the background. A missed ping degrades nothing.
 
 on:
   schedule:
-    - cron: "*/5 * * * *"   # runs every 5 minutes
-  workflow_dispatch:         # can run manually too
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Curl Render backend
+      - name: Wake the instance
         run: |
-          curl -s https://project-api-y3d4.onrender.com/ > /dev/null
+          curl --silent --show-error --location \
+               --max-time 90 --retry 2 --retry-delay 10 \
+               -o /dev/null -w 'health: %{http_code} in %{time_total}s\n' \
+               https://project-api-y3d4.onrender.com/api/health
+
+      - name: Warm the content cache
+        run: |
+          curl --silent --show-error --location \
+               --max-time 90 --retry 2 --retry-delay 10 \
+               -o /dev/null -w 'content: %{http_code} in %{time_total}s\n' \
+               https://project-api-y3d4.onrender.com/api/content

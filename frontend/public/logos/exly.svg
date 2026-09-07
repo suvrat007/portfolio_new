@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 64" width="96" height="64" role="img" aria-label="Exly">
+    <rect width="96" height="64" fill="#4B32C3" />
+    <text
+        x="48"
+        y="42"
+        font-family="Helvetica, Arial, sans-serif"
+        font-size="26"
+        font-weight="700"
+        fill="#ffffff"
+        text-anchor="middle"
+        letter-spacing="-0.5"
+    >Exly</text>
+</svg>

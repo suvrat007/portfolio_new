@@ -1,0 +1,88 @@
+/* Reset and document defaults. Shared by every design system. */
+
+@layer base {
+    * {
+        border-color: var(--line);
+    }
+
+    html {
+        -webkit-text-size-adjust: 100%;
+        scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    body {
+        background-color: var(--paper);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        /* A long URL or tag must never widen the page on a phone. */
+        overflow-wrap: break-word;
+        font-synthesis-weight: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: "ss01", "cv05";
+        transition:
+            background-color 0.5s var(--ease-out-expo),
+            color 0.5s var(--ease-out-expo);
+        overflow-x: hidden;
+    }
+
+    ::selection {
+        background-color: var(--selection-bg);
+        color: var(--selection-fg);
+    }
+
+    :focus-visible {
+        outline: 1.5px solid var(--ink);
+        outline-offset: 3px;
+        border-radius: 1px;
+    }
+
+    /* A hairline scrollbar rather than the platform default. */
+    ::-webkit-scrollbar {
+        width: 9px;
+        height: 9px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--line-strong);
+        border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--ink-faint);
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Anchored sections should not land under the fixed header. */
+    section[id] {
+        scroll-margin-top: 6rem;
+    }
+}
+
+/* ==========================================================================
+   Component utilities
+   ========================================================================== */
+
