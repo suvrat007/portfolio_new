@@ -1,4 +1,5 @@
 import { ExternalLinkIcon, SourceIcon } from "../../../shared/ui/icons";
+import { AppearItem } from "../components/Appear";
 import { Pill, StatusDot, Tag } from "../components/Pill";
 
 const MAX_TAGS = 4;
@@ -11,7 +12,7 @@ export const ProjectItem = ({ project, actions }) => {
     const extra = project.tags.length - MAX_TAGS;
 
     return (
-        <article className="py-5">
+        <AppearItem as="article" className="py-5">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <h3 className="flex items-center gap-2 text-base font-semibold text-ink">
                     {project.name}
@@ -54,7 +55,7 @@ export const ProjectItem = ({ project, actions }) => {
                     {actions}
                 </div>
             )}
-        </article>
+        </AppearItem>
     );
 };
 

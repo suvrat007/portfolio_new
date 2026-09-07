@@ -40,7 +40,7 @@ export const STATS = [
     },
     { value: "9.2", unit: "/ 10", label: "CGPA", note: "B.Tech IT, MAIT" },
     { value: "10k+", unit: "", label: "Customers reached", note: "Exly, YC-19" },
-    { value: "200+", unit: "", label: "DSA problems", note: "Java, plus 100+ SQL" },
+    { value: "250+", unit: "", label: "LeetCode solved", note: "Plus 100+ SQL on HackerRank" },
 ];
 
 /**
@@ -163,24 +163,31 @@ export const EXPERIENCE = [
     {
         org: "Exly",
         badge: "YC-19",
+        /** Served from /public so it needs no bundler import. */
+        logo: "/logos/exly.svg",
         role: "Software Engineer Intern, Frontend",
         period: "Jan 2026 to Apr 2026",
         location: "Mumbai, remote",
         points: [
-            "Developed and optimised React interfaces for a high-scale creator platform, directly impacting 67% of active users across 10,000+ customers.",
+            "Developed and optimised React interfaces for the creator platform, directly impacting 67% of active users and scaling support to 10,000+ customers.",
             "Engineered modular, production-ready components alongside design and backend, improving maintainability and accelerating delivery.",
             "Owned features end to end through agile sprints, partnered with QA to resolve critical failing tests, and improved performance through debouncing and lazy loading on high-traffic components.",
         ],
     },
+];
+
+/** Kept separate from EXPERIENCE so each renders under its own heading. */
+export const EDUCATION = [
     {
         org: "Maharaja Agrasen Institute of Technology",
-        badge: "B.Tech",
-        role: "Information Technology & Engineering",
+        badge: "MAIT",
+        logo: "",
+        role: "B.Tech, Information Technology & Engineering",
         period: "2023 to 2027",
         location: "CGPA 9.2 / 10",
         points: [
             "Shortlisted for the Barclays Hong Kong Electronic Trading Associate summer internship, 2026.",
-            "200+ data structures and algorithms problems in Java, 100+ SQL problems on HackerRank, currently working through NeetCode 150.",
+            "250+ LeetCode problems and 200+ data structures and algorithms problems in Java, plus 100+ SQL problems on HackerRank.",
         ],
     },
 ];
@@ -205,7 +212,7 @@ export const BOOT_FACTS = [
     "102 tests across three operating systems, running on GitHub Actions.",
     "At Exly, React interfaces reaching 67% of active users across 10,000+ customers.",
     "Risk decomposition in practice: Sharpe, Sortino, VaR, CVaR, maximum drawdown and Euler contributions.",
-    "B.Tech IT & Engineering, CGPA 9.2. 200+ DSA problems in Java, and counting through NeetCode 150.",
+    "B.Tech IT & Engineering, CGPA 9.2. 250+ LeetCode problems solved, and counting through NeetCode 150.",
     "Ledoit-Wolf shrinkage, because a sample covariance matrix on sixty names is mostly noise.",
 ];
 

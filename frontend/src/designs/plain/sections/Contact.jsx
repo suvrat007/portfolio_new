@@ -1,5 +1,6 @@
 import { CONTACT } from "../../../constants/content";
 import { SECTIONS, SITE, SOCIAL_LINKS } from "../../../constants/site";
+import { Appear } from "../components/Appear";
 import { Section } from "../components/Section";
 
 const githubHref = SOCIAL_LINKS.find((social) => social.id === "github")?.href;
@@ -7,6 +8,7 @@ const linkedinHref = SOCIAL_LINKS.find((social) => social.id === "linkedin")?.hr
 
 export const Contact = () => (
     <Section id={SECTIONS.contact.id} title="Get in Touch">
+        <Appear>
         <p className="pl-muted max-w-2xl text-[0.9375rem] leading-relaxed">
             {CONTACT.lede}
         </p>
@@ -51,6 +53,7 @@ export const Contact = () => (
                 </a>
             ))}
         </div>
+        </Appear>
     </Section>
 );
 

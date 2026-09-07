@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { ROUTES, SECTIONS } from "../../../constants/site";
 import { useContent } from "../../../hooks/useContent";
 import { AdminRowActions } from "../../../shared/admin/AdminRowActions";
+import { AppearGroup } from "../components/Appear";
 import { Section } from "../components/Section";
 import { ProjectItem } from "./ProjectItem";
 
 /** Shipped work. The full index lives on /work. */
-export const Projects = ({ limit = 4 }) => {
+export const Projects = ({ limit = 6 }) => {
     const { shipped } = useContent();
     const visible = shipped.slice(0, limit);
 
@@ -24,7 +25,7 @@ export const Projects = ({ limit = 4 }) => {
             {visible.length === 0 ? (
                 <p className="pl-faint text-sm">Nothing published yet.</p>
             ) : (
-                <div className="divide-y divide-line">
+                <AppearGroup className="divide-y divide-line">
                     {visible.map((project) => (
                         <ProjectItem
                             key={project.id}
@@ -32,7 +33,7 @@ export const Projects = ({ limit = 4 }) => {
                             actions={<AdminRowActions project={project} />}
                         />
                     ))}
-                </div>
+                </AppearGroup>
             )}
         </Section>
     );

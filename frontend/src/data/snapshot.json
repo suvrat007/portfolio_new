@@ -85,6 +85,33 @@
         "order": 2
       },
       {
+        "_id": "seed-ruok",
+        "name": "Ru-Ok",
+        "description": "A mental health tracking application: 300+ emotion categories with contextual tagging, an AI companion built on Gemini and Groq, and analytics dashboards that surface triggers over time.",
+        "image": "",
+        "github": "https://github.com/suvrat007/RUOK-frontend",
+        "liveUrl": "https://ru-ok.in",
+        "domain": "data",
+        "status": "live",
+        "tags": [
+          "React",
+          "TypeScript",
+          "Node.js",
+          "Express.js",
+          "MongoDB",
+          "Gemini 2.5 Flash",
+          "Groq",
+          "Docker"
+        ],
+        "timeline": "Jun 2025 to Jul 2025",
+        "highlights": [
+          "300+ emotion categories with a contextual tagging system.",
+          "Sage, an AI companion using Gemini 2.5 Flash and Groq for context-aware support.",
+          "Real-time emotional analytics dashboards for identifying triggers and tracking progress."
+        ],
+        "order": 3
+      },
+      {
         "_id": "seed-packetlens",
         "name": "PacketLens",
         "description": "A real-time network packet visualiser: parses Wireshark JSON, resolves addresses to geolocation and renders live traffic on an interactive global map.",
@@ -107,14 +134,14 @@
           "Set-based destination deduplication, so no repeated destination is ever rendered.",
           "Firebase for secure authentication and cloud storage."
         ],
-        "order": 3
+        "order": 4
       },
       {
         "_id": "seed-lft-infra",
         "name": "Low Frequency Trading Infra",
         "description": "A live market-data and execution stack: Binance WebSocket ingestion feeding a rolling metrics engine, a strategy layer and stateful position and P&L tracking.",
         "image": "",
-        "github": "",
+        "github": "https://github.com/suvrat007/trading_infra",
         "liveUrl": "",
         "domain": "finance",
         "status": "building",
@@ -133,7 +160,7 @@
           "Rolling metrics engine covering moving averages and volatility.",
           "Stateful position and P&L tracking persisted to SQLite, behind a rate-limited REST layer."
         ],
-        "order": 4
+        "order": 5
       }
     ],
     "fullstack": [],

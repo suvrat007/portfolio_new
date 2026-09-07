@@ -79,9 +79,9 @@ describe("plain design (the default)", () => {
         await waitFor(() => {
             expect(screen.getAllByText("Quantfolio").length).toBeGreaterThan(0);
         });
-        expect(screen.getAllByText("FinSight OS").length).toBeGreaterThan(0);
-        expect(screen.getAllByText("Tutora").length).toBeGreaterThan(0);
-        expect(screen.getAllByText("PacketLens").length).toBeGreaterThan(0);
+        ["FinSight OS", "Tutora", "Ru-Ok", "PacketLens"].forEach((name) => {
+            expect(screen.getAllByText(name).length).toBeGreaterThan(0);
+        });
     });
 
     it("puts the trading infrastructure in the pipeline, not in shipped work", () => {
@@ -93,6 +93,17 @@ describe("plain design (the default)", () => {
         // Unshipped, so it carries no outbound links of its own.
         expect(within(pipeline).queryByRole("link", { name: /website/i })).toBeNull();
         expect(within(pipeline).queryByRole("link", { name: /source/i })).toBeNull();
+    });
+
+    it("gives education its own heading, separate from experience", () => {
+        const { container } = renderRoute(ROUTES.home);
+
+        expect(container.querySelector("#experience")).toBeInTheDocument();
+        const education = container.querySelector("#education");
+        expect(education).toBeInTheDocument();
+        expect(
+            within(education).getByText(/Maharaja Agrasen Institute of Technology/i),
+        ).toBeInTheDocument();
     });
 
     it("renders the toolkit groups", () => {

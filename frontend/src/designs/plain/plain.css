@@ -11,16 +11,19 @@
  */
 
 @layer components {
-    /* The column. Side rules echo the reference layout on wide viewports. */
+    /*
+     * The column: 60% of the viewport, centred, once there is room for it.
+     * Below 1024px it goes full width, because 60% of a phone is unreadable.
+     */
     .pl-shell {
         width: 100%;
-        max-width: 58rem;
         margin-inline: auto;
         min-height: 100dvh;
     }
 
-    @media (min-width: 1100px) {
+    @media (min-width: 1024px) {
         .pl-shell {
+            width: 60%;
             border-inline: 1px solid var(--line);
         }
     }

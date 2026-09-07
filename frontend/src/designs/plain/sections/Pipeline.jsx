@@ -1,6 +1,7 @@
 import { STATUS_LABELS } from "../../../constants/api";
 import { SECTIONS } from "../../../constants/site";
 import { useContent } from "../../../hooks/useContent";
+import { AppearGroup, AppearItem } from "../components/Appear";
 import { Section } from "../components/Section";
 import { StatusDot, Tag } from "../components/Pill";
 
@@ -19,9 +20,9 @@ export const Pipeline = () => {
             title="Pipeline"
             aside={`${roadmap.length} in progress`}
         >
-            <div className="divide-y divide-line">
+            <AppearGroup className="divide-y divide-line">
                 {roadmap.map((entry) => (
-                    <article key={entry.id} className="py-5">
+                    <AppearItem as="article" key={entry.id} className="py-5">
                         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                             <h3 className="flex items-center gap-2 text-base font-semibold text-ink">
                                 {entry.name}
@@ -43,9 +44,9 @@ export const Pipeline = () => {
                                 ))}
                             </div>
                         ) : null}
-                    </article>
+                    </AppearItem>
                 ))}
-            </div>
+            </AppearGroup>
         </Section>
     );
 };

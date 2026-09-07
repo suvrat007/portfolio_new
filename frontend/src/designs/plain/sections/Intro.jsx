@@ -1,6 +1,7 @@
 import { PROFILE } from "../../../constants/content";
 import { SITE, SOCIAL_LINKS } from "../../../constants/site";
 import { useCopyToClipboard } from "../../../hooks/useCopyToClipboard";
+import { Appear } from "../components/Appear";
 import {
     CheckIcon,
     CopyIcon,
@@ -16,7 +17,7 @@ export const Intro = () => {
     const { copy, copied } = useCopyToClipboard();
 
     return (
-        <section className="pt-10 pb-8 md:pt-14">
+        <Appear as="section" className="pt-10 pb-8 md:pt-14">
             <div className="flex items-center gap-4">
                 <img
                     src={SITE.portraitUrl}
@@ -74,7 +75,7 @@ export const Intro = () => {
                     );
                 })}
             </div>
-        </section>
+        </Appear>
     );
 };
 

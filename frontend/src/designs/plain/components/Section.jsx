@@ -1,11 +1,12 @@
 import { cn } from "../../../lib/cn";
+import { Appear } from "./Appear";
 
 /**
  * Section heading in the plain system: serif italic with a linkable anchor
  * mark, matching the document feel of the rest of the layout.
  */
 export const SectionHeading = ({ id, children, aside }) => (
-    <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+    <Appear className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="pl-heading">
             {children}
             <a href={`#${id}`} className="pl-heading-anchor" aria-label="Link to this section">
@@ -13,7 +14,7 @@ export const SectionHeading = ({ id, children, aside }) => (
             </a>
         </h2>
         {aside ? <div className="pl-faint text-sm">{aside}</div> : null}
-    </div>
+    </Appear>
 );
 
 /** A titled block with the section rhythm applied once, in one place. */

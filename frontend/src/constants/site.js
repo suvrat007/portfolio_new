@@ -10,7 +10,7 @@ export const SITE = {
     email: "suvratmittal007@gmail.com",
     phone: "+91 8826026670",
     resumeUrl:
-        "https://drive.google.com/file/d/1zeXs5eW8-muq7ZH38CNW0DgwxzYs0b7r/view?usp=sharing",
+        "https://drive.google.com/file/d/1CJ6ATXow98Hp5YiMeebU5JWyUtP4qPDa/view?usp=sharing",
     portraitUrl:
         "https://i.ibb.co/w5969Jt/Whats-App-Image-2025-03-29-at-22-55-08-82521ab9.jpg",
     githubUsername: "suvrat007",

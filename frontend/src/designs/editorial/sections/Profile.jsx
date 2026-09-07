@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import { EXPERIENCE, PROFILE, STATS } from "../../../constants/content";
+import { EDUCATION, EXPERIENCE, PROFILE, STATS } from "../../../constants/content";
 import { fadeUp, STAGGER } from "../../../constants/motion";
 import { SECTIONS } from "../../../constants/site";
 import { Reveal, RevealGroup } from "../components/Reveal";
@@ -102,11 +102,20 @@ export const Profile = () => (
             ))}
         </RevealGroup>
 
-        {/* Track record */}
+        {/* Track record. Education is its own block, not an experience row. */}
         <div className="mt-14 md:mt-16">
-            <Reveal className="u-label mb-8 text-faint">Track record</Reveal>
+            <Reveal className="u-label mb-8 text-faint">Experience</Reveal>
             <RevealGroup className="border-t border-line">
                 {EXPERIENCE.map((entry) => (
+                    <ExperienceRow key={entry.org} entry={entry} />
+                ))}
+            </RevealGroup>
+        </div>
+
+        <div className="mt-14 md:mt-16">
+            <Reveal className="u-label mb-8 text-faint">Education</Reveal>
+            <RevealGroup className="border-t border-line">
+                {EDUCATION.map((entry) => (
                     <ExperienceRow key={entry.org} entry={entry} />
                 ))}
             </RevealGroup>

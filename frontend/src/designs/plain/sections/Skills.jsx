@@ -1,6 +1,7 @@
 import { SECTIONS } from "../../../constants/site";
 import { useContent } from "../../../hooks/useContent";
 import { AdminStackActions, AdminTechAction } from "../../../shared/admin/AdminStackActions";
+import { AppearGroup, AppearItem } from "../components/Appear";
 import { Section } from "../components/Section";
 
 /** Toolkit as flat chips, grouped by category. */
@@ -11,9 +12,9 @@ export const Skills = () => {
 
     return (
         <Section id={SECTIONS.toolkit.id} title="Skills">
-            <div className="flex flex-col gap-6">
+            <AppearGroup className="flex flex-col gap-6">
                 {stack.map((group) => (
-                    <div key={group.id}>
+                    <AppearItem key={group.id}>
                         <div className="mb-3 flex items-center gap-2">
                             <h3 className="pl-faint text-xs uppercase tracking-widest">
                                 {group.category}
@@ -45,9 +46,9 @@ export const Skills = () => {
                                 </span>
                             ))}
                         </div>
-                    </div>
+                    </AppearItem>
                 ))}
-            </div>
+            </AppearGroup>
         </Section>
     );
 };

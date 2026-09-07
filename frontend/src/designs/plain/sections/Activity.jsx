@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 
 import { useTheme } from "../../../app/ThemeProvider";
 import { SECTIONS, SITE } from "../../../constants/site";
+import { Appear } from "../components/Appear";
 import { Section } from "../components/Section";
 
 // Third-party, below the fold, and it calls an external API. The package
@@ -27,7 +28,7 @@ export const Activity = () => {
             title="Github Activities"
             aside={`@${SITE.githubUsername}`}
         >
-            <div className="overflow-x-auto rounded-lg border border-line p-4">
+            <Appear className="overflow-x-auto rounded-lg border border-line p-4">
                 <Suspense
                     fallback={
                         <div
@@ -49,7 +50,7 @@ export const Activity = () => {
                         errorMessage="Could not load the contribution graph."
                     />
                 </Suspense>
-            </div>
+            </Appear>
         </Section>
     );
 };
