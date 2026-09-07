@@ -1,20 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import { ROUTES } from "../constants/site";
-import { SiteLayout } from "../features/layout/SiteLayout";
 import AdminPage from "../pages/AdminPage";
-import HomePage from "../pages/HomePage";
 import NotFoundPage from "../pages/NotFoundPage";
-import WorkPage from "../pages/WorkPage";
+import { DesignLayout, DesignRoute } from "./DesignOutlet";
 
+/**
+ * One static route tree for every design system. The layout and the public
+ * pages resolve through DesignOutlet at render time, so switching design does
+ * not rebuild the router.
+ *
+ * /admin is deliberately design-agnostic: it is a tool, not a presentation.
+ */
 export const router = createBrowserRouter([
     {
         path: ROUTES.home,
-        element: <SiteLayout />,
+        element: <DesignLayout />,
         errorElement: <NotFoundPage />,
         children: [
-            { index: true, element: <HomePage /> },
-            { path: ROUTES.work, element: <WorkPage /> },
+            { index: true, element: <DesignRoute name="home" /> },
+            { path: ROUTES.work, element: <DesignRoute name="work" /> },
             { path: ROUTES.admin, element: <AdminPage /> },
             { path: "*", element: <NotFoundPage /> },
         ],

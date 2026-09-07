@@ -20,3 +20,6 @@ export const THEMES = {
 };
 
 export const DEFAULT_THEME = THEMES.LIGHT;
+
+/** Which design system the visitor last chose. */
+export const DESIGN_STORAGE_KEY = "sm.design.v1";

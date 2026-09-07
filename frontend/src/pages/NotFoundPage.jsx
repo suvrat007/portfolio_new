@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 import { ROUTES } from "../constants/site";
 import { usePageMeta } from "../hooks/usePageMeta";
-import { Arrow } from "../components/ui/Button";
-import { MaskedLines } from "../components/ui/MaskedLines";
-import { Reveal } from "../components/ui/Reveal";
+import { Arrow } from "../shared/ui/Button";
+import { MaskedLines } from "../designs/editorial/components/MaskedLines";
+import { Reveal } from "../designs/editorial/components/Reveal";
 
 const NotFoundPage = () => {
     usePageMeta({ title: "Not found", description: "This page does not exist." });

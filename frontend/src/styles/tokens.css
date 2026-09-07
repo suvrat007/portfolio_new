@@ -1,0 +1,76 @@
+/*
+ * Palette. Two design systems share one token contract, so every component
+ * reads --ink / --paper and never a literal colour.
+ *
+ * Selectors are keyed on BOTH data-design and data-theme, which live together
+ * on <html>. "editorial" is warm paper and ink; "plain" is a cooler, flatter
+ * neutral matching the template layout.
+ */
+
+:root,
+[data-theme="light"],
+[data-design="editorial"],
+[data-design="editorial"][data-theme="light"] {
+    --paper: #f2f1ee;
+    --paper-raised: #ffffff;
+    --paper-sunken: #e7e5e0;
+    --ink: #0d0d0c;
+    --ink-muted: #6b6862;
+    --ink-faint: #a29e97;
+    --line: rgb(13 13 12 / 0.14);
+    --line-strong: rgb(13 13 12 / 0.28);
+    --signal: #2f7d4f;
+    --selection-bg: #0d0d0c;
+    --selection-fg: #f2f1ee;
+    --grain-opacity: 0.035;
+}
+
+[data-theme="dark"],
+[data-design="editorial"][data-theme="dark"] {
+    --paper: #0a0a09;
+    --paper-raised: #121211;
+    --paper-sunken: #050504;
+    --ink: #edebe6;
+    --ink-muted: #8c8880;
+    --ink-faint: #5c5953;
+    --line: rgb(237 235 230 / 0.14);
+    --line-strong: rgb(237 235 230 / 0.3);
+    --signal: #4fbf7d;
+    --selection-bg: #edebe6;
+    --selection-fg: #0a0a09;
+    --grain-opacity: 0.05;
+}
+
+
+/* ---- plain: flat neutral, closer to a document than to print ------------- */
+
+[data-design="plain"],
+[data-design="plain"][data-theme="light"] {
+    --paper: #ffffff;
+    --paper-raised: #ffffff;
+    --paper-sunken: #f4f4f5;
+    --ink: #18181b;
+    --ink-muted: #52525b;
+    --ink-faint: #8b8b93;
+    --line: rgb(24 24 27 / 0.12);
+    --line-strong: rgb(24 24 27 / 0.24);
+    --signal: #16a34a;
+    --selection-bg: #18181b;
+    --selection-fg: #ffffff;
+    --grain-opacity: 0;
+}
+
+[data-design="plain"][data-theme="dark"] {
+    --paper: #0a0a0a;
+    --paper-raised: #161616;
+    --paper-sunken: #050505;
+    --ink: #ededed;
+    --ink-muted: #a1a1a1;
+    --ink-faint: #6b6b6b;
+    --line: rgb(255 255 255 / 0.1);
+    --line-strong: rgb(255 255 255 / 0.22);
+    --signal: #4ade80;
+    --selection-bg: #ededed;
+    --selection-fg: #0a0a0a;
+    --grain-opacity: 0;
+}

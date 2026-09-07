@@ -1,15 +1,16 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 
+import { DesignLayout, DesignRoute } from "../app/DesignOutlet";
+import { DesignProvider } from "../app/DesignProvider";
+import { ThemeProvider } from "../app/ThemeProvider";
+import { DESIGN_IDS } from "../constants/design";
 import { HERO } from "../constants/content";
 import { ROUTES, SITE } from "../constants/site";
-import { ThemeProvider } from "../app/ThemeProvider";
-import { SiteLayout } from "../features/layout/SiteLayout";
-import HomePage from "../pages/HomePage";
-import WorkPage from "../pages/WorkPage";
+import { DESIGN_STORAGE_KEY } from "../constants/storage";
 import AdminPage from "../pages/AdminPage";
 import { store } from "../store";
 
@@ -24,15 +25,22 @@ vi.mock("../lib/apiClient", async () => {
     };
 });
 
-const renderRoute = (path) => {
+/**
+ * Renders through DesignOutlet rather than a design's own components, so these
+ * tests exercise the same indirection the real router uses.
+ */
+const renderRoute = (path, { design } = {}) => {
+    // DesignProvider reads storage in its state initialiser, so seed it first.
+    if (design) localStorage.setItem(DESIGN_STORAGE_KEY, design);
+
     const router = createMemoryRouter(
         [
             {
                 path: ROUTES.home,
-                element: <SiteLayout />,
+                element: <DesignLayout />,
                 children: [
-                    { index: true, element: <HomePage /> },
-                    { path: ROUTES.work, element: <WorkPage /> },
+                    { index: true, element: <DesignRoute name="home" /> },
+                    { path: ROUTES.work, element: <DesignRoute name="work" /> },
                     { path: ROUTES.admin, element: <AdminPage /> },
                 ],
             },
@@ -43,7 +51,9 @@ const renderRoute = (path) => {
     return render(
         <Provider store={store}>
             <ThemeProvider>
-                <RouterProvider router={router} />
+                <DesignProvider>
+                    <RouterProvider router={router} />
+                </DesignProvider>
             </ThemeProvider>
         </Provider>,
     );
@@ -53,131 +63,127 @@ beforeEach(() => {
     localStorage.clear();
 });
 
-describe("home page", () => {
-    it("renders the financial-systems positioning in the hero", () => {
+describe("plain design (the default)", () => {
+    it("is what a visitor gets without choosing anything", () => {
         renderRoute(ROUTES.home);
 
-        const heading = screen.getByRole("heading", { level: 1 });
-        expect(heading).toHaveTextContent(HERO.headline.join(""));
+        // The editorial hero headline must NOT be on screen by default.
+        expect(screen.queryByText(HERO.headline[2])).not.toBeInTheDocument();
+        expect(screen.getAllByText(SITE.name).length).toBeGreaterThan(0);
+        expect(document.documentElement.dataset.design).toBe(DESIGN_IDS.PLAIN);
     });
 
-    it("renders project work from the bundled snapshot with no API", async () => {
+    it("renders the work from the bundled snapshot with no API", async () => {
         renderRoute(ROUTES.home);
 
         await waitFor(() => {
             expect(screen.getAllByText("Quantfolio").length).toBeGreaterThan(0);
         });
         expect(screen.getAllByText("FinSight OS").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("Tutora").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("PacketLens").length).toBeGreaterThan(0);
     });
 
-    it("renders the toolkit, including the markets competencies", () => {
-        renderRoute(ROUTES.home);
-
-        expect(screen.getAllByText(/Quant & Finance/i).length).toBeGreaterThan(0);
-        expect(screen.getAllByText("Mean-Variance Optimisation").length).toBeGreaterThan(0);
-    });
-
-    it("shows the in-development finance roadmap", () => {
-        renderRoute(ROUTES.home);
-
-        expect(screen.getByText("Options Pricing Engine")).toBeInTheDocument();
-        expect(screen.getByText("Equity Research Terminal")).toBeInTheDocument();
-    });
-
-    it("lists the finance curriculum with its completion state", () => {
-        renderRoute(ROUTES.home);
-
-        // Also named as practice-track items, so these appear more than once.
-        expect(screen.getAllByText("Financial Statement Analysis").length).toBeGreaterThan(0);
-        expect(screen.getAllByText("Intrinsic Valuation").length).toBeGreaterThan(0);
-        // "Applied" means a shipped project backs the line.
-        expect(screen.getAllByText("Applied").length).toBeGreaterThan(0);
-    });
-
-    it("gives each project a working source and website link", () => {
-        renderRoute(ROUTES.home);
-
-        const [source] = screen.getAllByRole("link", { name: /source/i });
-        // A repository, not the profile root, and safe to open in a new tab.
-        expect(source).toHaveAttribute("href", expect.stringMatching(/github\.com\/[^/]+\/.+/));
-        expect(source).toHaveAttribute("target", "_blank");
-        expect(source).toHaveAttribute("rel", expect.stringContaining("noopener"));
-
-        const websites = screen.getAllByRole("link", { name: /website/i });
-        expect(websites.length).toBeGreaterThan(0);
-        websites.forEach((link) => {
-            expect(link).toHaveAttribute("href", expect.stringMatching(/^https:\/\//));
-            expect(link).toHaveAttribute("target", "_blank");
-        });
-    });
-
-    it("renders every numbered section anchor", () => {
+    it("puts the trading infrastructure in the pipeline, not in shipped work", () => {
         const { container } = renderRoute(ROUTES.home);
-        const ids = [...container.querySelectorAll("section[id]")].map((el) => el.id);
 
-        expect(ids).toEqual(
-            expect.arrayContaining([
-                "profile",
-                "practice",
-                "work",
-                "building",
-                "toolkit",
-                "contact",
-            ]),
+        const pipeline = container.querySelector("#building");
+        expect(within(pipeline).getByText("Low Frequency Trading Infra")).toBeInTheDocument();
+
+        // Unshipped, so it carries no outbound links of its own.
+        expect(within(pipeline).queryByRole("link", { name: /website/i })).toBeNull();
+        expect(within(pipeline).queryByRole("link", { name: /source/i })).toBeNull();
+    });
+
+    it("renders the toolkit groups", () => {
+        renderRoute(ROUTES.home);
+
+        expect(screen.getAllByText("Backend & Systems").length).toBeGreaterThan(0);
+        expect(screen.getAllByText("C++17").length).toBeGreaterThan(0);
+    });
+
+    it("offers the switch into the designed presentation", async () => {
+        const user = userEvent.setup();
+        renderRoute(ROUTES.home);
+
+        const button = screen.getByRole("button", { name: /add design/i });
+        await user.click(button);
+
+        await waitFor(() => {
+            expect(document.documentElement.dataset.design).toBe(DESIGN_IDS.EDITORIAL);
+        });
+        // The editorial hero is now on screen.
+        expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+            HERO.headline.join(""),
         );
     });
 });
 
-describe("work page", () => {
-    it("lists shipped and committed work together", () => {
-        renderRoute(ROUTES.work);
+describe("editorial design", () => {
+    it("renders its hero when the visitor has opted in", () => {
+        renderRoute(ROUTES.home, { design: DESIGN_IDS.EDITORIAL });
 
-        expect(screen.getAllByText("Tutora").length).toBeGreaterThan(0);
-        expect(screen.getByText("Options Pricing Engine")).toBeInTheDocument();
+        expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+            HERO.headline.join(""),
+        );
     });
 
-    it("offers a filter for every populated domain", () => {
-        renderRoute(ROUTES.work);
+    it("renders every numbered section anchor", () => {
+        const { container } = renderRoute(ROUTES.home, {
+            design: DESIGN_IDS.EDITORIAL,
+        });
+        const ids = [...container.querySelectorAll("section[id]")].map((el) => el.id);
 
-        expect(screen.getByRole("button", { name: /Everything/i })).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: /Finance/i })).toBeInTheDocument();
+        expect(ids).toEqual(
+            expect.arrayContaining(["profile", "practice", "work", "toolkit", "contact"]),
+        );
     });
 });
 
-describe("mobile navigation", () => {
-    // The header drops the clock, theme switch and sign-out below md. Those
-    // controls have to survive somewhere, or they are simply gone on a phone.
-    it("exposes navigation, contact and the theme switch once opened", async () => {
-        const user = userEvent.setup();
-        renderRoute(ROUTES.home);
+describe("removed work", () => {
+    it.each([
+        [DESIGN_IDS.PLAIN],
+        [DESIGN_IDS.EDITORIAL],
+    ])("shows neither the valuation model nor an options pricer in %s", (design) => {
+        renderRoute(ROUTES.work, { design });
 
-        await user.click(screen.getByRole("button", { name: /open menu/i }));
+        expect(screen.queryByText(/DCF Valuation Model/i)).not.toBeInTheDocument();
+        expect(screen.queryByText(/Options Pricing Engine/i)).not.toBeInTheDocument();
+    });
+});
 
-        // The header keeps its own contact anchor, so match on any of them.
-        expect(screen.getAllByRole("link", { name: /contact/i }).length).toBeGreaterThan(0);
-        expect(
-            screen.getAllByRole("button", { name: /switch to .* theme/i }).length,
-        ).toBeGreaterThan(0);
-        expect(screen.getAllByRole("link", { name: /work/i }).length).toBeGreaterThan(0);
+describe("work page", () => {
+    it.each([[DESIGN_IDS.PLAIN], [DESIGN_IDS.EDITORIAL]])(
+        "lists shipped and in-progress work together in %s",
+        (design) => {
+            renderRoute(ROUTES.work, { design });
+
+            expect(screen.getAllByText("Quantfolio").length).toBeGreaterThan(0);
+            expect(screen.getAllByText("Low Frequency Trading Infra").length).toBeGreaterThan(0);
+        },
+    );
+
+    it("gives every outbound project link a safe target", () => {
+        renderRoute(ROUTES.work);
+
+        const links = [
+            ...screen.getAllByRole("link", { name: /website/i }),
+            ...screen.getAllByRole("link", { name: /source/i }),
+        ];
+        expect(links.length).toBeGreaterThan(0);
+        links.forEach((link) => {
+            expect(link).toHaveAttribute("href", expect.stringMatching(/^https:\/\//));
+            expect(link).toHaveAttribute("target", "_blank");
+            expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
+        });
     });
 });
 
 describe("admin route", () => {
-    it("shows the sign-in panel when there is no session", () => {
+    it("is design-agnostic and shows the sign-in panel with no session", () => {
         renderRoute(ROUTES.admin);
 
         expect(screen.getByRole("heading", { name: /admin access/i })).toBeInTheDocument();
-        expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-    });
-});
-
-describe("layout", () => {
-    it("always exposes the identity and a contact route", () => {
-        renderRoute(ROUTES.home);
-
-        expect(screen.getAllByText(SITE.name).length).toBeGreaterThan(0);
-        expect(
-            screen.getAllByRole("link", { name: new RegExp(SITE.email, "i") }).length,
-        ).toBeGreaterThan(0);
+        expect(screen.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
     });
 });

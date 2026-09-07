@@ -128,10 +128,11 @@ describe("bundled snapshot", () => {
         expect(content.stack.length).toBeGreaterThan(0);
     });
 
-    // Finance leads the toolkit deliberately; it is the positioning.
-    it("leads the toolkit with the finance track", () => {
+    it("keeps a quantitative group in the toolkit", () => {
         const content = normaliseContent(snapshot);
-        expect(content.stack[0].category).toMatch(/quant|finance|markets/i);
+        const categories = content.stack.map((group) => group.category);
+
+        expect(categories.some((c) => /quant|finance|markets/i.test(c))).toBe(true);
     });
 
     it("gives the featured finance work both a repo and a live URL", () => {

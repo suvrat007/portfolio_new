@@ -9,7 +9,7 @@ export const HERO = {
     /** Rendered in the accent serif; sits inside the headline block. */
     accentWord: "financial",
     lede:
-        "Portfolio risk engines, statement analysis terminals and valuation models. I build the quant core, the data pipeline underneath it and the interface on top, then ship the whole thing.",
+        "Portfolio risk engines, statement analysis terminals and market-data infrastructure. I build the compute core, the pipeline underneath it and the interface on top, then ship the whole thing.",
     primaryCta: { label: "Read the resume", target: "resume" },
     secondaryCta: { label: "Selected work", target: "work" },
     meta: [
@@ -25,9 +25,9 @@ export const PROFILE = {
     lead: "I build quantitative systems, end to end.",
     body: [
         "B.Tech IT & Engineering at MAIT. Shortlisted for the Barclays Hong Kong Electronic Trading Associate summer internship, 2026.",
-        "The finance work is not notebooks. Quantfolio runs a C++17 core behind a reproducible data pipeline; FinSight OS builds linked three-statement models from live filings. Both are deployed and both have tests.",
+        "The finance work is not notebooks. Quantfolio runs a C++17 core behind a reproducible data pipeline, FinSight OS builds linked three-statement models from live filings, and a low-frequency trading stack is in progress. They are deployed and they have tests.",
     ],
-    signature: "A DCF is a model. A valuation engine is a system. I build the second one.",
+    signature: "A backtest is a script. An execution stack is a system. I build the second one.",
 };
 
 /** The giant-numeral stat row, echoing the reference layout. */
@@ -38,7 +38,7 @@ export const STATS = [
         label: "Frontier computation",
         note: "57s to 150ms, C++ core",
     },
-    { value: "9.14", unit: "/ 10", label: "CGPA", note: "B.Tech IT, MAIT" },
+    { value: "9.2", unit: "/ 10", label: "CGPA", note: "B.Tech IT, MAIT" },
     { value: "10k+", unit: "", label: "Customers reached", note: "Exly, YC-19" },
     { value: "200+", unit: "", label: "DSA problems", note: "Java, plus 100+ SQL" },
 ];
@@ -51,8 +51,8 @@ export const PRACTICE_TRACKS = [
     {
         id: "markets",
         index: "A",
-        title: "Markets & Valuation",
-        summary: "Reading a business from its numbers, then pricing it.",
+        title: "Markets & Risk",
+        summary: "Reading a business from its numbers, then pricing the risk.",
         items: [
             {
                 name: "Financial Statement Analysis",
@@ -65,14 +65,9 @@ export const PRACTICE_TRACKS = [
                     "Mean-variance optimisation, efficient frontier, Sharpe and Sortino, VaR and CVaR, maximum drawdown, Euler risk decomposition and Ledoit-Wolf shrinkage covariance estimation. All of it shipped in Quantfolio rather than described.",
             },
             {
-                name: "Intrinsic Valuation",
+                name: "Market Data & Execution",
                 detail:
-                    "FCFF discounted cash flow with WACC built up through CAPM, a five-year free cash flow projection, Gordon Growth terminal value and a sensitivity grid across WACC and terminal growth.",
-            },
-            {
-                name: "Reading the Divergence",
-                detail:
-                    "The Asian Paints model landed roughly 60% below market. The useful work was tracing that gap to conservative terminal growth assumptions rather than trusting the number the sheet printed. A valuation is an argument, not an output.",
+                    "Live Binance WebSocket ingestion with auto-reconnect and exponential backoff, feeding a rolling metrics engine and a strategy layer, with position and P&L held as state rather than recomputed. In progress as the low-frequency trading stack.",
             },
         ],
     },
@@ -98,9 +93,14 @@ export const PRACTICE_TRACKS = [
                     "102 tests running across three operating systems on GitHub Actions, plus Docker deployment. Catching failures before they reach anyone is the same discipline as operations risk under a different name.",
             },
             {
+                name: "Concurrency & Streaming",
+                detail:
+                    "Producer-consumer threading over a lock-free queue, fault-tolerant socket ingestion with exponential backoff, and a rate-limited REST layer in front of it. Throughput matters less than not losing a message.",
+            },
+            {
                 name: "Full-stack Delivery",
                 detail:
-                    "React, Redux, Node, Express and MongoDB. At Exly I shipped modular production components on a creator platform reaching 67% of active users across 10,000+ customers, and helped stabilise its release pipeline.",
+                    "React, Redux, Node, Express and MongoDB. At Exly I shipped modular production components on a creator platform reaching 67% of active users across 10,000+ customers, cut unnecessary re-renders through debouncing and lazy loading, and helped stabilise the release pipeline.",
             },
         ],
     },
@@ -116,11 +116,6 @@ export const CURRICULUM = {
     note: "Self-directed, alongside the degree.",
     items: [
         {
-            name: "Financial Statement Analysis",
-            detail: "3-statement models, DuPont, liquidity, solvency",
-            status: "Applied",
-        },
-        {
             name: "Portfolio Theory & CAPM",
             detail: "Efficient frontier, security market line, beta",
             status: "Applied",
@@ -131,19 +126,19 @@ export const CURRICULUM = {
             status: "Applied",
         },
         {
-            name: "Intrinsic Valuation",
-            detail: "FCFF DCF, WACC, Gordon Growth, sensitivity",
+            name: "Financial Statement Analysis",
+            detail: "3-statement models, DuPont, liquidity, solvency",
             status: "Applied",
         },
         {
-            name: "Statistical Modelling",
-            detail: "Regression, inference, time series",
+            name: "Market Microstructure & Execution",
+            detail: "Order flow, rolling metrics, position and P&L state",
             status: "In progress",
         },
         {
-            name: "Options Pricing",
-            detail: "Black-Scholes, greeks, implied volatility",
-            status: "Planned",
+            name: "Intrinsic Valuation",
+            detail: "FCFF DCF, WACC, Gordon Growth, sensitivity",
+            status: "Studied",
         },
     ],
 };
@@ -154,14 +149,6 @@ export const CURRICULUM = {
  * here, so this list shrinks on its own as projects ship.
  */
 export const ROADMAP = [
-    {
-        name: "Options Pricing Engine",
-        description:
-            "Black-Scholes and binomial pricing with a live greeks surface and implied volatility solving, exposed as both an API and an interactive board. The natural next layer on top of the risk engine.",
-        tags: ["Python", "C++17", "Black-Scholes", "Implied Volatility"],
-        status: "planned",
-        domain: "finance",
-    },
     {
         name: "Equity Research Terminal",
         description:
@@ -182,7 +169,7 @@ export const EXPERIENCE = [
         points: [
             "Developed and optimised React interfaces for a high-scale creator platform, directly impacting 67% of active users across 10,000+ customers.",
             "Engineered modular, production-ready components alongside design and backend, improving maintainability and accelerating delivery.",
-            "Owned features end to end through agile sprints and partnered with QA to stabilise the release pipeline.",
+            "Owned features end to end through agile sprints, partnered with QA to resolve critical failing tests, and improved performance through debouncing and lazy loading on high-traffic components.",
         ],
     },
     {
@@ -190,10 +177,10 @@ export const EXPERIENCE = [
         badge: "B.Tech",
         role: "Information Technology & Engineering",
         period: "2023 to 2027",
-        location: "CGPA 9.14 / 10",
+        location: "CGPA 9.2 / 10",
         points: [
             "Shortlisted for the Barclays Hong Kong Electronic Trading Associate summer internship, 2026.",
-            "200+ data structures and algorithms problems in Java, and 100+ SQL problems on HackerRank.",
+            "200+ data structures and algorithms problems in Java, 100+ SQL problems on HackerRank, currently working through NeetCode 150.",
         ],
     },
 ];
@@ -214,11 +201,11 @@ export const BOOT_FACTS = [
     "Shortlisted for the Barclays Hong Kong Electronic Trading Associate summer internship, 2026.",
     "FinSight OS builds linked three-statement models from live filings, with DuPont decomposition and 15+ ratios.",
     "Nine data quality gates caught a Yahoo Finance split-adjustment bug that had corrupted every downstream statistic.",
-    "An FCFF discounted cash flow on Asian Paints came out roughly 60% below market. The interesting part was why.",
+    "A low-frequency trading stack in progress: Binance WebSocket ingestion, a lock-free queue and stateful P&L tracking.",
     "102 tests across three operating systems, running on GitHub Actions.",
     "At Exly, React interfaces reaching 67% of active users across 10,000+ customers.",
     "Risk decomposition in practice: Sharpe, Sortino, VaR, CVaR, maximum drawdown and Euler contributions.",
-    "B.Tech IT & Engineering, CGPA 9.14. 200+ DSA problems in Java.",
+    "B.Tech IT & Engineering, CGPA 9.2. 200+ DSA problems in Java, and counting through NeetCode 150.",
     "Ledoit-Wolf shrinkage, because a sample covariance matrix on sixty names is mostly noise.",
 ];
 

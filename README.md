@@ -114,41 +114,71 @@ engineering ones without a schema change.
 
 ---
 
+## Two design systems
+
+The site ships two complete presentations of the same content.
+
+| | |
+| --- | --- |
+| **Plain** (default) | A single-column document. Flat surfaces, almost no motion, content first. This is what every visitor gets. |
+| **Editorial** | The designed version: fluid display type, hairline rules, masked reveals, magnetic buttons, a cursor-following project preview. Opt-in from the header control labelled **Add design**. |
+
+The split is enforced by structure, not convention:
+
+- A design system owns **presentation only**. It exports a `Layout` (which
+  renders an `<Outlet />`) and one component per public route. It never fetches
+  or shapes data.
+- Content arrives through the shared selectors in `lib/contentModel.js` and the
+  `useContent` hook, so both designs render the same projects, toolkit and
+  pipeline from the same source.
+- `designs/registry.js` maps an id to a design system. Adding a third means
+  adding a directory and one registry entry, and touching nothing else.
+- `app/DesignOutlet.jsx` resolves the active design at render time, so the
+  router tree stays static and switching design preserves history and scroll.
+- Colour is a shared token contract (`styles/tokens.css`). Each design gets its
+  own palette keyed on `[data-design]`, and both respond to the same theme
+  toggle. Classes are namespaced (`u-` editorial, `pl-` plain) so they cannot
+  collide.
+
+The choice persists to localStorage and is applied by the inline script in
+`index.html` before first paint, so there is no flash of the wrong design.
+
+`/admin` is deliberately design-agnostic: it is a tool, not a presentation.
+
+---
+
 ## Layout
 
 ```
 frontend/src/
-  constants/     Identity, copy, API contract, motion tokens, storage keys, boot timing
-  lib/           API client, storage wrapper, content normaliser + selectors, validators
-  hooks/         useContent, useBootSequence, useMagnetic, useProjectMutations, …
-  store/         Redux Toolkit slices (content, auth)
-  components/ui/ Section, MaskedLines, Reveal, Button, Marquee, Field, Modal
-  features/      boot, layout, hero, profile, practice, work, roadmap, toolkit,
-                 activity, contact, admin (one directory per section)
-  pages/         Home, Work, Admin, NotFound
-  app/           Router, ThemeProvider
-  data/          snapshot.json (generated)
+  app/            Router, DesignOutlet, ThemeProvider, DesignProvider
+  constants/      Identity, copy, API contract, motion tokens, storage, design ids
+  lib/            API client, storage wrapper, content normaliser + selectors
+  hooks/          useContent, useBootSequence, useProjectMutations, ...
+  store/          Redux Toolkit slices (content, auth)
+  shared/
+    ui/           Primitives used by both designs and by admin
+    admin/        The editing console
+    boot/         Cold-start screen
+  designs/
+    registry.js   id -> design system
+    plain/        index.js, plain.css, components/, layout/, sections/, pages/
+    editorial/    index.js, editorial.css, components/, layout/, sections/, pages/
+  pages/          Admin, NotFound (design-agnostic routes)
+  styles/         index.css (entry), tokens.css, base.css
+  data/           snapshot.json (generated)
 
 backend/src/
-  config/        Env validation, database connection
-  constants/     Every literal the server uses
-  models/        One shared project schema, stack, user
-  middleware/    Auth, async wrapper, error handling
-  services/      Content aggregation + cache, auth
-  routes/        content, projects, stack, auth, legacy rewrites
+  config/         Env validation, database connection
+  constants/      Every literal the server uses
+  models/         One shared project schema, stack, user
+  middleware/     Auth, async wrapper, error handling
+  services/       Content aggregation + cache, auth
+  routes/         content, projects, stack, auth, legacy rewrites
 ```
 
 No component holds a bare string or magic number. Copy lives in
 `constants/content.js`, timings in `constants/motion.js` and `constants/boot.js`.
-
-### Design
-
-Monochrome paper/ink, light and dark, applied before first paint by an inline
-script so the theme never flashes. Fluid type scale, hairline rules, mono labels,
-numbered sections. Motion is shared through `constants/motion.js`: masked line
-reveals, staggered entrances, magnetic buttons, a cursor-following project
-preview, page transitions. Everything respects
-`prefers-reduced-motion`, and hover effects are inert on touch.
 
 ---
 

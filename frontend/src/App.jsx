@@ -1,11 +1,12 @@
 import { AnimatePresence } from "framer-motion";
 import { RouterProvider } from "react-router-dom";
 
-import { router } from "./app/router";
+import { DesignProvider } from "./app/DesignProvider";
 import { ThemeProvider } from "./app/ThemeProvider";
+import { router } from "./app/router";
 import { useBootSequence } from "./hooks/useBootSequence";
 import { useContentBootstrap } from "./hooks/useContent";
-import { BootScreen } from "./features/boot/BootScreen";
+import { BootScreen } from "./shared/boot/BootScreen";
 
 /**
  * Root shell.
@@ -20,19 +21,21 @@ const App = () => {
 
     return (
         <ThemeProvider>
-            <RouterProvider router={router} />
+            <DesignProvider>
+                <RouterProvider router={router} />
 
-            <AnimatePresence>
-                {boot.isComplete ? null : (
-                    <BootScreen
-                        key="boot"
-                        progress={boot.progress}
-                        statusLabel={boot.statusLabel}
-                        elapsedSeconds={boot.elapsedSeconds}
-                        isReturningVisitor={boot.isReturningVisitor}
-                    />
-                )}
-            </AnimatePresence>
+                <AnimatePresence>
+                    {boot.isComplete ? null : (
+                        <BootScreen
+                            key="boot"
+                            progress={boot.progress}
+                            statusLabel={boot.statusLabel}
+                            elapsedSeconds={boot.elapsedSeconds}
+                            isReturningVisitor={boot.isReturningVisitor}
+                        />
+                    )}
+                </AnimatePresence>
+            </DesignProvider>
         </ThemeProvider>
     );
 };

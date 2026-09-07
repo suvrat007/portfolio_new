@@ -12,7 +12,16 @@
         "liveUrl": "https://portfolio-risk-management.streamlit.app/",
         "domain": "finance",
         "status": "live",
-        "tags": ["Python", "C++17", "NumPy", "pandas", "Plotly", "Streamlit", "Parquet", "Docker"],
+        "tags": [
+          "Python",
+          "C++17",
+          "NumPy",
+          "pandas",
+          "Plotly",
+          "Streamlit",
+          "Parquet",
+          "Docker"
+        ],
         "timeline": "2026",
         "highlights": [
           "C++17 core bound via ctypes: efficient frontier computation from 57s to 150ms, a 380x speedup.",
@@ -32,7 +41,13 @@
         "liveUrl": "https://fs-analysis.streamlit.app/",
         "domain": "finance",
         "status": "live",
-        "tags": ["Python", "pandas", "yfinance", "Plotly", "Streamlit"],
+        "tags": [
+          "Python",
+          "pandas",
+          "yfinance",
+          "Plotly",
+          "Streamlit"
+        ],
         "timeline": "2026",
         "highlights": [
           "Linked three-statement models built from live financial data, with balance sheet integrity validation.",
@@ -40,23 +55,6 @@
           "Trend analysis across five years of history, with an automated health verdict per category."
         ],
         "order": 1
-      },
-      {
-        "_id": "seed-dcf-asianpaints",
-        "name": "DCF Valuation Model, Asian Paints",
-        "description": "A full FCFF discounted cash flow model built in Excel: WACC via CAPM, five-year free cash flow projection, Gordon Growth terminal value and a two-way sensitivity grid.",
-        "image": "",
-        "github": "",
-        "liveUrl": "",
-        "domain": "finance",
-        "status": "live",
-        "tags": ["Excel", "FCFF", "WACC", "CAPM", "Gordon Growth", "Sensitivity Analysis"],
-        "timeline": "2026",
-        "highlights": [
-          "Identified a model-to-market divergence of roughly 60%.",
-          "Traced the gap to conservative terminal growth assumptions rather than accepting the output."
-        ],
-        "order": 2
       },
       {
         "_id": "seed-tutora",
@@ -67,14 +65,75 @@
         "liveUrl": "https://tutor-a.vercel.app",
         "domain": "engineering",
         "status": "live",
-        "tags": ["React", "Redux", "Node.js", "Express", "MongoDB", "MediaPipe", "Tailwind CSS", "CI/CD"],
+        "tags": [
+          "React",
+          "Redux",
+          "Node.js",
+          "Express.js",
+          "MongoDB",
+          "MediaPipe",
+          "Tailwind CSS",
+          "Docker",
+          "CI/CD"
+        ],
         "timeline": "Jul 2025 to Aug 2025",
         "highlights": [
           "Shareable onboarding and test-submission links, eliminating manual data entry.",
           "MediaPipe facial recognition for automated attendance marking.",
           "Teacher calendar with auto-reminders triggered by scheduled tests and events; all data exportable to Excel."
         ],
+        "order": 2
+      },
+      {
+        "_id": "seed-packetlens",
+        "name": "PacketLens",
+        "description": "A real-time network packet visualiser: parses Wireshark JSON, resolves addresses to geolocation and renders live traffic on an interactive global map.",
+        "image": "",
+        "github": "https://github.com/suvrat007/packetLens",
+        "liveUrl": "https://packetlens.vercel.app",
+        "domain": "data",
+        "status": "live",
+        "tags": [
+          "React",
+          "Python",
+          "Firebase",
+          "Firestore",
+          "Wireshark",
+          "Leaflet.js"
+        ],
+        "timeline": "Jan 2025 to Feb 2025",
+        "highlights": [
+          "Real-time pipeline parsing Wireshark output and resolving IPs to geolocation through external APIs.",
+          "Set-based destination deduplication, so no repeated destination is ever rendered.",
+          "Firebase for secure authentication and cloud storage."
+        ],
         "order": 3
+      },
+      {
+        "_id": "seed-lft-infra",
+        "name": "Low Frequency Trading Infra",
+        "description": "A live market-data and execution stack: Binance WebSocket ingestion feeding a rolling metrics engine, a strategy layer and stateful position and P&L tracking.",
+        "image": "",
+        "github": "",
+        "liveUrl": "",
+        "domain": "finance",
+        "status": "building",
+        "tags": [
+          "Node.js",
+          "C++17",
+          "WebSockets",
+          "Redis",
+          "SQLite",
+          "REST APIs"
+        ],
+        "timeline": "In progress",
+        "highlights": [
+          "Binance WebSocket feeds with auto-reconnect and exponential backoff for fault tolerance.",
+          "Producer-consumer threading over a lock-free queue.",
+          "Rolling metrics engine covering moving averages and volatility.",
+          "Stateful position and P&L tracking persisted to SQLite, behind a rate-limited REST layer."
+        ],
+        "order": 4
       }
     ],
     "fullstack": [],
@@ -83,74 +142,205 @@
   },
   "stack": [
     {
-      "_id": "seed-quant-finance",
-      "category": "Quant & Finance",
-      "order": 0,
-      "techs": [
-        { "name": "Financial Statement Analysis", "image": "" },
-        { "name": "DCF Valuation", "image": "" },
-        { "name": "Portfolio Theory", "image": "" },
-        { "name": "CAPM", "image": "" },
-        { "name": "Mean-Variance Optimisation", "image": "" },
-        { "name": "VaR / CVaR", "image": "" },
-        { "name": "Sharpe / Sortino", "image": "" },
-        { "name": "Efficient Frontier", "image": "" },
-        { "name": "DuPont Analysis", "image": "" }
-      ]
-    },
-    {
       "_id": "seed-languages",
       "category": "Languages",
-      "order": 1,
+      "order": 0,
       "techs": [
-        { "name": "Python", "image": "" },
-        { "name": "C++17", "image": "" },
-        { "name": "JavaScript", "image": "" },
-        { "name": "TypeScript", "image": "" },
-        { "name": "Java", "image": "" },
-        { "name": "SQL", "image": "" }
+        {
+          "name": "Java",
+          "image": ""
+        },
+        {
+          "name": "Python",
+          "image": ""
+        },
+        {
+          "name": "C++17",
+          "image": ""
+        },
+        {
+          "name": "JavaScript",
+          "image": ""
+        },
+        {
+          "name": "TypeScript",
+          "image": ""
+        },
+        {
+          "name": "SQL",
+          "image": ""
+        }
       ]
     },
     {
-      "_id": "seed-quant-stack",
-      "category": "Quant Stack",
-      "order": 2,
+      "_id": "seed-backend",
+      "category": "Backend & Systems",
+      "order": 1,
       "techs": [
-        { "name": "pandas", "image": "" },
-        { "name": "NumPy", "image": "" },
-        { "name": "SciPy", "image": "" },
-        { "name": "statsmodels", "image": "" },
-        { "name": "Plotly", "image": "" },
-        { "name": "Streamlit", "image": "" },
-        { "name": "yfinance", "image": "" }
+        {
+          "name": "Node.js",
+          "image": ""
+        },
+        {
+          "name": "Express.js",
+          "image": ""
+        },
+        {
+          "name": "REST APIs",
+          "image": ""
+        },
+        {
+          "name": "WebSockets",
+          "image": ""
+        },
+        {
+          "name": "Multithreading",
+          "image": ""
+        },
+        {
+          "name": "Producer-consumer architecture",
+          "image": ""
+        },
+        {
+          "name": "Docker",
+          "image": ""
+        },
+        {
+          "name": "CI/CD",
+          "image": ""
+        },
+        {
+          "name": "GitHub Actions",
+          "image": ""
+        }
       ]
     },
     {
       "_id": "seed-data",
-      "category": "Data",
-      "order": 3,
+      "category": "Data & Storage",
+      "order": 2,
       "techs": [
-        { "name": "Parquet", "image": "" },
-        { "name": "Time-series processing", "image": "" },
-        { "name": "OHLCV data", "image": "" },
-        { "name": "Corporate action adjustment", "image": "" },
-        { "name": "Data pipeline design", "image": "" }
+        {
+          "name": "MongoDB",
+          "image": ""
+        },
+        {
+          "name": "PostgreSQL",
+          "image": ""
+        },
+        {
+          "name": "Firebase",
+          "image": ""
+        },
+        {
+          "name": "Redis",
+          "image": ""
+        },
+        {
+          "name": "SQLite",
+          "image": ""
+        },
+        {
+          "name": "Parquet",
+          "image": ""
+        },
+        {
+          "name": "Time-series processing",
+          "image": ""
+        },
+        {
+          "name": "Data pipeline design",
+          "image": ""
+        }
       ]
     },
     {
-      "_id": "seed-engineering",
-      "category": "Engineering",
+      "_id": "seed-quant",
+      "category": "Quant & Analytics",
+      "order": 3,
+      "techs": [
+        {
+          "name": "NumPy",
+          "image": ""
+        },
+        {
+          "name": "pandas",
+          "image": ""
+        },
+        {
+          "name": "SciPy",
+          "image": ""
+        },
+        {
+          "name": "Plotly",
+          "image": ""
+        },
+        {
+          "name": "Streamlit",
+          "image": ""
+        },
+        {
+          "name": "Mean-variance optimisation",
+          "image": ""
+        },
+        {
+          "name": "VaR / CVaR",
+          "image": ""
+        },
+        {
+          "name": "Efficient frontier",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "_id": "seed-frontend",
+      "category": "Frontend",
       "order": 4,
       "techs": [
-        { "name": "React.js", "image": "" },
-        { "name": "Node.js", "image": "" },
-        { "name": "Express.js", "image": "" },
-        { "name": "MongoDB", "image": "" },
-        { "name": "Docker", "image": "" },
-        { "name": "GitHub Actions", "image": "" },
-        { "name": "CI/CD", "image": "" },
-        { "name": "REST APIs", "image": "" },
-        { "name": "MediaPipe", "image": "" }
+        {
+          "name": "React.js",
+          "image": ""
+        },
+        {
+          "name": "Redux",
+          "image": ""
+        },
+        {
+          "name": "Tailwind CSS",
+          "image": ""
+        },
+        {
+          "name": "TypeScript",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "_id": "seed-tools",
+      "category": "Tools",
+      "order": 5,
+      "techs": [
+        {
+          "name": "Wireshark",
+          "image": ""
+        },
+        {
+          "name": "MediaPipe",
+          "image": ""
+        },
+        {
+          "name": "Leaflet.js",
+          "image": ""
+        },
+        {
+          "name": "Postman",
+          "image": ""
+        },
+        {
+          "name": "Figma",
+          "image": ""
+        }
       ]
     }
   ]
