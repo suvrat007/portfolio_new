@@ -11,8 +11,7 @@ export const SITE = {
     phone: "+91 8826026670",
     resumeUrl:
         "https://drive.google.com/file/d/1CJ6ATXow98Hp5YiMeebU5JWyUtP4qPDa/view?usp=sharing",
-    portraitUrl:
-        "https://i.ibb.co/w5969Jt/Whats-App-Image-2025-03-29-at-22-55-08-82521ab9.jpg",
+    portraitUrl: "/portrait.jpg",
     githubUsername: "suvrat007",
     description:
         "Suvrat Mittal builds financial systems: portfolio risk engines, statement analysis terminals and valuation models, shipped to production.",

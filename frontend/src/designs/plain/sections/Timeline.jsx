@@ -23,12 +23,11 @@ const OrgMark = ({ entry }) =>
         <span className="pl-tile text-[0.625rem]">{entry.badge}</span>
     );
 
-/**
- * One role or qualification. Collapsed to a single line by default so the page
- * stays scannable; the detail is one click away.
- */
+/** One role or qualification, with its detail shown and collapsible. */
 const Entry = ({ entry }) => {
-    const [isOpen, setIsOpen] = useState(false);
+    // Open by default: the detail is the point, and collapsing it by default
+    // just adds a click between the visitor and the content.
+    const [isOpen, setIsOpen] = useState(true);
 
     return (
         <AppearItem className="py-4">

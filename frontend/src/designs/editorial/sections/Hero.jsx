@@ -10,6 +10,7 @@ import { Arrow, Button } from "../../../shared/ui/Button";
 import { MaskedLines } from "../components/MaskedLines";
 import { Marquee } from "../components/Marquee";
 import { StatusDot } from "../../../shared/ui/Tag";
+import { Portrait } from "../../../shared/ui/Portrait";
 
 const MARQUEE_ITEMS = [
     "Mean-Variance Optimisation",
@@ -85,21 +86,14 @@ export const Hero = () => {
                         transition={{ duration: DURATION.slow, delay: 0.5, ease: EASE.out }}
                     >
                         <div className="relative w-24 overflow-hidden bg-sunken sm:w-28 md:w-full">
-                            <img
-                                src={SITE.portraitUrl}
-                                alt={SITE.name}
+                            <Portrait
                                 width={320}
                                 height={400}
-                                loading="eager"
-                                fetchPriority="high"
                                 className={cn(
                                     "aspect-[4/5] w-full object-cover",
                                     "grayscale transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
                                     "hover:grayscale-0",
                                 )}
-                                onError={(event) => {
-                                    event.currentTarget.style.display = "none";
-                                }}
                             />
                         </div>
                     </motion.div>

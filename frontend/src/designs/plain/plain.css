@@ -12,8 +12,8 @@
 
 @layer components {
     /*
-     * The column: 60% of the viewport, centred, once there is room for it.
-     * Below 1024px it goes full width, because 60% of a phone is unreadable.
+     * The column: 50% of the viewport, centred, once there is room for it.
+     * Below 1024px it goes full width, because 50% of a phone is unreadable.
      */
     .pl-shell {
         width: 100%;
@@ -23,7 +23,7 @@
 
     @media (min-width: 1024px) {
         .pl-shell {
-            width: 60%;
+            width: 50%;
             border-inline: 1px solid var(--line);
         }
     }

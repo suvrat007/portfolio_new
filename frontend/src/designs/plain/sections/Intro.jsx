@@ -2,6 +2,7 @@ import { PROFILE } from "../../../constants/content";
 import { SITE, SOCIAL_LINKS } from "../../../constants/site";
 import { useCopyToClipboard } from "../../../hooks/useCopyToClipboard";
 import { Appear } from "../components/Appear";
+import { Portrait } from "../../../shared/ui/Portrait";
 import {
     CheckIcon,
     CopyIcon,
@@ -19,16 +20,10 @@ export const Intro = () => {
     return (
         <Appear as="section" className="pt-10 pb-8 md:pt-14">
             <div className="flex items-center gap-4">
-                <img
-                    src={SITE.portraitUrl}
-                    alt={SITE.name}
+                <Portrait
                     width={64}
                     height={64}
-                    loading="eager"
                     className="size-16 shrink-0 rounded-xl border border-line object-cover"
-                    onError={(event) => {
-                        event.currentTarget.style.display = "none";
-                    }}
                 />
 
                 <div>

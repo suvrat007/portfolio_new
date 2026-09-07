@@ -2,121 +2,84 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { BOOT_TIMING } from "../../constants/boot";
 import { BOOT_FACTS } from "../../constants/content";
-import { DURATION, EASE } from "../../constants/motion";
 import { SITE } from "../../constants/site";
 import { useRotatingIndex } from "../../hooks/useInterval";
 import { usePrefersReducedMotion } from "../../hooks/useMediaQuery";
 
-const pad = (value) => String(value).padStart(2, "0");
-
 /**
- * The cold-start screen.
+ * Cold-start screen.
  *
- * It exists because the API sleeps on Render's free tier. The site already
- * paints from a bundled snapshot, so this is usually a brief intro, but on a
- * genuinely cold visit it holds for up to 30s, and it has to be worth reading
- * for that long. Hence: rotating facts about the work, a live elapsed counter,
- * and an honest status line rather than a spinner.
+ * Almost always a brief wordmark: the site ships a bundled snapshot, so this
+ * exits after the minimum beat. The extra content only appears when the wait
+ * is genuinely long, which is the case it exists for. Showing a fact counter,
+ * an elapsed timer and a percentage on a 1.9s intro was noise.
  */
+const SHOW_FACT_AFTER_MS = 2_500;
+
 export const BootScreen = ({ progress, statusLabel, elapsedSeconds, isReturningVisitor }) => {
     const reduceMotion = usePrefersReducedMotion();
+
+    // Only a slow start earns the extra copy.
+    const isSlow = elapsedSeconds * 1000 > SHOW_FACT_AFTER_MS && !isReturningVisitor;
+
     const factIndex = useRotatingIndex(BOOT_FACTS.length, BOOT_TIMING.FACT_INTERVAL_MS, {
-        active: !isReturningVisitor,
+        active: isSlow,
     });
 
     return (
         <motion.div
-            className="fixed inset-0 z-[500] flex flex-col bg-paper text-ink"
+            className="fixed inset-0 z-[500] flex flex-col items-center justify-center bg-paper px-6 text-center"
             initial={{ opacity: 1 }}
             exit={{
                 opacity: 0,
-                filter: "blur(6px)",
-                transition: {
-                    duration: BOOT_TIMING.EXIT_DURATION_MS / 1000,
-                    ease: EASE.inOut,
-                },
+                transition: { duration: BOOT_TIMING.EXIT_DURATION_MS / 1000 },
             }}
         >
-            {/* A single hairline sweeping down the page, the only ambient motion. */}
-            {!reduceMotion ? (
-                <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-line-strong"
-                    style={{ animation: "u-scan 6s cubic-bezier(0.65,0,0.35,1) infinite" }}
+            <motion.div
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+                <p className="text-sm font-medium tracking-tight text-ink">{SITE.name}</p>
+                <p className="mt-1.5 text-xs text-muted">{SITE.role}</p>
+            </motion.div>
+
+            {/* One hairline, filling. No percentage, no timer. */}
+            <div
+                className="mt-8 h-px w-40 overflow-hidden bg-line"
+                role="progressbar"
+                aria-valuenow={Math.round(progress * 100)}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label="Loading"
+            >
+                <motion.div
+                    className="h-full origin-left bg-ink"
+                    style={{ scaleX: progress }}
                 />
-            ) : null}
-
-            <div className="u-container flex flex-1 flex-col justify-between py-8 md:py-12">
-                {/* Masthead */}
-                <motion.header
-                    className="flex items-start justify-between gap-6"
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: DURATION.base, ease: EASE.out }}
-                >
-                    <div>
-                        <p className="u-label text-ink">{SITE.name}</p>
-                        <p className="u-label mt-2 text-faint">{SITE.role}</p>
-                    </div>
-                    <div className="text-right">
-                        <p className="u-label u-numeric text-ink">
-                            {elapsedSeconds.toFixed(1)}s
-                        </p>
-                        <p className="u-label mt-2 text-faint">{SITE.location}</p>
-                    </div>
-                </motion.header>
-
-                {/* Rotating facts */}
-                <div className="flex flex-1 items-center py-10 md:py-16">
-                    <div className="w-full max-w-4xl">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={factIndex}
-                                initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: reduceMotion ? 0 : -14 }}
-                                transition={{ duration: DURATION.base, ease: EASE.out }}
-                            >
-                                <p className="u-label u-numeric mb-6 text-faint">
-                                    {pad(factIndex + 1)} / {pad(BOOT_FACTS.length)}
-                                </p>
-                                <p className="u-headline u-balance max-w-3xl text-[1.375rem] leading-snug sm:text-[length:var(--text-headline)] sm:leading-[1.05]">
-                                    {BOOT_FACTS[factIndex]}
-                                </p>
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-                </div>
-
-                {/* Progress */}
-                <motion.footer
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: DURATION.slow, delay: 0.2 }}
-                >
-                    <div className="mb-4 flex items-baseline justify-between gap-4">
-                        <p className="u-label text-muted">{statusLabel}</p>
-                        <p className="u-label u-numeric text-ink">
-                            {Math.round(progress * 100)}%
-                        </p>
-                    </div>
-
-                    <div
-                        className="h-px w-full overflow-hidden bg-line"
-                        role="progressbar"
-                        aria-valuenow={Math.round(progress * 100)}
-                        aria-valuemin={0}
-                        aria-valuemax={100}
-                        aria-label="Loading"
-                    >
-                        <motion.div
-                            className="h-full origin-left bg-ink"
-                            style={{ scaleX: progress }}
-                            transition={{ duration: 0.3, ease: EASE.out }}
-                        />
-                    </div>
-                </motion.footer>
             </div>
+
+            {/* Only on a genuinely cold start, to make the wait worth sitting through. */}
+            <div className="mt-8 h-16 max-w-sm">
+                <AnimatePresence mode="wait">
+                    {isSlow ? (
+                        <motion.p
+                            key={factIndex}
+                            className="text-xs leading-relaxed text-faint"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.4 }}
+                        >
+                            {BOOT_FACTS[factIndex]}
+                        </motion.p>
+                    ) : null}
+                </AnimatePresence>
+            </div>
+
+            <span className="sr-only" role="status">
+                {statusLabel}
+            </span>
         </motion.div>
     );
 };

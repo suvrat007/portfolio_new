@@ -187,7 +187,7 @@ export const EDUCATION = [
         location: "CGPA 9.2 / 10",
         points: [
             "Shortlisted for the Barclays Hong Kong Electronic Trading Associate summer internship, 2026.",
-            "250+ LeetCode problems and 200+ data structures and algorithms problems in Java, plus 100+ SQL problems on HackerRank.",
+            "250+ LeetCode problems solved in Java, plus 100+ SQL problems on HackerRank.",
         ],
     },
 ];
