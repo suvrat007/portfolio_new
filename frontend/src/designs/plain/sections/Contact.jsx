@@ -1,6 +1,6 @@
 import { CONTACT } from "../../../constants/content";
 import { SECTIONS, SITE, SOCIAL_LINKS } from "../../../constants/site";
-import { Appear } from "../components/Appear";
+import { AppearGroup, AppearItem } from "../components/Appear";
 import { Section } from "../components/Section";
 
 const githubHref = SOCIAL_LINKS.find((social) => social.id === "github")?.href;
@@ -8,12 +8,12 @@ const linkedinHref = SOCIAL_LINKS.find((social) => social.id === "linkedin")?.hr
 
 export const Contact = () => (
     <Section id={SECTIONS.contact.id} title="Get in Touch">
-        <Appear>
-        <p className="pl-muted max-w-2xl text-[0.9375rem] leading-relaxed">
+        <AppearGroup>
+        <AppearItem as="p" className="pl-muted max-w-2xl text-[0.9375rem] leading-relaxed">
             {CONTACT.lede}
-        </p>
+        </AppearItem>
 
-        <p className="pl-muted mt-3 max-w-2xl text-[0.9375rem] leading-relaxed">
+        <AppearItem as="p" className="pl-muted mt-3 max-w-2xl text-[0.9375rem] leading-relaxed">
             <a href={`mailto:${SITE.email}`} className="pl-link">
                 Send me an email
             </a>
@@ -36,11 +36,13 @@ export const Contact = () => (
                 read the code
             </a>
             .
-        </p>
+        </AppearItem>
 
-        <p className="pl-faint mt-4 text-sm">{CONTACT.availability}</p>
+        <AppearItem as="p" className="pl-faint mt-4 text-sm">
+            {CONTACT.availability}
+        </AppearItem>
 
-        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <AppearItem className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
             {SOCIAL_LINKS.map((social) => (
                 <a
                     key={social.id}
@@ -52,8 +54,8 @@ export const Contact = () => (
                     {social.label}
                 </a>
             ))}
-        </div>
-        </Appear>
+        </AppearItem>
+        </AppearGroup>
     </Section>
 );
 

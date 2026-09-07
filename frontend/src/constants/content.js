@@ -149,14 +149,10 @@ export const CURRICULUM = {
  * here, so this list shrinks on its own as projects ship.
  */
 export const ROADMAP = [
-    {
-        name: "Equity Research Terminal",
-        description:
-            "Screening and coverage built on top of FinSight OS: comparable sets, ratio history and a written thesis per name, so the analysis and the argument live in the same place.",
-        tags: ["Python", "Streamlit", "Market Data APIs"],
-        status: "planned",
-        domain: "finance",
-    },
+    // Empty by design. Unshipped work currently comes from the database, where
+    // anything flagged building or planned lands in the pipeline section.
+    // Add an entry here only to announce work that has no record yet; it
+    // disappears on its own once a project of the same name is published.
 ];
 
 export const EXPERIENCE = [

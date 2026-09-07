@@ -1,7 +1,7 @@
 import { PROFILE } from "../../../constants/content";
 import { SITE, SOCIAL_LINKS } from "../../../constants/site";
 import { useCopyToClipboard } from "../../../hooks/useCopyToClipboard";
-import { Appear } from "../components/Appear";
+import { AppearGroup, AppearItem } from "../components/Appear";
 import { Portrait } from "../../../shared/ui/Portrait";
 import {
     CheckIcon,
@@ -18,8 +18,8 @@ export const Intro = () => {
     const { copy, copied } = useCopyToClipboard();
 
     return (
-        <Appear as="section" className="pt-10 pb-8 md:pt-14">
-            <div className="flex items-center gap-4">
+        <AppearGroup as="section" className="pt-10 pb-8 md:pt-14">
+            <AppearItem className="flex items-center gap-4">
                 <Portrait
                     width={64}
                     height={64}
@@ -35,13 +35,16 @@ export const Intro = () => {
                     </h1>
                     <p className="pl-muted mt-1 text-sm">{SITE.role}</p>
                 </div>
-            </div>
+            </AppearItem>
 
-            <p className="pl-muted mt-6 max-w-2xl text-[0.9375rem] leading-relaxed">
+            <AppearItem
+                as="p"
+                className="pl-muted mt-6 max-w-2xl text-[0.9375rem] leading-relaxed"
+            >
                 {PROFILE.lead} {PROFILE.body[0]}
-            </p>
+            </AppearItem>
 
-            <div className="mt-5 flex items-center gap-2">
+            <AppearItem className="mt-5 flex items-center gap-2">
                 <span className="pl-muted text-sm">{SITE.email}</span>
                 <button
                     type="button"
@@ -51,9 +54,9 @@ export const Intro = () => {
                 >
                     {copied ? <CheckIcon /> : <CopyIcon />}
                 </button>
-            </div>
+            </AppearItem>
 
-            <div className="mt-5 flex items-center gap-4">
+            <AppearItem className="mt-5 flex items-center gap-4">
                 {SOCIAL_LINKS.filter((social) => ICONS[social.id]).map((social) => {
                     const Icon = ICONS[social.id];
                     return (
@@ -69,8 +72,8 @@ export const Intro = () => {
                         </a>
                     );
                 })}
-            </div>
-        </Appear>
+            </AppearItem>
+        </AppearGroup>
     );
 };
 

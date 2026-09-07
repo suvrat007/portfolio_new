@@ -102,22 +102,30 @@ describe("selectors", () => {
         expect(selectRoadmap(content).some((p) => p.name === "Pricer")).toBe(true);
     });
 
-    it("appends roadmap constants that have not been superseded", () => {
-        const names = selectRoadmap(content).map((p) => p.name);
-        expect(names).toContain(ROADMAP[0].name);
-    });
+    it.skipIf(ROADMAP.length === 0)(
+        "appends roadmap constants that have not been superseded",
+        () => {
+            const names = selectRoadmap(content).map((p) => p.name);
+            expect(names).toContain(ROADMAP[0].name);
+        },
+    );
 
-    it("drops a roadmap constant once a project of that name is published", () => {
-        const published = normaliseContent(
-            raw({
-                projects: {
-                    featured: [{ _id: "9", name: ROADMAP[0].name, description: "shipped" }],
-                },
-            }),
-        );
-        const names = selectRoadmap(published).map((p) => p.name);
-        expect(names).not.toContain(ROADMAP[0].name);
-    });
+    it.skipIf(ROADMAP.length === 0)(
+        "drops a roadmap constant once a project of that name is published",
+        () => {
+            const published = normaliseContent(
+                raw({
+                    projects: {
+                        featured: [
+                            { _id: "9", name: ROADMAP[0].name, description: "shipped" },
+                        ],
+                    },
+                }),
+            );
+            const names = selectRoadmap(published).map((p) => p.name);
+            expect(names).not.toContain(ROADMAP[0].name);
+        },
+    );
 });
 
 describe("bundled snapshot", () => {
@@ -135,13 +143,14 @@ describe("bundled snapshot", () => {
         expect(categories.some((c) => /quant|finance|markets/i.test(c))).toBe(true);
     });
 
-    it("gives the featured finance work both a repo and a live URL", () => {
+    it("gives every shipped project a repository and a live URL", () => {
         const content = normaliseContent(snapshot);
-        const quantfolio = selectFeatured(content).find((p) => p.name === "Quantfolio");
+        const shipped = selectShipped(content);
 
-        expect(quantfolio).toBeDefined();
-        expect(quantfolio.domain).toBe(DOMAINS.FINANCE);
-        expect(quantfolio.github).toMatch(/^https:\/\/github\.com\//);
-        expect(quantfolio.liveUrl).toMatch(/^https:\/\//);
+        expect(shipped.length).toBeGreaterThan(0);
+        shipped.forEach((project) => {
+            expect(project.github).toMatch(/^https:\/\/github\.com\/[^/]+\/.+/);
+            expect(project.liveUrl).toMatch(/^https:\/\//);
+        });
     });
 });

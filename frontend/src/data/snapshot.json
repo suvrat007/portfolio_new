@@ -10,7 +10,7 @@
         "image": "",
         "github": "https://github.com/suvrat007/portfolio_mngmnt",
         "liveUrl": "https://portfolio-risk-management.streamlit.app/",
-        "domain": "finance",
+        "domain": "data",
         "status": "live",
         "tags": [
           "Python",
@@ -118,7 +118,7 @@
         "image": "",
         "github": "https://github.com/suvrat007/packetLens",
         "liveUrl": "https://packetlens.vercel.app",
-        "domain": "data",
+        "domain": "engineering",
         "status": "live",
         "tags": [
           "React",

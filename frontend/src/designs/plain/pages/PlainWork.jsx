@@ -5,6 +5,7 @@ import { usePageMeta } from "../../../hooks/usePageMeta";
 import { useContent } from "../../../hooks/useContent";
 import { cn } from "../../../lib/cn";
 import { AdminRowActions } from "../../../shared/admin/AdminRowActions";
+import { Appear, AppearGroup } from "../components/Appear";
 import { SectionHeading } from "../components/Section";
 import { ProjectItem } from "../sections/ProjectItem";
 
@@ -45,12 +46,12 @@ const PlainWork = () => {
         <div className="pl-container py-10">
             <SectionHeading id="work">Work</SectionHeading>
 
-            <p className="pl-muted max-w-2xl text-[0.9375rem] leading-relaxed">
+            <Appear as="p" className="pl-muted max-w-2xl text-[0.9375rem] leading-relaxed">
                 Everything shipped and everything in progress, across finance, data and
                 engineering.
-            </p>
+            </Appear>
 
-            <div className="mt-6 flex flex-wrap gap-2">
+            <Appear className="mt-6 flex flex-wrap gap-2">
                 {filters.map((filter) => (
                     <button
                         key={filter.value}
@@ -66,9 +67,12 @@ const PlainWork = () => {
                         <span className="opacity-60">{filter.count}</span>
                     </button>
                 ))}
-            </div>
+            </Appear>
 
-            <div className="mt-4 divide-y divide-line border-t border-line">
+            <AppearGroup
+                key={domain}
+                className="mt-4 divide-y divide-line border-t border-line"
+            >
                 {visible.map((project) => (
                     <ProjectItem
                         key={project.id}
@@ -76,7 +80,7 @@ const PlainWork = () => {
                         actions={<AdminRowActions project={project} />}
                     />
                 ))}
-            </div>
+            </AppearGroup>
         </div>
     );
 };

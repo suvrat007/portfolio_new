@@ -126,7 +126,7 @@ export const ProjectForm = ({
                     label="Name"
                     value={values.name}
                     onChange={setField("name")}
-                    placeholder="Equity Research Terminal"
+                    placeholder="Options Pricing Engine"
                     required
                 />
 
