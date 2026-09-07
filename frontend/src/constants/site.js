@@ -4,7 +4,7 @@ export const SITE = {
     name: "Suvrat Mittal",
     shortName: "Suvrat",
     initials: "SM",
-    role: "Financial Systems Engineer",
+    role: "Software Engineer",
     location: "Noida, India",
     timezone: "Asia/Kolkata",
     email: "suvratmittal007@gmail.com",
@@ -14,7 +14,7 @@ export const SITE = {
     portraitUrl: "/portrait.jpg",
     githubUsername: "suvrat007",
     description:
-        "Suvrat Mittal builds financial systems: portfolio risk engines, statement analysis terminals and valuation models, shipped to production.",
+        "Suvrat Mittal is a software engineer building high-performance systems: low-latency compute cores, real-time data pipelines and the interfaces on top.",
     url: "https://suvratmittal.vercel.app",
     foundedYear: 2023,
 };

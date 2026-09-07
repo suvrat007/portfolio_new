@@ -4,16 +4,16 @@
  */
 
 export const HERO = {
-    eyebrow: "Available for 2027 analyst and engineering roles",
-    headline: ["I build", "financial", "systems."],
+    eyebrow: "Available for 2027 roles",
+    headline: ["I build", "high-performance", "systems."],
     /** Rendered in the accent serif; sits inside the headline block. */
-    accentWord: "financial",
+    accentWord: "high-performance",
     lede:
-        "Portfolio risk engines, statement analysis terminals and market-data infrastructure. I build the compute core, the pipeline underneath it and the interface on top, then ship the whole thing.",
+        "Low-latency compute cores, real-time data pipelines and the interfaces on top. I build the whole stack and ship it, whether the domain is markets or anything else.",
     primaryCta: { label: "Read the resume", target: "resume" },
     secondaryCta: { label: "Selected work", target: "work" },
     meta: [
-        { label: "Discipline", value: "Financial systems" },
+        { label: "Discipline", value: "Systems & data" },
         { label: "Based", value: "Noida, IN" },
         { label: "Shortlisted", value: "Barclays HK, 2026" },
         { label: "Since", value: "2023" },
@@ -22,7 +22,7 @@ export const HERO = {
 
 export const PROFILE = {
     /** Kept to one short line. It is set large, so length costs a lot of height. */
-    lead: "I build quantitative systems, end to end.",
+    lead: "I build systems, end to end.",
     body: [
         "B.Tech IT & Engineering at MAIT. Shortlisted for the Barclays Hong Kong Electronic Trading Associate summer internship, 2026.",
         "The finance work is not notebooks. Quantfolio runs a C++17 core behind a reproducible data pipeline, FinSight OS builds linked three-statement models from live filings, and a low-frequency trading stack is in progress. They are deployed and they have tests.",
@@ -191,7 +191,7 @@ export const EDUCATION = [
 export const CONTACT = {
     heading: ["Let's talk about", "what you're building."],
     lede:
-        "Open to analyst, quantitative research and engineering roles where market thinking and system building are the same job. Also happy to talk about a model you think is wrong.",
+        "Open to engineering roles where performance and correctness actually matter, in markets or anywhere else. Also happy to talk about a system you think is wrong.",
     availability: "Currently taking conversations for 2026 and 2027.",
 };
 
