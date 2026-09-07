@@ -136,9 +136,14 @@ export const Hero = () => {
                         transition={{ duration: DURATION.slow, delay: 0.75 }}
                     >
                         {HERO.meta.map((entry) => (
+                            /*
+                             * Stacked, not label-left/value-right: this column
+                             * is 3 of 12, so any value longer than a word wraps
+                             * against a baseline-aligned label and reads broken.
+                             */
                             <div
                                 key={entry.label}
-                                className="flex items-baseline justify-between gap-4 border-b border-line pb-3"
+                                className="flex flex-col gap-1.5 border-b border-line pb-3"
                             >
                                 <dt className="u-label text-faint">{entry.label}</dt>
                                 <dd className="u-label text-ink">{entry.value}</dd>
