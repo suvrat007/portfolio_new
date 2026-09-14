@@ -66,7 +66,7 @@ export const SOCIAL_LINKS = [
     {
         id: "leetcode",
         label: "LeetCode",
-        handle: "@suvrat007",
-        href: "https://leetcode.com/u/suvrat007/",
+        handle: "@suvrat_mi",
+        href: "https://leetcode.com/u/suvrat_mi",
     },
 ];

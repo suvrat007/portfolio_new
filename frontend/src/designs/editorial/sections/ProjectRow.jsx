@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { DOMAIN_LABELS, PROJECT_STATUS } from "../../../constants/api";
-import { fadeUp } from "../../../constants/motion";
+import { DURATION, EASE, fadeUp } from "../../../constants/motion";
 import { cn } from "../../../lib/cn";
 import { StatusDot, Tag } from "../../../shared/ui/Tag";
 import { ExternalLinkIcon, SourceIcon } from "../../../shared/ui/icons";
@@ -31,6 +32,65 @@ const ProjectLink = ({ href, label, icon: Icon }) => (
         {label}
     </a>
 );
+
+/**
+ * The detail bullets, collapsed behind a toggle.
+ *
+ * Every row carrying three or four of these made the index long enough that
+ * scanning it meant scrolling past the substance. Closed by default: the name,
+ * the sentence and the stack are the scan; the bullets are the read.
+ */
+const Highlights = ({ items }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div className="mt-4">
+            <button
+                type="button"
+                onClick={() => setIsOpen((open) => !open)}
+                aria-expanded={isOpen}
+                className="group/toggle u-label flex items-center gap-2 text-faint transition-colors duration-300 hover:text-ink"
+            >
+                <span className="u-numeric">
+                    {items.length} {items.length === 1 ? "note" : "notes"}
+                </span>
+                <span
+                    aria-hidden="true"
+                    className={cn(
+                        "transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                        isOpen && "rotate-45",
+                    )}
+                >
+                    +
+                </span>
+            </button>
+
+            <AnimatePresence initial={false}>
+                {isOpen ? (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: DURATION.base, ease: EASE.out }}
+                        className="overflow-hidden"
+                    >
+                        <ul className="flex flex-col gap-2 pt-4">
+                            {items.map((highlight) => (
+                                <li
+                                    key={highlight}
+                                    className="u-pretty flex gap-3 text-sm text-faint"
+                                >
+                                    <span aria-hidden="true">·</span>
+                                    {highlight}
+                                </li>
+                            ))}
+                        </ul>
+                    </motion.div>
+                ) : null}
+            </AnimatePresence>
+        </div>
+    );
+};
 
 /**
  * One project, as a row in an index rather than a card in a grid. Keeps a long
@@ -84,17 +144,7 @@ export const ProjectRow = ({ project, index, onHover, onLeave, onMove, actions }
                     </p>
 
                     {project.highlights.length > 0 ? (
-                        <ul className="mt-4 flex flex-col gap-2">
-                            {project.highlights.map((highlight) => (
-                                <li
-                                    key={highlight}
-                                    className="u-pretty flex gap-3 text-sm text-faint"
-                                >
-                                    <span aria-hidden="true">·</span>
-                                    {highlight}
-                                </li>
-                            ))}
-                        </ul>
+                        <Highlights items={project.highlights} />
                     ) : null}
 
                     {project.tags.length > 0 ? (

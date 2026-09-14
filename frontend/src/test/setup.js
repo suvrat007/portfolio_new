@@ -17,11 +17,46 @@ if (!window.matchMedia) {
     });
 }
 
+/*
+ * A real IntersectionObserver fires when the target is on screen; a no-op mock
+ * never does. Everything driven by whileInView then stays at its hidden
+ * variant, which is invisible in a browser but perfectly findable in jsdom, so
+ * an entirely blank page passes its tests. This mock reports the target as
+ * intersecting so that code path is actually exercised.
+ */
 if (!window.IntersectionObserver) {
     window.IntersectionObserver = class {
-        observe() {}
-        unobserve() {}
-        disconnect() {}
+        constructor(callback) {
+            this.callback = callback;
+            this.elements = new Set();
+        }
+
+        observe(element) {
+            this.elements.add(element);
+            this.callback(
+                [
+                    {
+                        target: element,
+                        isIntersecting: true,
+                        intersectionRatio: 1,
+                        boundingClientRect: element.getBoundingClientRect?.() ?? {},
+                        intersectionRect: element.getBoundingClientRect?.() ?? {},
+                        rootBounds: null,
+                        time: 0,
+                    },
+                ],
+                this,
+            );
+        }
+
+        unobserve(element) {
+            this.elements.delete(element);
+        }
+
+        disconnect() {
+            this.elements.clear();
+        }
+
         takeRecords() {
             return [];
         }

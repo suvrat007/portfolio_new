@@ -23,8 +23,17 @@ export const STAGGER = {
     loose: 0.12,
 };
 
-/** Fraction of the element that must be visible before it animates in. */
-export const VIEWPORT = { once: true, amount: 0.2, margin: "0px 0px -10% 0px" };
+/*
+ * amount is a fraction of the TARGET, not of the viewport. These wrappers hold
+ * whole lists, so they are routinely taller than the screen: a group 5x the
+ * viewport height can never exceed a 0.2 intersection ratio, the observer never
+ * fires, and every child stays at its hidden variant. The page renders, and is
+ * invisible.
+ *
+ * "some" fires on any intersection at all, which is height-independent and the
+ * only safe choice for a container whose height is driven by data.
+ */
+export const VIEWPORT = { once: true, amount: "some", margin: "0px 0px -10% 0px" };
 
 export const fadeUp = {
     hidden: { opacity: 0, y: 24 },

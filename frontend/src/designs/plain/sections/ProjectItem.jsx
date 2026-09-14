@@ -13,17 +13,26 @@ export const ProjectItem = ({ project, actions }) => {
 
     return (
         <AppearItem as="article" className="py-5">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 className="flex items-center gap-2 text-base font-semibold text-ink">
-                    {project.name}
+            {/*
+              * The date shares the title row rather than sitting beside the
+              * description. As a shrink-0 sibling it reserved its width for the
+              * description's whole height, so every line wrapped short while
+              * the space beside it stayed empty.
+              */}
+            <div className="flex items-baseline justify-between gap-3">
+                <h3 className="flex min-w-0 items-center gap-2 text-base font-semibold text-ink">
+                    <span className="truncate">{project.name}</span>
                     <StatusDot status={project.status} />
                 </h3>
+
                 {project.timeline ? (
-                    <span className="pl-faint text-xs">{project.timeline}</span>
+                    <span className="pl-faint shrink-0 whitespace-nowrap text-xs">
+                        {project.timeline}
+                    </span>
                 ) : null}
             </div>
 
-            <p className="pl-muted mt-2 max-w-2xl text-sm leading-relaxed">
+            <p className="pl-muted mt-2 max-w-2xl text-[0.8125rem] leading-relaxed sm:text-sm">
                 {project.description}
             </p>
 

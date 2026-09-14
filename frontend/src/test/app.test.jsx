@@ -106,6 +106,38 @@ describe("plain design (the default)", () => {
         ).toBeInTheDocument();
     });
 
+    it("keeps every header control reachable", () => {
+        const { container } = renderRoute(ROUTES.home);
+        const header = container.querySelector("header");
+
+        // Routes collapse behind a menu below sm, so nothing may be dropped to
+        // make the bar fit.
+        ["Index", "Work", "Resume"].forEach((label) => {
+            expect(within(header).getByRole("link", { name: label })).toBeInTheDocument();
+        });
+        expect(within(header).getByRole("button", { name: /add design/i })).toBeInTheDocument();
+        expect(
+            within(header).getByRole("button", { name: /switch to .* theme/i }),
+        ).toBeInTheDocument();
+    });
+
+    it("opens a menu carrying the routes and the design switch", async () => {
+        const user = userEvent.setup();
+        const { container } = renderRoute(ROUTES.home);
+        const header = container.querySelector("header");
+
+        await user.click(within(header).getByRole("button", { name: /open menu/i }));
+
+        // Panel duplicates the routes, so both navs are now in the tree.
+        expect(within(header).getAllByRole("link", { name: "Work" }).length).toBe(2);
+        expect(
+            within(header).getAllByRole("button", { name: /add design/i }).length,
+        ).toBe(2);
+
+        await user.click(within(header).getByRole("button", { name: /close menu/i }));
+        expect(within(header).getAllByRole("link", { name: "Work" }).length).toBe(1);
+    });
+
     it("renders the toolkit groups", () => {
         renderRoute(ROUTES.home);
 
@@ -187,6 +219,49 @@ describe("work page", () => {
             expect(link).toHaveAttribute("target", "_blank");
             expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
         });
+    });
+});
+
+describe("scroll-in animation", () => {
+    /*
+     * A whileInView element that never triggers keeps its hidden variant, which
+     * is opacity 0. That renders a full page of content that is present in the
+     * DOM, findable by every query, and invisible on screen, so a query-based
+     * assertion cannot catch it. These check the resulting style instead.
+     */
+    it.each([[DESIGN_IDS.PLAIN], [DESIGN_IDS.EDITORIAL]])(
+        "leaves nothing invisible on the work index in %s",
+        async (design) => {
+            const { container } = renderRoute(ROUTES.work, { design });
+
+            await waitFor(
+                () => {
+                    const hidden = [...container.querySelectorAll("article")].filter(
+                        (article) =>
+                            (article.getAttribute("style") ?? "").includes("opacity: 0"),
+                    );
+                    expect(hidden).toHaveLength(0);
+                },
+                { timeout: 4000 },
+            );
+
+            expect(container.querySelectorAll("article").length).toBeGreaterThan(0);
+        },
+    );
+});
+
+describe("editorial project notes", () => {
+    it("keeps the detail bullets behind a toggle", async () => {
+        const user = userEvent.setup();
+        renderRoute(ROUTES.work, { design: DESIGN_IDS.EDITORIAL });
+
+        const bullet = /C\+\+17 core bound via ctypes/i;
+        expect(screen.queryByText(bullet)).not.toBeInTheDocument();
+
+        const [toggle] = screen.getAllByRole("button", { name: /notes/i });
+        await user.click(toggle);
+
+        expect(await screen.findByText(bullet)).toBeInTheDocument();
     });
 });
 

@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 
 import { SECTIONS, SITE } from "../../../constants/site";
 import { useTheme } from "../../../app/ThemeProvider";
+import { usePinScrollEnd } from "../../../hooks/usePinScrollEnd";
 import { Reveal } from "../components/Reveal";
 import { Section } from "../components/Section";
 
@@ -29,6 +30,7 @@ const CalendarFallback = () => (
 
 export const Activity = () => {
     const { isDark } = useTheme();
+    const scrollerRef = usePinScrollEnd();
 
     return (
         <Section
@@ -37,7 +39,8 @@ export const Activity = () => {
             label={SECTIONS.activity.label}
             aside={`github.com/${SITE.githubUsername}`}
         >
-            <Reveal className="u-no-scrollbar overflow-x-auto">
+            <Reveal>
+                <div ref={scrollerRef} className="u-no-scrollbar overflow-x-auto">
                 <Suspense fallback={<CalendarFallback />}>
                     <GitHubCalendar
                         username={SITE.githubUsername}
@@ -52,6 +55,7 @@ export const Activity = () => {
                         errorMessage="Could not load the contribution graph."
                     />
                 </Suspense>
+                </div>
             </Reveal>
 
             <Reveal className="u-label mt-8 text-faint">

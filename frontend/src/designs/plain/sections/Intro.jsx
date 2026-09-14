@@ -19,21 +19,21 @@ export const Intro = () => {
 
     return (
         <AppearGroup as="section" className="pt-10 pb-8 md:pt-14">
-            <AppearItem className="flex items-center gap-4">
+            <AppearItem className="flex items-start gap-4">
                 <Portrait
-                    width={64}
-                    height={64}
-                    className="size-16 shrink-0 rounded-xl border border-line object-cover"
+                    width={88}
+                    height={88}
+                    className="size-20 shrink-0 rounded-xl border border-line object-cover sm:size-[5.5rem]"
                 />
 
-                <div>
-                    <h1 className="flex flex-wrap items-baseline gap-x-2 text-2xl font-semibold tracking-tight text-ink">
-                        {SITE.name}
-                        <span className="pl-faint text-sm font-normal">
-                            · {SITE.location}
-                        </span>
-                    </h1>
-                    <p className="pl-muted mt-1 text-sm">{SITE.role}</p>
+                <div className="min-w-0">
+                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                        <h1 className="text-2xl font-semibold tracking-tight text-ink sm:text-[1.75rem]">
+                            {SITE.name}
+                        </h1>
+                        <span className="pl-faint text-sm">· {SITE.location}</span>
+                    </div>
+                    <p className="pl-muted mt-1.5 text-sm">{SITE.role}</p>
                 </div>
             </AppearItem>
 
