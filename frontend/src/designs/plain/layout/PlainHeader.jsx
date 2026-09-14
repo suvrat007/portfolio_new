@@ -16,13 +16,15 @@ export const PlainHeader = () => {
 
     return (
         <header className="sticky top-0 z-50 border-b border-line bg-paper/85 backdrop-blur-md">
-            <div className="pl-container flex h-14 items-center justify-between gap-3">
-                <div className="flex items-center gap-4 md:gap-6">
+            <div className="pl-container flex h-14 items-center justify-between gap-2 sm:gap-3">
+                <div className="flex min-w-0 items-center gap-3 sm:gap-4 md:gap-6">
                     <Link to={ROUTES.home} aria-label="Home">
-                        <span className="pl-tile size-9 text-xs">{SITE.initials}</span>
+                        <span className="pl-tile size-8 text-[0.6875rem] sm:size-9 sm:text-xs">
+                            {SITE.initials}
+                        </span>
                     </Link>
 
-                    <nav className="flex items-center gap-4 text-sm md:gap-5">
+                    <nav className="flex min-w-0 items-center gap-3 text-[0.8125rem] sm:gap-4 sm:text-sm md:gap-5">
                         {NAV_LINKS.map((link) => (
                             <NavLink
                                 key={link.to}
@@ -59,16 +61,17 @@ export const PlainHeader = () => {
                     <button
                         type="button"
                         onClick={toggleDesign}
-                        className="pl-pill pl-tap whitespace-nowrap text-xs md:text-sm"
+                        className="pl-pill pl-tap whitespace-nowrap px-3 text-xs sm:px-3.5 md:text-sm"
                     >
-                        {meta.switchLabel}
+                        <span className="sm:hidden">{meta.shortSwitchLabel}</span>
+                        <span className="hidden sm:inline">{meta.switchLabel}</span>
                     </button>
 
                     <button
                         type="button"
                         onClick={toggleTheme}
                         aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
-                        className="pl-tap pl-muted grid size-9 place-items-center rounded-full transition-colors hover:text-ink"
+                        className="pl-tap pl-muted grid size-8 shrink-0 place-items-center rounded-full transition-colors hover:text-ink sm:size-9"
                     >
                         {isDark ? <SunIcon /> : <MoonIcon />}
                     </button>

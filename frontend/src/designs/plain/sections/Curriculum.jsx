@@ -7,13 +7,12 @@ export const Curriculum = () => (
     <Section id="curriculum" title="Curriculum" aside={CURRICULUM.note}>
         <AppearGroup className="divide-y divide-line">
             {CURRICULUM.items.map((item) => (
-                <AppearItem
-                    key={item.name}
-                    className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3"
-                >
-                    <span className="text-sm text-ink">{item.name}</span>
-                    <span className="pl-faint flex-1 text-xs sm:px-4">{item.detail}</span>
-                    <span className="pl-muted text-xs">{item.status}</span>
+                <AppearItem key={item.name} className="py-3">
+                    <div className="flex items-baseline justify-between gap-4">
+                        <span className="text-sm text-ink">{item.name}</span>
+                        <span className="pl-muted shrink-0 text-xs">{item.status}</span>
+                    </div>
+                    <p className="pl-faint mt-1 text-xs">{item.detail}</p>
                 </AppearItem>
             ))}
         </AppearGroup>

@@ -53,24 +53,31 @@ const Entry = ({ entry }) => {
                     <span className="pl-faint block text-xs">{entry.location}</span>
                 </span>
 
-                <span
+                <svg
                     aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    width="14"
+                    height="14"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className={cn(
-                        "pl-faint mt-1 shrink-0 text-xs transition-transform duration-300",
+                        "pl-faint mt-1.5 shrink-0 transition-transform duration-300",
                         isOpen && "rotate-180",
                     )}
                 >
-                    ▾
-                </span>
+                    <path d="m6 9 6 6 6-6" />
+                </svg>
             </button>
 
-            <div className="pl-faint mt-1 flex gap-3 text-xs sm:hidden">
-                <span>{entry.period}</span>
-                <span>{entry.location}</span>
-            </div>
+            <p className="pl-faint mt-1.5 text-xs sm:hidden">
+                {entry.period} · {entry.location}
+            </p>
 
             {isOpen ? (
-                <ul className="mt-3 flex flex-col gap-2 pl-[3.25rem]">
+                <ul className="mt-3 flex flex-col gap-2 sm:pl-[3.25rem]">
                     {entry.points.map((point) => (
                         <li key={point} className="pl-muted text-sm leading-relaxed">
                             {point}

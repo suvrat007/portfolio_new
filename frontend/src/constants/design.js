@@ -21,12 +21,15 @@ export const DESIGN_META = {
         name: "Plain",
         /** Label on the control that switches away from this design. */
         switchLabel: "Add design",
+        /** Used below the sm breakpoint, where the full label crowds the bar. */
+        shortSwitchLabel: "Design",
         description: "The straightforward version. Content first, no ornament.",
     },
     [DESIGN_IDS.EDITORIAL]: {
         id: DESIGN_IDS.EDITORIAL,
         name: "Editorial",
         switchLabel: "Plain version",
+        shortSwitchLabel: "Plain",
         description: "The designed version: editorial typography and motion.",
     },
 };
