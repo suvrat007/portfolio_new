@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 
 import { useTheme } from "../../../app/ThemeProvider";
+import { usePinScrollEnd } from "../../../hooks/usePinScrollEnd";
 import { SECTIONS, SITE } from "../../../constants/site";
 import { Appear } from "../components/Appear";
 import { Section } from "../components/Section";
@@ -21,6 +22,7 @@ const THEME = {
 
 export const Activity = () => {
     const { isDark } = useTheme();
+    const scrollerRef = usePinScrollEnd();
 
     return (
         <Section
@@ -28,7 +30,8 @@ export const Activity = () => {
             title="Github Activities"
             aside={`@${SITE.githubUsername}`}
         >
-            <Appear className="overflow-x-auto rounded-lg border border-line p-4">
+            <Appear className="rounded-lg border border-line p-4">
+                <div ref={scrollerRef} className="overflow-x-auto">
                 <Suspense
                     fallback={
                         <div
@@ -50,6 +53,7 @@ export const Activity = () => {
                         errorMessage="Could not load the contribution graph."
                     />
                 </Suspense>
+                </div>
             </Appear>
         </Section>
     );
