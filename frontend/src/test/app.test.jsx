@@ -106,6 +106,21 @@ describe("plain design (the default)", () => {
         ).toBeInTheDocument();
     });
 
+    it("keeps every header control reachable", () => {
+        const { container } = renderRoute(ROUTES.home);
+        const header = container.querySelector("header");
+
+        // The bar wraps at small widths rather than shrinking until controls
+        // collide; nothing may be dropped to make that fit.
+        ["Index", "Work", "Resume"].forEach((label) => {
+            expect(within(header).getByRole("link", { name: label })).toBeInTheDocument();
+        });
+        expect(within(header).getByRole("button", { name: /add design/i })).toBeInTheDocument();
+        expect(
+            within(header).getByRole("button", { name: /switch to .* theme/i }),
+        ).toBeInTheDocument();
+    });
+
     it("renders the toolkit groups", () => {
         renderRoute(ROUTES.home);
 
