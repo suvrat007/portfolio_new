@@ -21,6 +21,17 @@
         min-height: 100dvh;
     }
 
+    /*
+     * Tablets: full width would run the measure past 900px, which is well
+     * beyond comfortable for body text. Phones are narrower than this cap, so
+     * it does nothing to them.
+     */
+    @media (max-width: 1023px) {
+        .pl-shell {
+            max-width: 46rem;
+        }
+    }
+
     @media (min-width: 1024px) {
         .pl-shell {
             width: 50%;
