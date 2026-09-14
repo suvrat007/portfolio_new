@@ -250,6 +250,21 @@ describe("scroll-in animation", () => {
     );
 });
 
+describe("editorial project notes", () => {
+    it("keeps the detail bullets behind a toggle", async () => {
+        const user = userEvent.setup();
+        renderRoute(ROUTES.work, { design: DESIGN_IDS.EDITORIAL });
+
+        const bullet = /C\+\+17 core bound via ctypes/i;
+        expect(screen.queryByText(bullet)).not.toBeInTheDocument();
+
+        const [toggle] = screen.getAllByRole("button", { name: /notes/i });
+        await user.click(toggle);
+
+        expect(await screen.findByText(bullet)).toBeInTheDocument();
+    });
+});
+
 describe("admin route", () => {
     it("is design-agnostic and shows the sign-in panel with no session", () => {
         renderRoute(ROUTES.admin);
