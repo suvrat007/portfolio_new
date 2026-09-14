@@ -222,6 +222,34 @@ describe("work page", () => {
     });
 });
 
+describe("scroll-in animation", () => {
+    /*
+     * A whileInView element that never triggers keeps its hidden variant, which
+     * is opacity 0. That renders a full page of content that is present in the
+     * DOM, findable by every query, and invisible on screen, so a query-based
+     * assertion cannot catch it. These check the resulting style instead.
+     */
+    it.each([[DESIGN_IDS.PLAIN], [DESIGN_IDS.EDITORIAL]])(
+        "leaves nothing invisible on the work index in %s",
+        async (design) => {
+            const { container } = renderRoute(ROUTES.work, { design });
+
+            await waitFor(
+                () => {
+                    const hidden = [...container.querySelectorAll("article")].filter(
+                        (article) =>
+                            (article.getAttribute("style") ?? "").includes("opacity: 0"),
+                    );
+                    expect(hidden).toHaveLength(0);
+                },
+                { timeout: 4000 },
+            );
+
+            expect(container.querySelectorAll("article").length).toBeGreaterThan(0);
+        },
+    );
+});
+
 describe("admin route", () => {
     it("is design-agnostic and shows the sign-in panel with no session", () => {
         renderRoute(ROUTES.admin);
