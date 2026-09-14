@@ -33,7 +33,7 @@ export const Pipeline = () => {
                             </span>
                         </div>
 
-                        <p className="pl-muted mt-2 max-w-2xl text-sm leading-relaxed">
+                        <p className="pl-muted mt-2 max-w-2xl text-[0.8125rem] leading-relaxed sm:text-sm">
                             {entry.description}
                         </p>
 
