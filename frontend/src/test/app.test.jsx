@@ -110,8 +110,8 @@ describe("plain design (the default)", () => {
         const { container } = renderRoute(ROUTES.home);
         const header = container.querySelector("header");
 
-        // The bar wraps at small widths rather than shrinking until controls
-        // collide; nothing may be dropped to make that fit.
+        // Routes collapse behind a menu below sm, so nothing may be dropped to
+        // make the bar fit.
         ["Index", "Work", "Resume"].forEach((label) => {
             expect(within(header).getByRole("link", { name: label })).toBeInTheDocument();
         });
@@ -119,6 +119,23 @@ describe("plain design (the default)", () => {
         expect(
             within(header).getByRole("button", { name: /switch to .* theme/i }),
         ).toBeInTheDocument();
+    });
+
+    it("opens a menu carrying the routes and the design switch", async () => {
+        const user = userEvent.setup();
+        const { container } = renderRoute(ROUTES.home);
+        const header = container.querySelector("header");
+
+        await user.click(within(header).getByRole("button", { name: /open menu/i }));
+
+        // Panel duplicates the routes, so both navs are now in the tree.
+        expect(within(header).getAllByRole("link", { name: "Work" }).length).toBe(2);
+        expect(
+            within(header).getAllByRole("button", { name: /add design/i }).length,
+        ).toBe(2);
+
+        await user.click(within(header).getByRole("button", { name: /close menu/i }));
+        expect(within(header).getAllByRole("link", { name: "Work" }).length).toBe(1);
     });
 
     it("renders the toolkit groups", () => {

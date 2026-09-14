@@ -13,19 +13,23 @@ export const ProjectItem = ({ project, actions }) => {
 
     return (
         <AppearItem as="article" className="py-5">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 className="flex items-center gap-2 text-base font-semibold text-ink">
-                    {project.name}
-                    <StatusDot status={project.status} />
-                </h3>
+            <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0 flex-1">
+                    <h3 className="flex items-center gap-2 text-base font-semibold text-ink">
+                        {project.name}
+                        <StatusDot status={project.status} />
+                    </h3>
+                    <p className="pl-muted mt-1.5 max-w-2xl text-sm leading-relaxed">
+                        {project.description}
+                    </p>
+                </div>
+
                 {project.timeline ? (
-                    <span className="pl-faint text-xs">{project.timeline}</span>
+                    <span className="pl-faint shrink-0 whitespace-nowrap pt-1 text-xs">
+                        {project.timeline}
+                    </span>
                 ) : null}
             </div>
-
-            <p className="pl-muted mt-2 max-w-2xl text-sm leading-relaxed">
-                {project.description}
-            </p>
 
             {project.tags.length > 0 ? (
                 <div className="mt-3 flex flex-wrap gap-1.5">

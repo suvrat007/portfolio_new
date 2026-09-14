@@ -35,22 +35,31 @@ const Entry = ({ entry }) => {
                 type="button"
                 onClick={() => setIsOpen((open) => !open)}
                 aria-expanded={isOpen}
-                className="flex w-full items-start gap-3 text-left"
+                className="flex w-full items-center gap-3 text-left"
             >
-                <span className="mt-0.5 shrink-0">
+                <span className="shrink-0">
                     <OrgMark entry={entry} />
                 </span>
 
+                {/*
+                  * min-w-0 is what lets the truncation actually happen: a flex
+                  * child defaults to min-width:auto and refuses to shrink below
+                  * its content, which is what pushed the dates off screen.
+                  */}
                 <span className="min-w-0 flex-1">
-                    <span className="block text-[0.9375rem] font-semibold text-ink">
+                    <span className="block truncate text-[0.9375rem] font-semibold text-ink">
                         {entry.org}
                     </span>
-                    <span className="pl-muted block text-sm">{entry.role}</span>
+                    <span className="pl-muted block truncate text-sm">{entry.role}</span>
                 </span>
 
-                <span className="hidden shrink-0 text-right sm:block">
-                    <span className="pl-faint block text-xs">{entry.period}</span>
-                    <span className="pl-faint block text-xs">{entry.location}</span>
+                <span className="shrink-0 text-right">
+                    <span className="pl-faint block whitespace-nowrap text-xs">
+                        {entry.period}
+                    </span>
+                    <span className="pl-faint block whitespace-nowrap text-xs">
+                        {entry.location}
+                    </span>
                 </span>
 
                 <svg
@@ -64,17 +73,13 @@ const Entry = ({ entry }) => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     className={cn(
-                        "pl-faint mt-1.5 shrink-0 transition-transform duration-300",
+                        "pl-faint shrink-0 transition-transform duration-300",
                         isOpen && "rotate-180",
                     )}
                 >
                     <path d="m6 9 6 6 6-6" />
                 </svg>
             </button>
-
-            <p className="pl-faint mt-1.5 text-xs sm:hidden">
-                {entry.period} · {entry.location}
-            </p>
 
             {isOpen ? (
                 <ul className="mt-3 flex flex-col gap-2 sm:pl-[3.25rem]">

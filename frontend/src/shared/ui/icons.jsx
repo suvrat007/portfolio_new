@@ -79,3 +79,15 @@ export const MailIcon = (props) => (
         <path d="m2 7 10 6 10-6" />
     </svg>
 );
+
+export const MenuIcon = (props) => (
+    <svg {...base} width={18} height={18} {...props}>
+        <path d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+);
+
+export const CloseIcon = (props) => (
+    <svg {...base} width={18} height={18} {...props}>
+        <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+);
